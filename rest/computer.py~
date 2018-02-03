@@ -1,9 +1,0 @@
-class Computer(object):
-    def __init__(self,  disk_size, disk_used, disk_free, disk_percent):
-        self.disk_size = disk_size
-        self.disk_used = disk_used
-        self.disk_free = disk_free
-        self.disk_percent = disk_percent
-        # self.disk_partitions = disk_partitions
-        # self.disk_usage = disk_usage
-        # self.disk_io_counters = disk_io_counters

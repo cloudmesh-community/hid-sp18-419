@@ -1,5 +1,0 @@
-DOMAIN = {
-    'performance': {}
-}
-    
-# RESOURCE_METHODS = ['GET', 'POST']
