@@ -1,5 +1,9 @@
 class Computer(object):
-    def __init__(self, platform, disk_size, disk_used, disk_free,
+    def __init__(self, 
+                 platform, 
+                 disk_size, 
+                 disk_used, 
+                 disk_free,
                  disk_percent):
 
         self.platform = platform
