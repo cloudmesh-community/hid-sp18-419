@@ -26,6 +26,7 @@
 * 2018/01/16 Read Ch. 2 of Foster & Gannon
 * 2018/01/25 Watched REST lecture
 
+
 # Practice
 
 * 2018/01/12 Reviewed cloudmesh GitHub structure
@@ -34,8 +35,10 @@
 * 2018/01/22 Researched AWS for research audio storage
 * 2018/01/23 Cpmpleted Assignment: New Technology List
 * 2018/01/27 Completed REST and EVE tutorials
-* 2018/02/01 Researched how to wrap text in Atom and posted to Piazza
-* 2018/02/01 Added README.yml and bio to GitHub
+* 2018/02/02 Researched how to wrap text in Atom and posted to Piazza
+* 2018/02/02 Added README.yml and bio to GitHub
+* 2018/02/03 Completed updated REST and eve tutorials in handbook
+* 2018/02/03 Completed REST API assignment
 
 # Writing
 
