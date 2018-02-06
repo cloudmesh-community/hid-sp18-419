@@ -8,6 +8,7 @@ from flask import Response
 
 app = Eve()
 
+
 def get_response(data):
     sdata = json.dumps(data.__dict__)
 
