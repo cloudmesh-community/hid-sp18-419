@@ -1,5 +1,5 @@
 from eve import Eve
-from computer import Computer
+from disk import Disk
 import platform
 import psutil
 import json
@@ -8,11 +8,11 @@ from flask import Response
 
 app = Eve()
 
-@app.route('/performance', methods=['GET'])
-def performance():    
+@app.route('/disk', methods=['GET'])
+def get_disk_info():    
     du = psutil.disk_usage('/')
     pct_str = str(du.percent) + '%'
-    disk = Computer(platform.platform(), size(du.total), size(du.used),
+    disk = Disk(platform.platform(), size(du.total), size(du.used),
                     size(du.free), pct_str)
 
     sdata = json.dumps(disk.__dict__)
