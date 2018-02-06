@@ -25,6 +25,7 @@
 * 2018/01/14 Read Preface and Ch. 1 of Foster & Gannon
 * 2018/01/16 Read Ch. 2 of Foster & Gannon
 * 2018/01/25 Watched REST lecture
+* 2018/02/05 Read Eve documentation
 
 
 # Practice
@@ -39,6 +40,7 @@
 * 2018/02/02 Added README.yml and bio to GitHub
 * 2018/02/03 Completed updated REST and eve tutorials in handbook
 * 2018/02/03 Completed REST API assignment
+* 2018/02/05 Improvements to REST API assignment based on feedback
 
 # Writing
 
