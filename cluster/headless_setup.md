@@ -1,6 +1,6 @@
 # Raspbian headless setup on a Mac (a work in progress)
 
-[Instructions](https://medium.com/@viveks3th/how-to-bootstrap-a-headless-raspberry-pi-with-a-mac-6eba3be20b26)
+Most instructions are [here](https://medium.com/@viveks3th/how-to-bootstrap-a-headless-raspberry-pi-with-a-mac-6eba3be20b26).
 
 `brew install nmap`
 
@@ -24,9 +24,7 @@ Enable SSH permanently ([instructions](https://www.raspberrypi.org/documentation
  - `sudo raspi-config`
  - Interfacing Options>SSH>Yes>OK (There has to be a better way of doing this)
  
-Add ipv6 to the end of the file "/etc/modules" on the pi so you can ssh using the name instead of the IP address and don't have to use network sharing anymore.
-
-(From [here](https://raspberrypi.stackexchange.com/questions/19579/ssh-into-pi-from-mac-over-direct-ethernet-connection) and [here](https://bneijt.nl/blog/post/enable-ipv6-on-your-raspberry-pi/))
+Add ipv6 to the end of the file "/etc/modules" on the pi so you can ssh using the name instead of the IP address and don't have to use network sharing anymore. (From [here](https://raspberrypi.stackexchange.com/questions/19579/ssh-into-pi-from-mac-over-direct-ethernet-connection) and [here](https://bneijt.nl/blog/post/enable-ipv6-on-your-raspberry-pi/))
 
 reboot
 
