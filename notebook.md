@@ -2,6 +2,8 @@
 
 * 2018/01/13 Online Meeting attended
 * 2018/01/15 Watched Lecture: Teaching Cloud and Big Data
+* 2018/02/09 Attended office hours
+* 2018/02/11 Attended office hours
 
 # Weeks with no progress
 
@@ -18,6 +20,7 @@
 * 2018/01/27 Downloaded updated handbook
 * 2018/01/27 Completed Assignment: Account verification
 * 2018/01/28 Completed Assignment: Cloud Class Survey
+* 2018/02/11 Downloaded updated handbook
 
 # Theory
 
@@ -26,7 +29,6 @@
 * 2018/01/16 Read Ch. 2 of Foster & Gannon
 * 2018/01/25 Watched REST lecture
 * 2018/02/05 Read Eve documentation
-
 
 # Practice
 
@@ -41,6 +43,11 @@
 * 2018/02/03 Completed updated REST and eve tutorials in handbook
 * 2018/02/03 Completed REST API assignment
 * 2018/02/05 Improvements to REST API assignment based on feedback
+* 2018/02/08 Began Swagger API for Google Cloud Platform Instances
+* 2018/02/09 Headless setup of pi with Mac
+* 2018/02/08 Continued Swagger API for Google Cloud Platform Instances
+* 2018/02/11 Headless setup of pi with Mac
+
 
 # Writing
 
