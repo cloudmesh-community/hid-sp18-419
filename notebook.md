@@ -4,6 +4,7 @@
 * 2018/01/15 Watched Lecture: Teaching Cloud and Big Data
 * 2018/02/09 Attended office hours
 * 2018/02/11 Attended office hours
+* 2018/02/12 Attended office hours
 
 # Weeks with no progress
 
@@ -47,7 +48,7 @@
 * 2018/02/09 Headless setup of pi with Mac
 * 2018/02/08 Continued Swagger API for Google Cloud Platform Instances
 * 2018/02/11 Headless setup of pi with Mac
-
+* 2018/02/12 Installed VirtualBox and Ubuntu 
 
 # Writing
 
@@ -58,4 +59,4 @@
 * 2018/01/15 Completed Assignment: bio and google docs
 * 2018/01/20 Completed Assignment: Big Data Size
 * 2018/01/28 Technology abstracts for Clive and OpenDaylight
-
+* 2018/02/12 Fixed a few typos in handbook
