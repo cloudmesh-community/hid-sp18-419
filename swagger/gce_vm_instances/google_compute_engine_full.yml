@@ -88,7 +88,11 @@ definitions:
                     - "STOPPED"
                     - "SUSPENDING"
                     - "SUSPENDED"
-                    - "TERMINATED" 
+                    - "TERMINATED"
+            statusMessage:
+                type: "string"
+            zone:
+                type: "string"
             canIpForward:
                 type: "boolean"
             cpuPlatform:
