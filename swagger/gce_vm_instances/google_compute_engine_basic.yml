@@ -21,6 +21,15 @@ produces:
 paths:
     /vms:
         get:
+            securityDefinitions:
+                UserSecurity:
+                    type: basic
+                AdminSecurity:
+                    type: basic
+                MediaSecurity:
+                    type: basic
+            security:
+                - UserSecurity: []
             description: "Returns a list of VMs"
             produces:
                 - "application/json"
@@ -63,7 +72,6 @@ definitions:
                             type: "string"
                     fingerprint:
                         type: "string"
-                        format: "byte"
             machineType:
                 type: "string"
             status:
