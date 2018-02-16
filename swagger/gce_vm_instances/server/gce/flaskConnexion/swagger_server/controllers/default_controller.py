@@ -16,11 +16,13 @@ def vms_get():  # noqa: E501
     return 'do some magic!'
 
 
-def vms_id_get():  # noqa: E501
+def vms_id_get(id):  # noqa: E501
     """vms_id_get
 
     Returns information on a VM instance # noqa: E501
 
+    :param id: ID of VM to fetch
+    :type id: str
 
     :rtype: VM
     """

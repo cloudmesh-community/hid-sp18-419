@@ -33,8 +33,6 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/VM"
-      security:
-      - UserSecurity: []
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
   /vms/{id}:
     get:
@@ -42,7 +40,12 @@ paths:
       operationId: "vms_id_get"
       produces:
       - "application/json"
-      parameters: []
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of VM to fetch"
+        required: true
+        type: "string"
       responses:
         200:
           description: "VM instance"
