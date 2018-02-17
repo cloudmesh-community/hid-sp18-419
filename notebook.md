@@ -1,10 +1,13 @@
 # Meetings
 
 * 2018/01/13 Online Meeting attended
-* 2018/01/15 Watched Lecture: Teaching Cloud and Big Data
+* 2018/02/02 Attended class at Informatics East
+* 2018/02/09 Attended class at Smith
 * 2018/02/09 Attended office hours
 * 2018/02/11 Attended office hours
 * 2018/02/12 Attended office hours
+* 2018/02/15 Attended office hours
+* 2018/02/16 Attended class at Smith
 
 # Weeks with no progress
 
@@ -23,14 +26,18 @@
 * 2018/01/28 Completed Assignment: Cloud Class Survey
 * 2018/02/11 Downloaded updated handbook
 * 2018/02/13 Downloaded updated handbook
+* 2018/02/17 Downloaded updated handbook
 
 # Theory
 
 * 2018/01/12 Read Handbook pp. 1-46, 61-94
 * 2018/01/14 Read Preface and Ch. 1 of Foster & Gannon
+* 2018/01/15 Watched Lecture: Teaching Cloud and Big Data
 * 2018/01/16 Read Ch. 2 of Foster & Gannon
 * 2018/01/25 Watched REST lecture
 * 2018/02/05 Read Eve documentation
+* 2018/02/13 Read Swagger spec 
+* 2018/02/16 Researched GCE API 
 
 # Practice
 
@@ -53,7 +60,7 @@
 * 2018/02/12 Installed VirtualBox and Ubuntu
 * 2018/02/13 Chose subset of GCE instance for swagger assignment and
 regenerated code. 
-
+* 2018/02/16 Work on GCE swagger API, set up test VM 
 
 # Writing
 
