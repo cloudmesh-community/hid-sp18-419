@@ -37,7 +37,8 @@
 * 2018/01/25 Watched REST lecture
 * 2018/02/05 Read Eve documentation
 * 2018/02/13 Read Swagger spec 
-* 2018/02/16 Researched GCE API 
+* 2018/02/16 Researched GCE API
+* 2018/02/17 Watched cloud computing lectures A-E
 
 # Practice
 
@@ -61,6 +62,7 @@
 * 2018/02/13 Chose subset of GCE instance for swagger assignment and
 regenerated code. 
 * 2018/02/16 Work on GCE swagger API, set up test VM 
+* 2018/02/17 Added technology abstracts to GitHub.
 
 # Writing
 
