@@ -51,6 +51,7 @@ Change the string in /etc/hostname
 
 Building a custom raspbian image:
 
+https://github.com/RPi-Distro/pi-gen
 https://github.com/niklasf/build-raspbian-image
 https://github.com/andrius/build-raspbian-image
 https://www.raspberrypi.org/blog/pibakery/
