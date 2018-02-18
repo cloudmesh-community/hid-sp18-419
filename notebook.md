@@ -39,6 +39,7 @@
 * 2018/02/13 Read Swagger spec 
 * 2018/02/16 Researched GCE API
 * 2018/02/17 Watched cloud computing lectures A-E
+* 2018/02/17 Watched cloud computing lecture F
 
 # Practice
 
