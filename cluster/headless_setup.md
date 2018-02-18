@@ -36,4 +36,25 @@ Now you can ssh using the name of the machine. For me the command is:
 
 `ssh pi@red01.local`
 
+[Running a script on startup](https://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up)
+
+To run a scipt at startup, the script needs to be added to /etc/init.d/
+
+Instead of using the GUI, ssh can be enabled with the following commands:
+
+`update-rc.d ssh enable`
+`invoke-rc.d ssh start`
+
+[Changing hostname](https://raspberrypi.stackexchange.com/questions/44955/config-txt-hostname)
+
+Change the string in /etc/hostname
+
+Building a custom raspbian image:
+
+https://github.com/niklasf/build-raspbian-image
+https://github.com/andrius/build-raspbian-image
+https://www.raspberrypi.org/blog/pibakery/
+
+[Latest source](http://archive.raspbian.org/raspbian/dists/stretch/)
+
 
