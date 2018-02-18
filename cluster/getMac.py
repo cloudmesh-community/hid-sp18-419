@@ -9,5 +9,8 @@ def getMAC(interface='eth0'):
   return str[0:17]
 
 if __name__ == "__main__":
-    print(getMAC({})).format("interface='" + argv[1] + "'"
-                             if len(argv)>1 else '')
+    if len(argv)>1:
+        foo = getMAC(interface=argv[1])
+    else:
+        foo = getMAC()
+    print(foo)
