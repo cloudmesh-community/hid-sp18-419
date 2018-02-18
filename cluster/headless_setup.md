@@ -36,4 +36,4 @@ Now you can ssh using the name of the machine. For me the command is:
 
 `ssh pi@red01.local`
 
-
+test
