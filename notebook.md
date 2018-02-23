@@ -8,6 +8,7 @@
 * 2018/02/12 Attended office hours
 * 2018/02/15 Attended office hours
 * 2018/02/16 Attended class at Smith
+* 2018/02/23 Attended class at Smith
 
 # Weeks with no progress
 
@@ -40,6 +41,8 @@
 * 2018/02/16 Researched GCE API
 * 2018/02/17 Watched cloud computing lectures A-E
 * 2018/02/17 Watched cloud computing lecture F
+* 2018/02/23 Researched how to update forked repo in Git
+
 
 # Practice
 
@@ -64,6 +67,7 @@
 regenerated code. 
 * 2018/02/16 Work on GCE swagger API, set up test VM 
 * 2018/02/17 Added technology abstracts to GitHub.
+* 2018/02/23 updated fork and posted instructions for others
 
 # Writing
 
