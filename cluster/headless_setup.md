@@ -57,3 +57,10 @@ https://github.com/andrius/build-raspbian-image
 https://www.raspberrypi.org/blog/pibakery/
 
 [Latest source](http://archive.raspbian.org/raspbian/dists/stretch/)
+
+## Modifications to image
+* enable ssh
+* change hostname
+* modify password
+* get mac addresses
+* set ip addresses
