@@ -28,6 +28,9 @@
 * 2018/02/11 Downloaded updated handbook
 * 2018/02/13 Downloaded updated handbook
 * 2018/02/17 Downloaded updated handbook
+* 2018/02/23 Downloaded updated handbook
+* 2018/02/25 Added task list to cluster headless setup md file
+
 
 # Theory
 
@@ -42,7 +45,7 @@
 * 2018/02/17 Watched cloud computing lectures A-E
 * 2018/02/17 Watched cloud computing lecture F
 * 2018/02/23 Researched how to update forked repo in Git
-
+* 2018/02/23 Watched cluster lectures A and B
 
 # Practice
 
@@ -68,6 +71,10 @@ regenerated code.
 * 2018/02/16 Work on GCE swagger API, set up test VM 
 * 2018/02/17 Added technology abstracts to GitHub.
 * 2018/02/23 updated fork and posted instructions for others
+* 2018/02/25 Implemented functions in GCE swagger API, still need to test in Ubuntu 
+and write configuration instructions
+* 2018/02/25 Installed pyenv on Ubuntu VM
+* 2018/02/25 PR for minor edits to Handbook
 
 # Writing
 
