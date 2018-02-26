@@ -1,9 +1,0 @@
-[0] Config.pm:302> INFO - This is Biber 2.10
-[0] Config.pm:305> INFO - Logfile is 'dest/abstract.blg'
-[42] biber-darwin:313> INFO - === Sat Feb 17, 2018, 14:29:55
-[67] Biber.pm:371> INFO - Reading 'dest/abstract.bcf'
-[145] Biber.pm:857> INFO - Found 3 citekeys in bib section 0
-[158] Biber.pm:3976> INFO - Processing section 0
-[169] Biber.pm:4136> INFO - Looking for bibtex format file 'hid-sample.bib' for section 0
-[284] Utils.pm:209> ERROR - Cannot find 'hid-sample.bib'!
-[284] Biber.pm:114> INFO - ERRORS: 1
