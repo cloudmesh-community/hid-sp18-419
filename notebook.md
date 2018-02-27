@@ -9,6 +9,7 @@
 * 2018/02/15 Attended office hours
 * 2018/02/16 Attended class at Smith
 * 2018/02/23 Attended class at Smith
+* 2018/02/26 Attended office hours
 
 # Weeks with no progress
 
@@ -30,6 +31,7 @@
 * 2018/02/17 Downloaded updated handbook
 * 2018/02/23 Downloaded updated handbook
 * 2018/02/25 Added task list to cluster headless setup md file
+* 2018/02/26 Added issues, projects and milestones to GitHub
 
 
 # Theory
@@ -46,6 +48,7 @@
 * 2018/02/17 Watched cloud computing lecture F
 * 2018/02/23 Researched how to update forked repo in Git
 * 2018/02/23 Watched cluster lectures A and B
+* 2018/02/23 Watched cluster lectures C and D
 
 # Practice
 
@@ -87,3 +90,4 @@ and write configuration instructions
 * 2018/01/20 Completed Assignment: Big Data Size
 * 2018/01/28 Technology abstracts for Clive and OpenDaylight
 * 2018/02/12 Fixed a few typos in handbook
+* 2018/02/26 Fixes to technology abstracts
