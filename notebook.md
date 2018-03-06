@@ -10,6 +10,7 @@
 * 2018/02/16 Attended class at Smith
 * 2018/02/23 Attended class at Smith
 * 2018/02/26 Attended office hours
+* 2018/03/05 Attended office hours
 
 # Weeks with no progress
 
@@ -32,6 +33,7 @@
 * 2018/02/23 Downloaded updated handbook
 * 2018/02/25 Added task list to cluster headless setup md file
 * 2018/02/26 Added issues, projects and milestones to GitHub
+* 2018/03/05 Downloaded updated handbook
 
 
 # Theory
