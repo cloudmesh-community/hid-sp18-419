@@ -51,6 +51,7 @@
 * 2018/02/23 Researched how to update forked repo in Git
 * 2018/02/23 Watched cluster lectures A and B
 * 2018/02/23 Watched cluster lectures C and D
+* 2018/03/06 Read Foster & Gannon to p. 88
 
 # Practice
 
@@ -80,6 +81,7 @@ regenerated code.
 and write configuration instructions
 * 2018/02/25 Installed pyenv on Ubuntu VM
 * 2018/02/25 PR for minor edits to Handbook
+* 2018/03/07 Looked into the guts of pyenv a bit
 
 # Writing
 
