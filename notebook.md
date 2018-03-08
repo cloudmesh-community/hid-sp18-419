@@ -52,6 +52,7 @@
 * 2018/02/23 Watched cluster lectures A and B
 * 2018/02/23 Watched cluster lectures C and D
 * 2018/03/06 Read Foster & Gannon to p. 88
+* 2018/03/07 Researched Pi emulation on OSX
 
 # Practice
 
