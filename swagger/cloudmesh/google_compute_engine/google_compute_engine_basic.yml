@@ -1,0 +1,90 @@
+---
+swagger: "2.0"
+info:
+    version: "0.0.1"
+    title: "gce_vm_info"
+    description: "Google Compute Engine Instance using -2.0 specification
+        and codegen - basic version"
+    termsOfService: "http://swagger.io/terms/"
+    contact:
+        name: "Bertolt Sobolik"
+    license:
+        name: "Apache"
+host: "localhost:8080"
+basePath: "/cloudmesh/google_compute_engine"
+schemes:
+    - "http"
+consumes:
+    - "application/json"
+produces:
+    - "application/json"
+paths:
+    /vms:
+        get:
+            description: "Returns a list of VMs"
+            produces:
+                - "application/json"
+            responses:
+                "200":
+                    description: "VM instance"
+                    schema:
+                        type: "array"
+                        items:
+                            $ref: "#/definitions/VM"
+    /vms/{id}:
+        get:
+            description: "Returns information on a VM instance"
+            produces:
+                - "application/json"
+            parameters:
+                - name: id
+                  in: "path"
+                  description: "ID of VM to fetch"
+                  required: true
+                  type: "string"
+            responses:
+                "200":
+                    description: "VM instance"
+                    schema:
+                        $ref: "#/definitions/VM"
+definitions:
+    VM:
+        type: "object"
+        properties:
+            id:
+                type: "string"
+            creationTimestamp:
+                type: "string"
+                format: "date-time"
+            name:
+                type: "string"
+            description:
+                type: "string"
+            tags:
+                type: "object"
+                properties:
+                    items:
+                        type: "array"
+                        items:
+                            type: "string"
+                    fingerprint:
+                        type: "string"
+            machineType:
+                type: "string"
+            status:
+                type: "string"
+                enum:
+                    - "PROVISIONING"
+                    - "STAGING"
+                    - "RUNNING"
+                    - "STOPPING"
+                    - "STOPPED"
+                    - "SUSPENDING"
+                    - "SUSPENDED"
+                    - "TERMINATED"
+            statusMessage:
+                type: "string"
+            zone:
+                type: "string"
+            canIpForward:
+                type: "boolean"
