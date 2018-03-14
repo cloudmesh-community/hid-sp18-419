@@ -34,6 +34,7 @@
 * 2018/02/25 Added task list to cluster headless setup md file
 * 2018/02/26 Added issues, projects and milestones to GitHub
 * 2018/03/05 Downloaded updated handbook
+* 2018/03/12 Downloaded updated handbook
 
 
 # Theory
@@ -53,6 +54,8 @@
 * 2018/02/23 Watched cluster lectures C and D
 * 2018/03/06 Read Foster & Gannon to p. 88
 * 2018/03/07 Researched Pi emulation on OSX
+* 2018/03/12 Learned about shell stuff that doesn't work in makefiles
+* 2018/03/13 Learned about makefiles
 
 # Practice
 
@@ -83,6 +86,8 @@ and write configuration instructions
 * 2018/02/25 Installed pyenv on Ubuntu VM
 * 2018/02/25 PR for minor edits to Handbook
 * 2018/03/07 Looked into the guts of pyenv a bit
+* 2018/03/13 First draft of reproducible Swagger API
+
 
 # Writing
 
