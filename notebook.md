@@ -11,6 +11,7 @@
 * 2018/02/23 Attended class at Smith
 * 2018/02/26 Attended office hours
 * 2018/03/05 Attended office hours
+* 2018/03/16 Met with Min Chen to discuss tutorials and final project
 
 # Weeks with no progress
 
@@ -87,6 +88,8 @@ and write configuration instructions
 * 2018/02/25 PR for minor edits to Handbook
 * 2018/03/07 Looked into the guts of pyenv a bit
 * 2018/03/13 First draft of reproducible Swagger API
+* 2018/03/16 Added 'make stop' to swagger REST API
+* 2018/03/16 Tested Min Chen's makefile
 
 
 # Writing
