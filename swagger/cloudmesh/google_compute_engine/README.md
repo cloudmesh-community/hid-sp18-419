@@ -1,5 +1,8 @@
 # REST Service with Swagger
-I copied the makefile from [Arnav](https://github.com/cloudmesh-community/hid-sp18-503) and modified it.
+I copied the makefile from [Arnav](https://github.com/cloudmesh-community/hid-sp18-503) and modified it. The `stop` 
+strategy was taken from [Min Chen](https://github.com/cloudmesh-community/hid-sp18-405), which I modified to make a 
+bit less draconian.
+
 Feel free to copy mine. You shouldn't have to modify it as much (if at all.)
 
 [Here's a good place to learn about makefiles](https://ftp.gnu.org/old-gnu/Manuals/make-3.79.1/html_chapter/make_6.html).
@@ -9,11 +12,11 @@ These work:
 make service
 make start
 make clean
+make stop
 ```
 
 Still need to figure out:
 ```
-make stop
 make test
 ```
 
