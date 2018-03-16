@@ -26,5 +26,8 @@ start:
 	cd server/${SERVICE}/flaskConnexion/ &&\
 	python -m swagger_server
 
+stop:
+	ps | grep swagger_server | grep -v "grep" | awk '{print $$1}' | xargs kill -9
+
 clean:
 	rm -rf server/
