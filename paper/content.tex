@@ -158,6 +158,41 @@ locations~\cite{hid-sp18-419-gcp-history-medium}:
   \item Frankfurt
 \end{itemize}
 
+Currently, Google has 15 locations on five contenents: five in North
+America, four in Europe, four in Asia, and one each in South America
+and Australia. Each region is broken out into between two and four
+zones. Certain resources are only available in certain zones within a
+location, and some resources must be in the same zone. For example, a
+disk must be in the same zone as the instance to which it is attached,
+and GPUs are only available in certain zones within certain
+regions~\cite{hid-sp18-419-gce-regions-zones}.
+
+
+\section{Virtual Machine Types}
+
+Google offers 25 different standard machine types. Machine types are
+defined by the number of virtual CPUs, gigabytes of memory, maximum
+number of persistent disks, and maximum total size of persistent disk
+storage. The two smallest instances, f1-micro and g1-small, run on .2
+or .5 fractions of a shared physical core, have .6 or 1.7 GB of memory
+and are limited to 4 persistent disks totaling 3 terrabytes. The other
+23 machine types are named with the prefix n1. Customers can choose
+from five different Intel Xeon E5 processors for these instances
+ranging from the the older 2.6 GHz Sandy Bridge to the
+fifth-generation 2.0 GHz Skylake. Depending on the region and zone of
+the VM certain processors and configurations are not available. The n1
+prefix VMs are organized into three groups: standard, high-memory, and
+high-cpu. There is a single CPU option for the standard configuration
+which has 3.75 GB of memory. The other 22 options are configured with
+2-96 CPUs and differ from each other by the amount of memory ranging
+from 1.8GB for the n1-highcpu-2 configuration to 1.4TB for the
+n1-megamem-96. Up to 16 persistant disks adding up to a total of 16 TB
+of persistent storage can be attached to any of the n1 prefixed VMs,
+which can be augmented with additional storage from Google Cloud
+Platform's variety of database and blob storage options. Custom
+machine types are also available, and up to 128 persistent disks can
+be attached in beta VM configurations
+~\cite{hid-sp18-419-gce-machine-types}.
 
 \section{Competitors and Market Share}
 
