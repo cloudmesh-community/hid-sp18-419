@@ -180,19 +180,41 @@ and are limited to 4 persistent disks totaling 3 terrabytes. The other
 from five different Intel Xeon E5 processors for these instances
 ranging from the the older 2.6 GHz Sandy Bridge to the
 fifth-generation 2.0 GHz Skylake. Depending on the region and zone of
-the VM certain processors and configurations are not available. The n1
-prefix VMs are organized into three groups: standard, high-memory, and
-high-cpu. There is a single CPU option for the standard configuration
-which has 3.75 GB of memory. The other 22 options are configured with
-2-96 CPUs and differ from each other by the amount of memory ranging
-from 1.8GB for the n1-highcpu-2 configuration to 1.4TB for the
-n1-megamem-96. Up to 16 persistant disks adding up to a total of 16 TB
-of persistent storage can be attached to any of the n1 prefixed VMs,
-which can be augmented with additional storage from Google Cloud
-Platform's variety of database and blob storage options. Custom
-machine types are also available, and up to 128 persistent disks can
-be attached in beta VM configurations
+the VM certain processors and configurations are not available.  
+
+The n1 prefix VMs are organized into three groups: standard,
+high-memory, and high-cpu. There is a single CPU option for the
+standard configuration which has 3.75 GB of memory. The other 22
+options are configured with 2-96 CPUs and differ from each other by
+the amount of memory ranging from 1.8GB for the n1-highcpu-2
+configuration to 1.4TB for the n1-megamem-96. Up to 16 persistant
+disks adding up to a total of 16 TB of persistent storage can be
+attached to any of the n1 prefixed VMs, which can be augmented with
+additional storage from Google Cloud Platform's variety of database
+and blob storage options. Custom machine types are also available, and
+up to 128 persistent disks can be attached in beta VM configurations
 ~\cite{hid-sp18-419-gce-machine-types}.
+
+\section{Additional Hardware}
+Graphics Processing Units (GPUs) can be attached to VMs with up to 64
+Broadwell (fourth generation) Xeon E5 CPUs. NVIDIA Tesla K80 GPUs are
+generally available. NVIDIA Tesla P100 GPUs are available in beta,
+which means that they are not covered under any service level
+agreement. VMs with K80 GPUs are not coverd by SLAs in certain zones
+as well. GPUs are only available on VMs in certain zones which are all
+located in the US, Europe, and Asia. Customers can attach up to eight
+K80 GPUs or up to 4 P100 GPUs, which can be configured with one to 416
+GB of memory, depending on the zone, the number and the type of GPUs
+attached. Also available in beta is the ability to create preemptible
+instances with GPUs attached to them~\cite{hid-sp18-419-gce-gpus}.
+
+Google's custom-developed application-specific integrated circuits
+(ASICs), dubbed Tensor Processing Units (TPUs), can also be attached
+to VMs for accellerating machine learning applications using
+TensorFlow, an open source machine learning software library developed
+by Google~\cite{hid-sp18-419-tensorflow}. They are marketed under a
+separate brand ``Cloud TPU'' and are only released in
+beta~\cite{hid-sp18-419-cloud-tpu}.
 
 \section{Competitors and Market Share}
 
