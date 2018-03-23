@@ -12,6 +12,7 @@
 * 2018/02/26 Attended office hours
 * 2018/03/05 Attended office hours
 * 2018/03/16 Met with Min Chen to discuss tutorials and final project
+* 2018/03/19 Attended office hours
 
 # Weeks with no progress
 
@@ -36,6 +37,8 @@
 * 2018/02/26 Added issues, projects and milestones to GitHub
 * 2018/03/05 Downloaded updated handbook
 * 2018/03/12 Downloaded updated handbook
+* 2018/03/21 Downloaded updated handbook
+* 2018/03/23 Downloaded updated handbook
 
 
 # Theory
@@ -104,3 +107,6 @@ and write configuration instructions
 * 2018/01/28 Technology abstracts for Clive and OpenDaylight
 * 2018/02/12 Fixed a few typos in handbook
 * 2018/02/26 Fixes to technology abstracts
+* 2018/03/18 Google Compute Engine Paper 
+* 2018/03/19 Google Compute Engine Paper 
+* 2018/03/20 Google Compute Engine Paper 
