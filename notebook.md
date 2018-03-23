@@ -13,8 +13,11 @@
 * 2018/03/05 Attended office hours
 * 2018/03/16 Met with Min Chen to discuss tutorials and final project
 * 2018/03/19 Attended office hours
+* 2018/03/23 Attended class at Smith
+
 
 # Weeks with no progress
+
 
 # Logistic
 
