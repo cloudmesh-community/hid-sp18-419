@@ -20,7 +20,7 @@
 
 \begin{abstract}
 Google Compute Engine is an Infrastructure as a Service (IaaS)
-offering from Google.
+offering from Google. The company offers a wide variety of virtual machines, operating systems, and storage options to serve a wide variety of customers, including many high-end options and configurations designed for specific applications. The history of the offering is described as well as the expansion of locations. Details about the types of virtual machines, images, and additional hardware available are provided. Advanced features like live migration and preemtible VMs are discussed. An overview of the competitve landscape is presented to put Google's offering into the context of the overall IaaS marketplace. 
 \end{abstract}
 
 \keywords{hid-sp18-419, E519, Google, Compute, Engine}
@@ -29,10 +29,10 @@ offering from Google.
 \maketitle
 
 \section{Introduction}
-Google Compute Engine is an Infrastructure as a Service (IaaS). IaaS
-is ``a standardized, highly automated offering, where compute
-resources, complemented by storage and networking capabilities are
-owned and hosted by a service provider and offered to customers
+Compute Engine is Google's Infrastructure as a Service (IaaS)
+offering. IaaS is ``a standardized, highly automated offering, where
+compute resources, complemented by storage and networking capabilities
+are owned and hosted by a service provider and offered to customers
 on-demand~\cite{hid-sp18-419-gartneritglossaryiaas}.''  Customers run
 virtual machines for which they choose the operating system and
 storage, but they do not have control over the underlying hardware or
@@ -44,19 +44,20 @@ offer~\cite{hid-sp18-419-perficientchoosingiaas}. Google attempts to
 further distinguish their IaaS offering from the offerings of their
 competitors with claims of environmental friendliness and greater
 flexibility manifest in the availibility of \textit{Preemtible
-Instances} which are VMs that automatically terminate after 24 hours
-or if resources are needed for other purposes which are offered at a
-lower cost than other VMs. They are useful for batch processing jobs
-or other situations where VMs are needed for activities that are
-fault-tolerant and not time sensitive~\cite{hid-sp18-419-gce}.
+Instances}, which are VMs that automatically terminate after 24 hours
+or if resources are needed for other purposes. Preemptible instances
+are offered at a lower cost than other VMs. They are useful for batch
+processing jobs or other situations where VMs are needed for
+activities that are fault-tolerant and not time
+sensitive~\cite{hid-sp18-419-gce}.
 
 
 \section{History}
 A preview edition of Google Compute Engine was launched on June 28,
 2012~\cite{hid-sp18-419-googleblog20120628} to expand on the
-capabilities of Google App Engine which had been around since
+capabilities of Google App Engine, which had been around since
 2008~\cite{hid-sp18-419-gcp-history-medium}. The preview release
-supported Debian and Centos Linux distributions that Google had
+supported Debian and Centos linux distributions that Google had
 customized to some extent. Google Compute Engine was made an official
 Google product on December 2, 2013. When it became an official product
 support was added for SELinux, CoreOS, SUSE, FreeBSD, and other Linux
@@ -71,17 +72,18 @@ dynamically resize VMs in response to utilization or other triggers,
 and the beta release of Local SSD, allowing users to attach local
 solid-state drive block storage to VM instances. Some technology
 journalists saw this event and its many announcements, including the
-launch of Google Container Engine, Google Cloud Interconnect, which
+launch of Google Container Engine, Google Cloud Interconnect (which
 allowed customers to connect directly to Google's data
-centers~\cite{hid-sp18-419-gcp-techcrunch-20141104}, and many
+centers~\cite{hid-sp18-419-gcp-techcrunch-20141104}), and many
 enhancements to Google App Engine, as a sign that Google was getting
 more serious about competing with Amazon in the cloud computing
 market~\cite{hid-sp18-419-forbes-gcp-20141104}.
 
-In January, 2015, Local SSD became generally available and Google
+In January, 2015, Local SSD became generally available, and Google
 Cloud Monitoring, including support for Compute Engine went into
-beta~\cite{hid-sp18-419-googleblog20150113}. This came with the
-integration of Stackdriver, which Google acquired in May of
+beta~\cite{hid-sp18-419-googleblog20150113}. These enhancements were
+made possible as a result of the integration of Stackdriver, which
+Google acquired in May of
 2014~\cite{hid-sp18-419-googleblog20140507}. The beta release of
 Preemptible Instances happend in May, 2015 followed by the official
 release in September of the same
@@ -107,8 +109,8 @@ with a number of other relational database
 announcements~\cite{hid-sp18-419-googleblog20170309}.
 
 In May of 2017, Google expanded their machine types available as
-Compute Engine VMs to include up to 64 virtual processors and up to
-416 GB of memory which are certified for running SAP's in-memory
+Compute Engine VMs, offering VMs with up to 64 virtual processors and
+up to 416 GB of memory which are certified for running SAP's in-memory
 database HANA. In October, 2017 Google increased their top offering to
 96 CPUs and 624 GB of memory, and they are reported to be working on
 products that will deliver 4 TB of
@@ -121,28 +123,29 @@ instances~\cite{hid-sp18-419-googleblog20180222}.
 \section{Locations}
 One thing that made it difficult for Google to compete effectively
 with other players in the IaaS space was how few regional data centers
-they had relative to their competitors. From the beta launch of the
-service in 2012 until mid-2014, they only had two locations,
+the company had relative to their competitors. From the beta launch of
+the service in 2012 until mid-2014, they only had two locations,
 us-central1 in Iowa and europe-west1 in
 Belgium~\cite{hid-sp18-419-gcp-history-medium}. Expansion to the
 Asia-Pacific region was announced on April 14, 2014 with the openning
 of asia-east1 in Taiwan to support customers in the region including
 Applibot, an mobile gaming company in Japan, and Tagtoo, an content
-tagging startup in Taiwan. Japanese and Traditional Chinese web sites
-and developer consoles were launched at the same
+tagging startup in Taiwan. Japanese and Traditional Chinese language
+web sites and developer consoles were launched at the same
 time~\cite{hid-sp18-419-googleblog20140414}. They started offering
 services to GCP customers from an additional sites, us-east1 in South
 Carolina, in October, 2015. Before this the site had only been used
 for Google's internal applications. At the time us-east1 was launched
 Microsoft had 20 locations hosting Azure
-services~\cite{hid-sp18-419-techcrunch-gcp-20151001}. Another location,
-us-west1 in Oregon was made available to GCP customers in July, 2016,
-and a Tokyo location was announced in March, 2016 and went live in
-November 2016s~\cite{hid-sp18-419-googleblog20161108}. The Oregon
-location was seen as critical to making their service attractive to
-the online gaming community. They anticipated a 30-80\% reduction in
-latency for customers located in cities on the west coast of the US
-with the launch of us-west1~\cite{hid-sp18-419-googleblog20160720}.
+services~\cite{hid-sp18-419-techcrunch-gcp-20151001}. Another
+location, us-west1 in Oregon was made available to GCP customers in
+July, 2016, and a Tokyo location was announced in March, 2016 and went
+live in November 2016~\cite{hid-sp18-419-googleblog20161108}. The
+Oregon location was seen as critical to making their service
+attractive to the online gaming community. They anticipated a 30-80\%
+reduction in latency for customers located in cities on the west coast
+of the US with the launch of
+us-west1~\cite{hid-sp18-419-googleblog20160720}.
 
 In September, 2016 Google announced eight additional
 locations~\cite{hid-sp18-419-gcp-history-medium}:
@@ -159,7 +162,7 @@ locations~\cite{hid-sp18-419-gcp-history-medium}:
 
 Currently, Google has 15 locations on five contenents: five in North
 America, four in Europe, four in Asia, and one each in South America
-and Australia. Each region is broken out into between two and four
+and Australia. Each region is broken out into two to four
 zones. Certain resources are only available in certain zones within a
 location, and some resources must be in the same zone. For example, a
 disk must be in the same zone as the instance to which it is attached,
@@ -171,44 +174,51 @@ regions~\cite{hid-sp18-419-gce-regions-zones}.
 
 Google offers 25 different standard machine types. Machine types are
 defined by the number of virtual CPUs, gigabytes of memory, maximum
-number of persistent disks, and maximum total size of persistent disk
-storage. The two smallest instances, f1-micro and g1-small, run on .2
-or .5 fractions of a shared physical core, have .6 or 1.7 GB of memory
-and are limited to 4 persistent disks totaling 3 terrabytes. The other
-23 machine types are named with the prefix n1. Customers can choose
-from five different Intel Xeon E5 processors for these instances
-ranging from the the older 2.6 GHz Sandy Bridge to the
-fifth-generation 2.0 GHz Skylake. Depending on the region and zone of
-the VM certain processors and configurations are not available.  
+number of persistent disks, and the maximum total size of persistent
+disk storage available. The two smallest instances, f1-micro and
+g1-small, respectively run on .2 and .5 fractions of a shared physical
+core and have .6 or 1.7 GB of memory. These VMs are limited to 4
+persistent disks totaling 3 terrabytes. The other 23 machine types are
+named with the prefix n1. Customers can choose from five different
+Intel Xeon E5 processors for these instances ranging from the the
+older 2.6 GHz Sandy Bridge to the fifth-generation 2.0 GHz
+Skylake. Depending on the region and zone of the VM certain processors
+and configurations are not available.
 
-The n1 prefix VMs are organized into three groups: standard,
+The \textit{n1-} prefix VMs are organized into three groups: standard,
 high-memory, and high-cpu. There is a single CPU option for the
-standard configuration which has 3.75 GB of memory. The other 22
-options are configured with 2-96 CPUs and differ from each other by
-the amount of memory ranging from 1.8GB for the n1-highcpu-2
-configuration to 1.4TB for the n1-megamem-96. Up to 16 persistant
-disks adding up to a total of 16 TB of persistent storage can be
-attached to any of the n1 prefixed VMs, which can be augmented with
-additional storage from Google Cloud Platform's variety of database
-and blob storage options. Custom machine types are also available, and
-up to 128 persistent disks can be attached in beta VM configurations
-~\cite{hid-sp18-419-gce-machine-types}.
+standard configuration, which has 3.75 GB of memory. The other 22
+options are configured with two to 96 CPUs, and differ from each other
+by the amount of memory offered, ranging from 1.8GB for the
+n1-highcpu-2 configuration to 1.4TB for the n1-megamem-96. Up to 16
+persistant disks adding up to a total of 16 TB of persistent storage
+can be attached to any of the n1 prefixed VMs, which can be augmented
+with additional storage from Google Cloud Platform's variety of
+database and blob storage options. Custom machine types are also
+available, and up to 128 persistent disks can be attached in beta VM
+configurations ~\cite{hid-sp18-419-gce-machine-types}.
 
-Configurations of VMs can be saved in instances templates and organized in groups for easier scaling and overall management. Managed instance groups can automatically scale, perform load balancing, and automatically recreate unhealthy or failed instances in the group. Managed instance groups can be within one zone or in multiple zones in a single region~\cite{hid-sp18-419-gce-instance-groups}. 
+Configurations of VMs can be saved in instances templates and
+organized in groups for easier scaling and overall management. Managed
+instance groups can automatically scale, perform load balancing, and
+automatically recreate unhealthy or failed instances within the
+group. Managed instance groups can be within one zone or in multiple
+zones in a single region~\cite{hid-sp18-419-gce-instance-groups}.
 
 \section{Additional Hardware}
 
-Graphics Processing Units (GPUs) can be attached to VMs with up to 64
-Broadwell (fourth generation) Xeon E5 CPUs. NVIDIA Tesla K80 GPUs are
-generally available. NVIDIA Tesla P100 GPUs are available in beta,
-which means that they are not covered under any service level
-agreement. VMs with K80 GPUs are not coverd by SLAs in certain zones
-as well. GPUs are only available on VMs in certain zones which are all
-located in the US, Europe, and Asia. Customers can attach up to eight
-K80 GPUs or up to 4 P100 GPUs, which can be configured with one to 416
-GB of memory, depending on the zone, the number and the type of GPUs
-attached. Also available in beta is the ability to create preemptible
-instances with GPUs attached to them~\cite{hid-sp18-419-gce-gpus}.
+Graphics Processing Units (GPUs) can be attached to VMs configured
+with one to 64 Broadwell (fourth generation) Xeon E5 CPUs. NVIDIA
+Tesla K80 GPUs are generally available. NVIDIA Tesla P100 GPUs are
+available in beta only, which means that they are not covered under
+any SLA. VMs with K80 GPUs are not coverd by SLAs in certain zones as
+well. GPUs are only available on VMs in certain zones, all of which
+are located in the US, Europe, and Asia. Customers can attach up to
+eight K80 GPUs or up to four P100 GPUs, which can be configured with
+one to 416 GB of memory, depending on the zone, the number and the
+type of GPUs attached. Also available in beta is the ability to create
+preemptible instances with GPUs attached to
+them~\cite{hid-sp18-419-gce-gpus}.
 
 Google's custom-developed application-specific integrated circuits
 (ASICs), dubbed Tensor Processing Units (TPUs), can also be attached
@@ -220,29 +230,38 @@ beta~\cite{hid-sp18-419-cloud-tpu}.
 
 \section{Images}
 Google allows a wide variety of images to run on Compute Engine
-VMs. Google provides public images for several versions of linux,
-including CentOS, and Ubuntu. Premium images include RedHat Enterprise
+VMs. The company provides public images for several versions of linux,
+including CentOS and Ubuntu. Premium images include RedHat Enterprise
 and several versions of Windows Server. Google also offers images for
-specific application, including their own container-optimized OS, VMs
-designed to run SAP, and SQL Server on Windows Server. With the
-exception of Google's container-optimized OS, these special purpose
-images are all priced at Google's premium tier.
+specific application, including the company's own container-optimized
+OS, VMs designed to run SAP, and SQL Server on Windows Server. With
+the exception of Google's container-optimized OS, these special
+purpose images are all priced at the company's premium tier.
 
-Google also allows custom images to run on Compute Engine VMs and a
-few community-supported images: Debian Testing, openSUSE, and
+Google also allows custom images to run on Compute Engine VMs, as well
+as a few community-supported images: Debian Testing, openSUSE, and
 FreeBSD. Customers running custom images can save them so that they
-can be easilty redeployed on a number of different VM
-instances. Multiple releases are available for most images~\cite{hid-sp18-419-gce-images}.
+can be easily redeployed on a number of different VM
+instances. Multiple releases are available for most
+images~\cite{hid-sp18-419-gce-images}.
 
 
 \section{Live Migration}
 Google provides customers with the ability to keep instances up and
 running seemlessly through maintainence, certain hardware failures,
 upgrades, and some configuration changes through a technology they
-call \textit{Live Migration}. Live migration is not an option for VMs
+call \textit{Live Migration}. The components
+involved in making live migration work is shown in
+Figure~\ref{f:live-migration}.
+
+\begin{figure}[!ht]
+  \centering\includegraphics[width=\columnwidth]{images/live-migration.pdf}
+  \caption{Google Compute Engine live migration components~\cite{hid-sp18-419-gce-live-migration}}\label{f:live-migration}
+\end{figure}
+
+Live migration is not an option for VMs
 with GPUs attached or for preemptible
 instances~\cite{hid-sp18-419-gce-live-migration}.
-
 
 \section{Competitors and Market Share}
 
@@ -269,6 +288,8 @@ massive instances and high-end add-ons like GPUs and TPUs. They also
 have attempted to appeal to budget-minded customers with services like
 preembtible VMs and to the environmentally conscious with greener data
 centers.
+
+The company's offering in the IaaS space is designed to appeal to a wide variety of customers and it will be interesting to see how it continues to evolve over time. 
 
 
 \begin{acks}
