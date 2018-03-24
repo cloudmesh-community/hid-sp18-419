@@ -29,26 +29,26 @@ offering from Google.
 \maketitle
 
 \section{Introduction}
-
-\section{What is IaaS?}
-
-IaaS can be defined as ``a standardized, highly automated offering,
-where compute resources, complemented by storage and networking
-capabilities are owned and hosted by a service provider and offered to
-customers on-demand~\cite{hid-sp18-419-gartneritglossaryiaas}.''
-Customers run virtual machines for which they choose the operating
-system and storage, but they do not have control over the underlying
-hardware or network
-infrastructure~\cite{hid-sp18-419-mell2011nist}. IaaS providers
-generally differentiate themselves based on pricing, service level
-agreements (SLA), storage and networking options, and the types of
-database and application development services that they
+Google Compute Engine is an Infrastructure as a Service (IaaS). IaaS
+is ``a standardized, highly automated offering, where compute
+resources, complemented by storage and networking capabilities are
+owned and hosted by a service provider and offered to customers
+on-demand~\cite{hid-sp18-419-gartneritglossaryiaas}.''  Customers run
+virtual machines for which they choose the operating system and
+storage, but they do not have control over the underlying hardware or
+network infrastructure~\cite{hid-sp18-419-mell2011nist}. IaaS
+providers generally differentiate themselves based on pricing, service
+level agreements (SLA), storage and networking options, and the types
+of database and application development services that they
 offer~\cite{hid-sp18-419-perficientchoosingiaas}. Google attempts to
 further distinguish their IaaS offering from the offerings of their
 competitors with claims of environmental friendliness and greater
-flexibility manifest in the availibility of \textit{Preemtive VMs}
-which are VMs that automatically terminate after 24 hours which are
-offered at a lower cost than other VMs~\cite{hid-sp18-419-gce}.
+flexibility manifest in the availibility of \textit{Preemtible
+Instances} which are VMs that automatically terminate after 24 hours
+or if resources are needed for other purposes which are offered at a
+lower cost than other VMs. They are useful for batch processing jobs
+or other situations where VMs are needed for activities that are
+fault-tolerant and not time sensitive~\cite{hid-sp18-419-gce}.
 
 
 \section{History}
@@ -83,8 +83,8 @@ Cloud Monitoring, including support for Compute Engine went into
 beta~\cite{hid-sp18-419-googleblog20150113}. This came with the
 integration of Stackdriver, which Google acquired in May of
 2014~\cite{hid-sp18-419-googleblog20140507}. The beta release of
-Preemptive VMs happend in May, 2015 followed by the official release
-in September of the same
+Preemptible Instances happend in May, 2015 followed by the official
+release in September of the same
 year~\cite{hid-sp18-419-venturebeat-preemptive-vms}. Citadel and
 Descartes Labs were early adopters of the
 technology~\cite{hid-sp18-419-googleblog20150518}. In July, 2015
@@ -93,14 +93,13 @@ Engine~\cite{hid-sp18-419-googleblog20150715}, which had been in beta
 since December, 2014~\cite{hid-sp18-419-googleblog20141208}. This
 enabled them to compete more effectively with Microsoft Azure IaaS,
 which at the time was much closer to Amazon EC2 in overall IaaS market
-share than discussed
-below~\cite{hid-sp18-419-statista-iaas-market2015}.
+share than it is today~\cite{hid-sp18-419-statista-iaas-market2015}.
 
 The beta release of Nvidia Tesla K80 GPUs on Google Compute Engine was
 announced in February of 2017, allowing customers to attach up to
 eight GPUs to a custom VM. At the same time, Intel Skylake processors
 were made available in a number of
-regions.~\cite{hid-sp18-419-googleblog20170221}.
+regions~\cite{hid-sp18-419-googleblog20170221}.
 
 In March, 2017 Google enhanced their support of Microsoft SQL Server
 on GCP, adding SQL Server Enterprise images to the VMs available along
@@ -195,6 +194,8 @@ and blob storage options. Custom machine types are also available, and
 up to 128 persistent disks can be attached in beta VM configurations
 ~\cite{hid-sp18-419-gce-machine-types}.
 
+Configurations of VMs can be saved in instances templates and organized in groups for easier scaling and overall management. Managed instance groups can automatically scale, perform load balancing, and automatically recreate unhealthy or failed instances in the group. Managed instance groups can be within one zone or in multiple zones in a single region~\cite{hid-sp18-419-gce-instance-groups}. 
+
 \section{Additional Hardware}
 
 Graphics Processing Units (GPUs) can be attached to VMs with up to 64
@@ -217,6 +218,32 @@ by Google~\cite{hid-sp18-419-tensorflow}. They are marketed under a
 separate brand ``Cloud TPU'' and are only released in
 beta~\cite{hid-sp18-419-cloud-tpu}.
 
+\section{Images}
+Google allows a wide variety of images to run on Compute Engine
+VMs. Google provides public images for several versions of linux,
+including CentOS, and Ubuntu. Premium images include RedHat Enterprise
+and several versions of Windows Server. Google also offers images for
+specific application, including their own container-optimized OS, VMs
+designed to run SAP, and SQL Server on Windows Server. With the
+exception of Google's container-optimized OS, these special purpose
+images are all priced at Google's premium tier.
+
+Google also allows custom images to run on Compute Engine VMs and a
+few community-supported images: Debian Testing, openSUSE, and
+FreeBSD. Customers running custom images can save them so that they
+can be easilty redeployed on a number of different VM
+instances. Multiple releases are available for most images~\cite{hid-sp18-419-gce-images}.
+
+
+\section{Live Migration}
+Google provides customers with the ability to keep instances up and
+running seemlessly through maintainence, certain hardware failures,
+upgrades, and some configuration changes through a technology they
+call \textit{Live Migration}. Live migration is not an option for VMs
+with GPUs attached or for preemptible
+instances~\cite{hid-sp18-419-gce-live-migration}.
+
+
 \section{Competitors and Market Share}
 
 Google Compute Engine's main competitors are Amazon Elastic Cloud
@@ -229,14 +256,19 @@ Alibaba but ahead of Rackspace due to year over year growth from
 2015. In 2016, GCP's revenue doubled from \$250 million in 2015
 to \$500 million. GCP had a 2.3\% share of the IaaS market in 2016 and
 is growing faster than all of the above named competitors except for
-Alibaba, which grew 126.5\% in
-2016~\cite{hid-sp18-419-gartnerpr2017}.
+Alibaba, which grew 126.5\% in 2016~\cite{hid-sp18-419-gartnerpr2017}.
 
 
 \section{Conclusion}
 
-Put here an conclusion. Conclusion and abstracts must not have any
-citations in the section.
+Google arrived into the IaaS market later than some more successful
+competitors. The company has recently made some very significant
+investments in features and infrastructure. They have attempted to
+differentiate themselves from their competitors with headline-grabbing
+massive instances and high-end add-ons like GPUs and TPUs. They also
+have attempted to appeal to budget-minded customers with services like
+preembtible VMs and to the environmentally conscious with greener data
+centers.
 
 
 \begin{acks}
