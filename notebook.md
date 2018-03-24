@@ -113,3 +113,4 @@ and write configuration instructions
 * 2018/03/18 Google Compute Engine Paper 
 * 2018/03/19 Google Compute Engine Paper 
 * 2018/03/20 Google Compute Engine Paper 
+* 2018/03/24 Google Compute Engine Paper 
