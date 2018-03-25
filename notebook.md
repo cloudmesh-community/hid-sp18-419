@@ -96,6 +96,7 @@ and write configuration instructions
 * 2018/03/13 First draft of reproducible Swagger API
 * 2018/03/16 Added 'make stop' to swagger REST API
 * 2018/03/16 Tested Min Chen's makefile
+* 2018/03/24 Set up gcloud on Ubuntu
 
 
 # Writing
@@ -114,4 +115,5 @@ and write configuration instructions
 * 2018/03/19 Google Compute Engine Paper 
 * 2018/03/20 Google Compute Engine Paper 
 * 2018/03/23 Google Compute Engine Paper 
-* 2018/03/23 Google Compute Engine Paper 
+* 2018/03/24 Google Compute Engine Paper 
+* 2018/03/24 Wrote Google Compute Engine tutorial
