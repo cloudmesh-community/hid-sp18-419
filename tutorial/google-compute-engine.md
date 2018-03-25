@@ -43,7 +43,7 @@ After selecting a project, you will be asked if you want to configure a default 
 
 # Create an Instance
 
-You can create an instance with the following command:
+You can create an instance with the following command (where <name of instance> is the name of the instance you want to create):
 ```bash
 gcloud compute instances create <name of instance>
 ```
