@@ -14,6 +14,7 @@
 * 2018/03/16 Met with Min Chen to discuss tutorials and final project
 * 2018/03/19 Attended office hours
 * 2018/03/23 Attended class at Smith
+* 2018/03/27 Attended office hours
 
 
 # Weeks with no progress
@@ -97,6 +98,10 @@ and write configuration instructions
 * 2018/03/16 Added 'make stop' to swagger REST API
 * 2018/03/16 Tested Min Chen's makefile
 * 2018/03/24 Set up gcloud on Ubuntu
+* 2018/03/26 Installed Docker on Debian (Google Compute Engine) and Ubuntu 
+(VirtualBox)
+* 2018/03/2 Attempted creation of Hadoop in Docker container on MacOS, Debian 
+(Google Compute Engine) and Ubuntu (VirtualBox)
 
 
 # Writing
@@ -117,3 +122,5 @@ and write configuration instructions
 * 2018/03/23 Google Compute Engine Paper 
 * 2018/03/24 Google Compute Engine Paper 
 * 2018/03/24 Wrote Google Compute Engine tutorial
+* 2018/03/26 Checked Compute Engine Paper per instructions on Piazza. Made 
+minor edits and updated status.
