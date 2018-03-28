@@ -64,6 +64,7 @@
 * 2018/03/07 Researched Pi emulation on OSX
 * 2018/03/12 Learned about shell stuff that doesn't work in makefiles
 * 2018/03/13 Learned about makefiles
+* 2018/03/27 Watched Hadoop lectures
 
 # Practice
 
@@ -100,8 +101,10 @@ and write configuration instructions
 * 2018/03/24 Set up gcloud on Ubuntu
 * 2018/03/26 Installed Docker on Debian (Google Compute Engine) and Ubuntu 
 (VirtualBox)
-* 2018/03/2 Attempted creation of Hadoop in Docker container on MacOS, Debian 
+* 2018/03/26 Attempted creation of Hadoop in Docker container on MacOS, Debian 
 (Google Compute Engine) and Ubuntu (VirtualBox)
+* 2018/03/27 Installed Hadoop in Docker container on MacOS
+* 2018/03/27 Installed Hadoop on Ubuntu (VirtualBox)
 
 
 # Writing
@@ -124,3 +127,5 @@ and write configuration instructions
 * 2018/03/24 Wrote Google Compute Engine tutorial
 * 2018/03/26 Checked Compute Engine Paper per instructions on Piazza. Made 
 minor edits and updated status.
+* 2018/03/27 Fixed typos and Hadoop version issue in Handbook
+
