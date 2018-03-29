@@ -43,6 +43,9 @@
 * 2018/03/12 Downloaded updated handbook
 * 2018/03/21 Downloaded updated handbook
 * 2018/03/23 Downloaded updated handbook
+* 2018/03/28 Downloaded updated handbook
+* 2018/03/28 Added ssh key to futuresystems and logged in.
+* 2018/03/28 Added password to ssh key.
 
 
 # Theory
@@ -65,6 +68,8 @@
 * 2018/03/12 Learned about shell stuff that doesn't work in makefiles
 * 2018/03/13 Learned about makefiles
 * 2018/03/27 Watched Hadoop lectures
+* 2018/02/17 Watched cloud computing lectures G and H
+
 
 # Practice
 
