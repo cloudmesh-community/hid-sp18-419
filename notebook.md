@@ -14,6 +14,7 @@
 * 2018/03/16 Met with Min Chen to discuss tutorials and final project
 * 2018/03/19 Attended office hours
 * 2018/03/23 Attended class at Smith
+* 2018/03/27 Attended office hours
 
 
 # Weeks with no progress
@@ -42,6 +43,9 @@
 * 2018/03/12 Downloaded updated handbook
 * 2018/03/21 Downloaded updated handbook
 * 2018/03/23 Downloaded updated handbook
+* 2018/03/28 Downloaded updated handbook
+* 2018/03/28 Added ssh key to futuresystems and logged in.
+* 2018/03/28 Added password to ssh key.
 
 
 # Theory
@@ -63,6 +67,9 @@
 * 2018/03/07 Researched Pi emulation on OSX
 * 2018/03/12 Learned about shell stuff that doesn't work in makefiles
 * 2018/03/13 Learned about makefiles
+* 2018/03/27 Watched Hadoop lectures
+* 2018/02/17 Watched cloud computing lectures G and H
+
 
 # Practice
 
@@ -97,6 +104,12 @@ and write configuration instructions
 * 2018/03/16 Added 'make stop' to swagger REST API
 * 2018/03/16 Tested Min Chen's makefile
 * 2018/03/24 Set up gcloud on Ubuntu
+* 2018/03/26 Installed Docker on Debian (Google Compute Engine) and Ubuntu 
+(VirtualBox)
+* 2018/03/26 Attempted creation of Hadoop in Docker container on MacOS, Debian 
+(Google Compute Engine) and Ubuntu (VirtualBox)
+* 2018/03/27 Installed Hadoop in Docker container on MacOS
+* 2018/03/27 Installed Hadoop on Ubuntu (VirtualBox)
 
 
 # Writing
@@ -117,3 +130,7 @@ and write configuration instructions
 * 2018/03/23 Google Compute Engine Paper 
 * 2018/03/24 Google Compute Engine Paper 
 * 2018/03/24 Wrote Google Compute Engine tutorial
+* 2018/03/26 Checked Compute Engine Paper per instructions on Piazza. Made 
+minor edits and updated status.
+* 2018/03/27 Fixed typos and Hadoop version issue in Handbook
+
