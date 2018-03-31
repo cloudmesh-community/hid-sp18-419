@@ -15,6 +15,7 @@
 * 2018/03/19 Attended office hours
 * 2018/03/23 Attended class at Smith
 * 2018/03/27 Attended office hours
+* 2018/03/30 Attended class at Smith
 
 
 # Weeks with no progress
@@ -46,6 +47,7 @@
 * 2018/03/28 Downloaded updated handbook
 * 2018/03/28 Added ssh key to futuresystems and logged in.
 * 2018/03/28 Added password to ssh key.
+* 2018/03/31 Downloaded updated handbook
 
 
 # Theory
@@ -68,7 +70,9 @@
 * 2018/03/12 Learned about shell stuff that doesn't work in makefiles
 * 2018/03/13 Learned about makefiles
 * 2018/03/27 Watched Hadoop lectures
-* 2018/02/17 Watched cloud computing lectures G and H
+* 2018/03/28 Watched cloud computing lectures G and H
+* 2018/03/30 Watched cloud computing lectures I and J
+* 2018/03/31 Watched cloud computing lectures K and L
 
 
 # Practice
@@ -110,6 +114,7 @@ and write configuration instructions
 (Google Compute Engine) and Ubuntu (VirtualBox)
 * 2018/03/27 Installed Hadoop in Docker container on MacOS
 * 2018/03/27 Installed Hadoop on Ubuntu (VirtualBox)
+* 2018/03/30 Headless setup of 5 py cluster (name, password, enable ssh)
 
 
 # Writing
@@ -133,4 +138,5 @@ and write configuration instructions
 * 2018/03/26 Checked Compute Engine Paper per instructions on Piazza. Made 
 minor edits and updated status.
 * 2018/03/27 Fixed typos and Hadoop version issue in Handbook
-
+* 2018/03/31 Created skeleton of project paper
+* 2018/03/31 Posted link to .csv to LaTex table generator
