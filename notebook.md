@@ -140,3 +140,5 @@ minor edits and updated status.
 * 2018/03/27 Fixed typos and Hadoop version issue in Handbook
 * 2018/03/31 Created skeleton of project paper
 * 2018/03/31 Posted link to .csv to LaTex table generator
+* 2018/04/01 Removed Spark team and references to Spark from project paper,
+added brief writeup on Docker. 
