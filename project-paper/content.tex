@@ -11,46 +11,6 @@
 }
 \email{mc43@iu.edu}
 
-\author{Ramyashree Dasegowda Gangamayam}
-\affiliation{%
-  \institution{Indiana University}
-  \streetaddress{School of Informatics, Computing, and Engineering}
-  \city{Bloomington}
-  \state{IN}
-  \postcode{47408}
-}
-\email{rdasego@iu.edu}
-
-\author{Manoj Joshi}
-\affiliation{%
-  \institution{Indiana University}
-  \streetaddress{School of Informatics, Computing, and Engineering}
-  \city{Bloomington}
-  \state{IN}
-  \postcode{47408}
-}
-\email{manjoshi@iu.edu}
-
-\author{Karan Kamatgi}
-\affiliation{%
-  \institution{Indiana University}
- \streetaddress{School of Informatics, Computing, and Engineering}
-  \city{Bloomington}
-  \state{IN}
-  \postcode{47408}
-}
-\email{krkamatg@iu.edu.com}
-
-\author{Karan Kotabagi}
-\affiliation{%
-  \institution{Indiana University}
-  \streetaddress{School of Informatics, Computing, and Engineering}
-  \city{Bloomington}
-  \state{IN}
-  \postcode{47408}
-}
-\email{kkotabag@iu.edu}
-
 \author{Gregor von Laszewski}
 \affiliation{%
   \institution{Indiana University}
@@ -64,8 +24,8 @@
 \author{Bertolt Sobolik}
 \affiliation{%
   \institution{Indiana University}
-  \city{Bloomington}
   \streetaddress{School of Informatics, Computing, and Engineering}
+  \city{Bloomington}
   \state{IN}
   \postcode{47408}
 }
@@ -73,26 +33,24 @@
 
 
 % The default list of authors is too long for headers}
-\renewcommand{\shortauthors}{M. Chen, R. Dasedowda  Gangamayan, K. Kamatgi,
-K. Kotabagi, G. v. Laszewski, B. Sobolik}
+\renewcommand{\shortauthors}{M. Chen, G. v. Laszewski, B. Sobolik}
 
 
 \begin{abstract}
 \TODO{Add model of Raspberry Pi (3B?)}
 \TODO{Add data set used}
-Spark and Hadoop clusters were created on ten networked Raspberry
-Pis. The aim was to create the cluster in a repeatable and scalable
-fashion, automating as much of the setup process as possible. Spark
-and Hadoop were deployed and configured to run as Docker containers
-and directly on the operating system. Configurations were tested to
-compare Hadoop against Spark, and Docker against direct
-installation. Hadoop and Spark were also configured in Docker and
+Hadoop clusters were created on five networked Raspberry Pis. The aim
+was to create the cluster in a repeatable and scalable fashion,
+automating as much of the setup process as possible. Hadoop was
+deployed and configured to run as Docker containers and directly on
+the operating system. Configurations were tested to compare Docker
+against direct installation. Hadoop was also configured in Docker and
 natively on Futuresystems Echo and similar performance tests were done
 to compare the performance of the configuration on Echo against that
 of the Pis.
 \end{abstract}
 
-\keywords{Hadoop, Spark, Raspberry, Pi, Docker}
+\keywords{Hadoop, Raspberry, Pi, Docker, Futuresystems}
 
 
 \maketitle
@@ -105,14 +63,18 @@ of the Pis.
 \TODO{Describe Raspberry Pis.}
 \TODO{Describe Echo.}
 \TODO{Describe Hadoop.}
-\TODO{Describe Spark.}
-\TODO{Describe Docker.}
-
+Docker is a technology that allows applications to run in containers
+instead of full VMs. It leverages control groups and name space
+isolation in the Linux kernel. Containers start up much faster than
+VMs and is supported by all the major public cloud
+vendors~\cite{Foster:2017:CCS:3158276}. The most current stable
+release of Docker Community Edition was used for this project
+(18.03.0-ce).
 
 
 \section{Deployment}
 To configure the Raspberry Pis, first SD cards were burned using a
-script that take start and end machine id numbers as an input. The
+script that takes start and end machine id numbers as an input. The
 option to perform DHCP setup can be enabled with a flag. If DHCP is
 not used, the script assigns static IPs to each machine.
 
@@ -129,22 +91,13 @@ not used, the script assigns static IPs to each machine.
 
 \begin{table}[hbt]
 \centering
-\caption{Benchmarking results}
-\label{t:results-table}
-\begin{tabular}{lllll}
-Platform    & Docker & MapReduce & Deployment time & MapReduce Time \\
-Pi 5 nodes  & Yes    & Hadoop    & TBD             & TBD            \\
-Pi 5 nodes  & Yes    & Spark     & TBD             & TBD            \\
-Pi 5 nodes  & No     & Hadoop    & TBD             & TBD            \\
-Pi 5 nodes  & No     & Spark     & TBD             & TBD            \\
-Pi 10 nodes & Yes    & Hadoop    & TBD             & TBD            \\
-Pi 10 nodes & Yes    & Spark     & TBD             & TBD            \\
-Pi 10 nodes & No     & Hadoop    & TBD             & TBD            \\
-Pi 10 nodes & No     & Spark     & TBD             & TBD            \\
-Echo        & Yes    & Hadoop    & TBD             & TBD            \\
-Echo        & Yes    & Spark     & TBD             & TBD            \\
-Echo        & No     & Hadoop    & TBD             & TBD            \\
-Echo        & No     & Spark     & TBD             & TBD
+\caption{Benchmarking results}\label{t:results-table}
+\begin{tabular}{llll}
+Platform    & Docker & Deployment time & MapReduce Time \\
+Pi 5 nodes  & Yes    & TBD             & TBD            \\
+Pi 5 nodes  & No     & TBD             & TBD            \\
+Echo        & Yes    & TBD             & TBD            \\
+Echo        & No     & TBD             & TBD            \\
 \end{tabular}
 \end{table}
 
