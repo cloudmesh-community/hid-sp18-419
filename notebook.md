@@ -16,6 +16,7 @@
 * 2018/03/23 Attended class at Smith
 * 2018/03/27 Attended office hours
 * 2018/03/30 Attended class at Smith
+* 2018/04/02 Attended office hours
 
 
 # Weeks with no progress
