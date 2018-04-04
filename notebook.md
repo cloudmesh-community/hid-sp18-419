@@ -49,6 +49,7 @@
 * 2018/03/28 Added ssh key to futuresystems and logged in.
 * 2018/03/28 Added password to ssh key.
 * 2018/03/31 Downloaded updated handbook
+* 2018/04/03 Downloaded updated handbook
 
 
 # Theory
@@ -116,7 +117,7 @@ and write configuration instructions
 * 2018/03/27 Installed Hadoop in Docker container on MacOS
 * 2018/03/27 Installed Hadoop on Ubuntu (VirtualBox)
 * 2018/03/30 Headless setup of 5 py cluster (name, password, enable ssh)
-
+* 2018/04/03 Learned to use pandoc to check md to latex conversion
 
 # Writing
 
@@ -143,3 +144,4 @@ minor edits and updated status.
 * 2018/03/31 Posted link to .csv to LaTex table generator
 * 2018/04/01 Removed Spark team and references to Spark from project paper,
 added brief writeup on Docker. 
+* 2018/04/03 Updates to GCE VM tutorial
