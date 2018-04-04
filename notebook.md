@@ -147,3 +147,4 @@ minor edits and updated status.
 * 2018/04/01 Removed Spark team and references to Spark from project paper,
 added brief writeup on Docker. 
 * 2018/04/03 Updates to GCE VM tutorial
+* 2018/04/03 Began tutorial on Google Cloud Dataproc
