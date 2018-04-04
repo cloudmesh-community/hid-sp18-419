@@ -75,6 +75,8 @@
 * 2018/03/28 Watched cloud computing lectures G and H
 * 2018/03/30 Watched cloud computing lectures I and J
 * 2018/03/31 Watched cloud computing lectures K and L
+* 2018/04/03 Read about Google Cloud Dataflow, Cloud Dataproc, and various 
+benchmarking tests for Hadoop (TestDFSIO, TeraSort, nnbench, mrbench)
 
 
 # Practice
