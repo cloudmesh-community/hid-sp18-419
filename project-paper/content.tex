@@ -37,17 +37,16 @@
 
 
 \begin{abstract}
-\TODO{Add model of Raspberry Pi (3B?)}
 \TODO{Add data set used}
-Hadoop clusters were created on five networked Raspberry Pis. The aim
-was to create the cluster in a repeatable and scalable fashion,
-automating as much of the setup process as possible. Hadoop was
-deployed and configured to run as Docker containers and directly on
-the operating system. Configurations were tested to compare Docker
-against direct installation. Hadoop was also configured in Docker and
-natively on Futuresystems Echo and similar performance tests were done
-to compare the performance of the configuration on Echo against that
-of the Pis.
+Hadoop clusters are created on five networked Raspberry Pi 3 model B
+computers. The aim is to create the cluster in a repeatable and
+scalable fashion, automating as much of the setup process as
+possible. Hadoop is deployed and configured to run as Docker
+containers and directly on the operating system. Configurations are
+tested to compare Docker against direct installation. Hadoop is also
+configured in Docker and natively on Futuresystems Echo and similar
+performance tests are done to compare the performance of the
+configuration on Echo against that of the Pis.
 \end{abstract}
 
 \keywords{hid-sp18-419, hid-sp18-405, Hadoop, Raspberry, Pi}
@@ -60,7 +59,20 @@ of the Pis.
 
 
 \section{Technology Used}
-\TODO{Describe Raspberry Pis.}
+\TODO{Decide whether to use six pis or 5 pis and the screen. If the former, the hardware description below will need to change. We could use the sixth pi in the other cluster we made and create a cluster of 11.}
+The hardware used for the Raspberry Pi cluster consists of:
+
+\begin{itemize}
+\item Five Raspberry Pi 3 Model B computers
+\item One Waveshare 4'' HDMI LCD touchscreen
+\item One Netgear model GS308 8-Port Gigabit ethernet switch
+\item One Anker PowerPort 6 USB power supply
+\item One Powtech 125V AC 15A 1875w adaptor with switch
+\item Five 1' ethernet cables
+\item Five 32 GB microSDHC UHS-I cards
+\item Six 6'' USB 2.0 A-Male to Micro B cables
+\end{itemize}
+
 \TODO{Describe Echo.}
 \TODO{Describe Hadoop.}
 Docker is a technology that allows applications to run in containers
