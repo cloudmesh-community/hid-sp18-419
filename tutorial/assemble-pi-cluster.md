@@ -1,6 +1,9 @@
-% status: 0
 
 # Assembling a Pi Cluster
+
+hid-sp18-419
+
+% status: 0
  
 Black aluminum fanned heat syncs are attached to the top of the pi as shown in Figure 1.
 
