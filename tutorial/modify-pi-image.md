@@ -4,7 +4,7 @@ hid-sp18-419
 
 % status: 0
 
-The first boot behavior of the Pi is described [here](https://elinux.org/RPi_raspi-config#First-boot_activity)
+The first boot behavior of the Pi is described [here](https://elinux.org/RPi_raspi-config#First-boot_activity).
 Our goal is to disable this behavior and perform the following configuraton automatically:
 - Change the name of the machine
 - Enable ssh
