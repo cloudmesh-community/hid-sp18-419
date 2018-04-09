@@ -61,6 +61,6 @@ https://www.raspberrypi.org/blog/pibakery/
 ## Modifications to image
 * enable ssh
 * change hostname
-* modify password
+* [modify password via script](https://stackoverflow.com/questions/27837674/changing-a-linux-password-via-script)
 * get mac addresses
 * set ip addresses
