@@ -9,7 +9,7 @@ The first boot behavior of the Pi is described
 Our goal is to disable this behavior and perform the following configuraton 
 automatically:
 - Change the name of the machine
-- Enable ssh
+- [Enable ssh](https://www.raspberrypi.org/documentation/remote-access/ssh/)
 - Change the password
 - Set up one of the Pis as a DHCP server
 
