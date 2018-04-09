@@ -15,7 +15,11 @@ automatically:
 
 Instructions are based on 
 [this](http://blog.videgro.net/2015/11/modify-disk-image-raspbian/). 
-Developed on Ubuntu running on VirtualBox on a Mac.
+Developed on Ubuntu running on VirtualBox on a Mac. It will be easier,
+but less automated, to modify the image using the VM and burn the image 
+with the MacOS. To burn the SD card from the VM, we will need to set up the 
+VM to use the SD card device on the Mac. Instruction on how to do this are 
+[here](https://superuser.com/questions/373463/how-to-access-an-sd-card-from-a-virtual-machine).
 
 One option is to copy a script to the pis, either by modifying the image 
 before burning the SD card, or adding the script after boot. The latter 
