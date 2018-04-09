@@ -27,7 +27,9 @@ can be done with scp or through a PXE boot.
 
 If a script is added to the image before burning, it should run on startup. 
 Some strategies for doing this are described 
-[here](xhttps://askubuntu.com/questions/814/how-to-run-scripts-on-start-up). 
+[here](https://askubuntu.com/questions/814/how-to-run-scripts-on-start-up). 
 [Upstart](http://upstart.ubuntu.com/cookbook/#task-job) may be an option 
-for running the script, but it may not be included in Raspbian.
+for running the script, but it may not be included in Raspbian. A sample 
+startup script for Debian can be found 
+[here](https://gist.github.com/naholyr/4275302).
 
