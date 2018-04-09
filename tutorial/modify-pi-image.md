@@ -14,3 +14,5 @@ Our goal is to disable this behavior and perform the following configuraton auto
 Instructions are based on [this](http://blog.videgro.net/2015/11/modify-disk-image-raspbian/). 
 Developed on Ubuntu running on VirtualBox on a Mac.
 
+[Upstart](http://upstart.ubuntu.com/cookbook/#task-job) may be an option for running the script, but it may not be included in Raspbian.
+
