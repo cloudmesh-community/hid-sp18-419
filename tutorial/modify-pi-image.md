@@ -4,14 +4,14 @@ hid-sp18-419
 
 % status: 0
 
-The first boot behavior of the Pi is described 
-[here](https://elinux.org/RPi_raspi-config#First-boot_activity).
 Our goal is to disable this behavior and perform the following configuraton 
 automatically:
 - Change the name of the machine
 - [Enable ssh](https://www.raspberrypi.org/documentation/remote-access/ssh/)
 - Change the password
 - Set up one of the Pis as a DHCP server
+
+The image we are modifying can be downloaded from [Raspberry Pi](https://downloads.raspberrypi.org/raspbian_lite_latest).
 
 Instructions are based on 
 [this](http://blog.videgro.net/2015/11/modify-disk-image-raspbian/). 
