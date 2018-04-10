@@ -45,9 +45,9 @@ hadoop  jar $JARFILE \
 		 -file /cloudmesh/python/pos.txt \
 		 -file /cloudmesh/python/neg.txt \
 		 -file /cloudmesh/python/testingMapper.py \
-		 -file /cloudmesh/python/testingReducer_addE.py\
+		 -file /cloudmesh/python/testingReducer.py\
 		 -mapper /cloudmesh/python/testingMapper.py\
-		 -reducer /cloudmesh/python/testingReducer_addE.py		
+		 -reducer /cloudmesh/python/testingReducer.py		
 
 hadoop  jar $JARFILE \
 		 -input testing_neg \
@@ -61,13 +61,14 @@ hadoop  jar $JARFILE \
 
 # results
 		
-rm -rf output_pos_sentiment
-rm -rf output_neg_sentiment
+rm -rf output_pos_tagged
+rm -rf output_neg_tagged
 hadoop fs -get output_pos_tagged
 hadoop fs -get output_neg_tagged
 		
-echo "PageRank Finished execution, see results in: output_pos_tagged and output_neg_tagged"
-echo "In the positive labeled files: "
+echo "Sentiment analysis finished execution"
+echo "See results in: output_pos_tagged and output_neg_tagged"
+echo "In the positive labeled testing files: "
 tail -2 output_pos_tagged/part-00000
-echo "In the negative labeled files: "
+echo "In the negative labeled testing files: "
 tail -2 output_neg_tagged/part-00000
