@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# split data
+
+cd /cloudmesh/python/data
+./split_data.sh
+
 # run
 
 export PATH=$PATH:/$HADOOP_PREFIX/bin

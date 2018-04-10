@@ -108,12 +108,14 @@ RUN pip install six
 #RUN python -m nltk.downloader stopwords
 #RUN python -m nltk.downloader wordnet
 
-# Copy the python scripts and data
-RUN mkdir -p /cloudmesh/python
-COPY python/data /cloudmesh/python/data
+# Copy the python scripts and download data
+RUN mkdir -p /cloudmesh/python/data
+#COPY python/data /cloudmesh/python/data
 COPY python/*py /cloudmesh/python/
 COPY python/*sh /cloudmesh/python/
 RUN chmod +x /cloudmesh/python/*.py /cloudmesh/python/*.sh
+RUN curl -s http://www.cs.cornell.edu/people/pabo/movie-review-data/review_polarity.tar.gz | tar -xz -C /cloudmesh/python/data
+RUN mv /cloudmesh/python/split_data.sh /cloudmesh/python/data/split_data.sh
 
 
 CMD ["/etc/bootstrap.sh", "-d"]
