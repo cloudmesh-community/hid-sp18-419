@@ -3,7 +3,7 @@
 # split data
 
 cd /cloudmesh/python/data
-./split_data.sh
+./split_data.sh 405409
 
 # run
 
