@@ -59,6 +59,13 @@ configuration on Echo against that of the Pis.
 
 
 \section{Technology Used}
+
+This section describes the technologies that has been utilized throughout 
+the project. These technologies can be grouped into several groups: 
+Raspberry Pi Cluster, Hadoop, Docker and Cloud Platforms.
+
+\subsection{Raspberry Pi Cluster}
+
 \TODO{Decide whether to use six pis or 5 pis and the screen. If the former, the hardware description below will need to change. We could use the sixth pi in the other cluster we made and create a cluster of 11.}
 The hardware used for the Raspberry Pi cluster consists of:
 
@@ -81,8 +88,15 @@ A pinout diagram of the Pi 3B is shown in Figure~\ref{f:pinout-diagram}.
   \caption{Pinout diagram of Raspberry Pi 3B~\cite{hid-sp18-419-pi-pinout}. Note: the Pi used for this project has a Broadcom BCM2837, not the Broadcom BMC2835 shown in this figure.}\label{f:pinout-digram}
 \end{figure*}
 
-\TODO{Describe Echo.}
-\TODO{Describe Hadoop.}
+\subsection{Hadoop}
+
+\paragraph{Hadoop}
+\paragraph{HDFS}
+\paragraph{Hadoop-streaming}
+\paragraph{Map-reduce}
+
+
+\subsection{Docker}
 Docker is a technology that allows applications to run in containers
 instead of full VMs. It leverages control groups and name space
 isolation in the Linux kernel. Containers start up much faster than
@@ -90,7 +104,12 @@ VMs and is supported by all the major public cloud
 vendors~\cite{Foster:2017:CCS:3158276}. The most current stable
 release of Docker Community Edition was used for this project
 (18.03.0-ce).
+\paragraph{Docker Swarm}
+\paragraph{Docker Compose}
 
+\subsection{Cloud Platforms}
+\paragraph{Echo}
+\paragraph{Google Cloud}
 
 \section{Building a Cluster}
 \TODO{Finish building descrition. Depending on how elaborate this
