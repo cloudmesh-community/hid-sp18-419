@@ -31,4 +31,7 @@ EOT
 sudo service isc-dhcp-server stop
 sudo service isc-dhcp-server start
 
-sudo update-rc.d -f dhcp-setup.sh remove
+sudo systemctl enable ssh
+sudo systemctl start ssh
+
+# sudo update-rc.d -f dhcp-setup.sh remove
