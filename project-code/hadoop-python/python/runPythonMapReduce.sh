@@ -9,6 +9,7 @@ cd /cloudmesh/python/data
 
 export PATH=$PATH:/$HADOOP_PREFIX/bin
 export JARFILE=$HADOOP_PREFIX/share/hadoop/tools/lib/hadoop-streaming-2.9.0.jar
+hdfs dfsadmin -safemode leave
 
 # load data
 cd /cloudmesh/python
