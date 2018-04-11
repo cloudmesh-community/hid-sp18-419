@@ -2,6 +2,9 @@
 # the path to swagger codegen jarfile
 # assumes Makefile is in Directory named for service specified
 
+GCP_PROJECT:=$(shell gcloud config get-value project)
+GCP_ZONE:=$(shell gcloud config get-value compute/zone)
+
 swagger_codegen:="swagger-codegen"
 
 SWAGGER:=${swagger_codegen}
@@ -20,7 +23,8 @@ service:
 		-l python-flask \
 		-o server/${SERVICE}/flaskConnexion \
 		-D supportPython2=true
-	cp *_controller.py server/${SERVICE}/flaskConnexion/swagger_server/controllers/  
+	cp default_controller.py server/${SERVICE}/flaskConnexion/swagger_server/controllers/
+	awk -i inplace 'BEGINFILE{print "GCP_PROJECT=\"${GCP_PROJECT}\"\nGCP_ZONE=\"${GCP_ZONE}\""}{print}' server/${SERVICE}/flaskConnexion/swagger_server/controllers/default_controller.py
 
 start:
 	cd server/${SERVICE}/flaskConnexion/ &&\
@@ -28,6 +32,9 @@ start:
 
 stop:
 	ps | grep swagger_server | grep -v "grep" | awk '{print $$1}' | xargs kill -9
+
+test:
+	curl -X GET --header 'Accept: application/json' 'http://localhost:8080/cloudmesh/google_compute_engine/vms'
 
 clean:
 	rm -rf server/

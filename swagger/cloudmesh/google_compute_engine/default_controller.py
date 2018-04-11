@@ -7,8 +7,7 @@ import json
 from swagger_server.models.vm import VM  # noqa: E501
 from swagger_server import util
 
-GCP_PROJECT = "nth-subset-194702"
-GCP_ZONE = "us-east1-b"
+# GCP_PROJECT and GCP_ZONE get added by the makefile
 
 def vms_get():  # noqa: E501
     """vms_get
