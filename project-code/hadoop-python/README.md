@@ -16,7 +16,7 @@ If you'd like to try directly from the Dockerfile you can build the image as:
 
 In order to use the Docker image you have just build or pulled use:
 
-		docker run -it minchen57/minchen57/hadoop-docker-python-sentiment /etc/bootstrap.sh -bash
+		docker run -it minchen57/hadoop-docker-python-sentiment /etc/bootstrap.sh -bash
 
 # Run the Map-reduce tasks to do sentiment analysis
 
