@@ -71,13 +71,13 @@ The hardware used for the Raspberry Pi cluster consists of:
 
 \begin{itemize}
 \item Five Raspberry Pi 3 Model B computers 
-\item One Waveshare 4'' HDMI LCD touchscreen
+\item One Waveshare 4-inch HDMI LCD touchscreen
 \item One Netgear model GS308 8-Port Gigabit ethernet switch
 \item One Anker PowerPort 6 USB power supply
 \item One Powtech 125V AC 15A 1875w adaptor with switch
-\item Five 1' ethernet cables
+\item Five 1-foot ethernet cables
 \item Five 32 GB microSDHC UHS-I cards
-\item Six 6'' USB 2.0 A-Male to Micro B cables
+\item Six 6-inch USB 2.0 A-Male to Micro B cables
 \item 24 20mm by 5mm Hex Hexagonal Threaded Spacer Supports
 \end{itemize}
 
@@ -151,8 +151,40 @@ option to perform DHCP setup can be enabled with a flag. If DHCP is
 not used, the script assigns static IPs to each machine.
 
 \section{Data}
-\TODO{Describe data}
 
+The data used for the project is the Polarity Data 2.0, which is a dataset of 
+movie reviews, first used by Bo Pang and Lillian 
+Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental}~\cite{hid-sp18-405-sentiment-pang2002thumbs}.
+ The dataset includes 1000 positive and 1000 negative processed reviews, 
+which are labelled with respect to their overall sentiment polarity. 
+
+Each of the review is in a format of text file, and each of the single line in a 
+file is corresponding to a sentence. Further, every token (which includes 
+single word, punctuation marks, numbers) has been separated by space. For 
+example, Figure~\ref{f:data} shows several lines in one of the movie reviews 
+with line number on the right, which illustrate the two features mentioned 
+above. These features play an important role in the sentiment analysis 
+algorithm especially under map-reduce framework, which will be discussed in 
+details in Section~\ref{s:algorithm}.
+\begin{figure*}[!ht]
+	\centering\includegraphics[width=\columnwidth]{images/polarity-data.png}
+	\caption{Example Data File}
+	\label{f:data}
+\end{figure*}
+
+The data is directly pulled from the 
+source~\cite{hid-sp18-405-sentiment-data} and then split into training and 
+testing sets according to a ratio of 8:2. The authors also keep the original 
+ratio of positive and negative reviews in both the training and testing data 
+sets. As a result, there are 1600 reviews (800 positive and 800 negative) in 
+the training data set and 400 reviews (200 positive and 200 negative) in the 
+testing data set. The splitting process is done by using the random sort 
+functionality in bash with a fixed random seed to ensure consistency of 
+performance benchmarking on different clusters. 
+
+
+\section{Algorithm}
+\label{s:algorithm}
 
 \section{Benchmarking Process}
 \TODO{Describe MapReduce task used for benchmarking.}
