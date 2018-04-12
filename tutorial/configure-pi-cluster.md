@@ -19,5 +19,8 @@ Determination of whether the node is the master or a worker is done with the `-m
 ## Prerequisites
 * [Assemble a Pi Cluster](assemble-pi-cluster.md)
 * [Burn SD cards with names changed and ssh enabled](modify-pi-image.md)
+* Install `expect` on computer running `configure-pi.sh`. On a Mac, this is done with 
+`brew install expect`. On Unix, use `apt-get install expect` or `yum install expect`.
+More information on `expect` can be found [here](https://likegeeks.com/expect-command/).
 
 
