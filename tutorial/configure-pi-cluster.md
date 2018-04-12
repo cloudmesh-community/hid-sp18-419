@@ -17,7 +17,7 @@ changes the password for the pi user, and configures the master node as a DHCP s
 Determination of whether the node is the master or a worker is done with the `-m` flag.
 
 ## Prerequisites
-* Assemble a Pi Cluster
-* Burn SD cards with names changed and ssh enabled
+* [Assemble a Pi Cluster](assemble-pi-cluster.md)
+* [Burn SD cards with names changed and ssh enabled](modify-pi-image.md)
 
 
