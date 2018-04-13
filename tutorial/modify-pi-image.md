@@ -87,10 +87,10 @@ times, you will need to remove the `mountpoint` directory and move the `make-pi-
 
 ## Gregor: Manual page cmd5 may be easier than click.
 
-modify-sdcard -burn IMAGE   - puts the given image on the sd card
-modify-sdcard -ssh [enable|disable] enables or disables ssh 
-modify-sdcard -sshkey [~/.ssh/id_rsa.pub]  puts the default key for login
-modify-sdcard -name NAME puts the given name on the image
+    modify-sdcard -burn IMAGE   - puts the given image on the sd card
+    modify-sdcard -ssh [enable|disable] enables or disables ssh 
+    modify-sdcard -sshkey [~/.ssh/id_rsa.pub]  puts the default key for login
+    modify-sdcard -name NAME puts the given name on the image
 
 /TODO Loop to create multiple images, handle exception of existing mountpoint and output directory
 
