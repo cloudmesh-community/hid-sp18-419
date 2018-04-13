@@ -21,7 +21,7 @@ wget -O os-images/pi-img.zip https://downloads.raspberrypi.org/raspbian_lite_lat
 Next unzip the file.
 `unzip -d os-images/master os-images/pi-img.zip`
 
-Copy [this script](hid-sp18-419/project-code/pi-setup/make-pi-images.py) 
+Copy [this script](https://github.com/cloudmesh-community/hid-sp18-419/blob/master/project-code/pi-config/make-pi-images.py) 
 into the os-images directory:
 ```#!/usr/bin/python
 import os
