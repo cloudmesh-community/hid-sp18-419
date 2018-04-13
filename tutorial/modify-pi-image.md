@@ -16,7 +16,10 @@ need to be on Ubuntu VM drives. The mount will fail on a Mac shared drive.
 First create a directory and download the latest build of Rasbian Lite:
 ```
 mkdir os-images
+# From raspberrypi.org
 wget -O os-images/pi-img.zip https://downloads.raspberrypi.org/raspbian_lite_latest
+# Raspbian for Robots from Dexter
+wget -O os-images/pi-img.zip https://sourceforge.net/projects/dexterindustriesraspbianflavor/files/latest/download
 ```
 Next unzip the file.
 `unzip -d os-images/master os-images/pi-img.zip`
@@ -89,7 +92,7 @@ times, you will need to remove the `mountpoint` directory and move the `make-pi-
 
     data:
        images:
-           dexter: http://...
+           dexter: https://sourceforge.net/projects/dexterindustriesraspbianflavor/files/latest/download
            rasbian: https://downloads.raspberrypi.org/raspbian_lite_latest
        hostname: red
            start: 0001
