@@ -1,27 +1,31 @@
 # Apache Hadoop 2.9.0 Docker image for sentiment analysis on movie reviews
 
-# Build the image
+* build image, run analysis, get results
 
-If you'd like to try directly from the Dockerfile you can build the image as:
+		make all
+		
+* build the image	
 
-		docker build  -t minchen57/hadoop-docker-python-sentiment .
+		make build
 
+* run container with interactive shell
 
-# Pull the image
+		make container
 
-		docker pull minchen57/hadoop-docker-python-sentiment
+* run the container with sentiment analysis
 
+		make run
 
-# Start a container with interactive shell
+* get the result after the analysis
 
-In order to use the Docker image you have just build or pulled use:
+		make get
 
-		docker run -it minchen57/hadoop-docker-python-sentiment /etc/bootstrap.sh -bash
+* stop container
 
-# Run the Map-reduce tasks to do sentiment analysis
+		make stop
 
-		cd /cloudmesh/python
-		./runPythonMapReduce.sh 
+* clean up result 
 
+		make clean
 
 
