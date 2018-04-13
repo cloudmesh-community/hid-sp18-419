@@ -46,5 +46,16 @@ bertoltksiphone.hsd1.in.comcast.net (192.168.1.126) at e4:9a:79:7f:19:55 on en0 
 ? (239.255.255.250) at 1:0:5e:7f:ff:fa on en0 ifscope permanent [ethernet]
 broadcasthost (255.255.255.255) at ff:ff:ff:ff:ff:ff on en0 ifscope [ethernet]
 ```
+When internet sharing is off I get: 
+```
+(2.7.13) BKS-MBP:~ bsobolik$ arp -a
+raspberrypi.local (169.254.177.219) at b8:27:eb:0:c3:55 on en8 [ethernet]
+? (169.254.255.255) at (incomplete) on en0 [ethernet]
+hello (192.168.1.1) at 58:ef:68:a9:51:4e on en0 ifscope [ethernet]
+? (192.168.1.255) at ff:ff:ff:ff:ff:ff on en0 ifscope [ethernet]
+? (224.0.0.251) at 1:0:5e:0:0:fb on en0 ifscope permanent [ethernet]
+broadcasthost (255.255.255.255) at ff:ff:ff:ff:ff:ff on en0 ifscope [ethernet]
+```
+
 
 
