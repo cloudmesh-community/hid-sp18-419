@@ -22,7 +22,9 @@ wget -O os-images/pi-img.zip https://downloads.raspberrypi.org/raspbian_lite_lat
 wget -O os-images/pi-img.zip https://sourceforge.net/projects/dexterindustriesraspbianflavor/files/latest/download
 ```
 Next unzip the file.
-`unzip -d os-images/master os-images/pi-img.zip`
+```
+unzip -d os-images/master os-images/pi-img.zip
+```
 
 Copy [this script](https://github.com/cloudmesh-community/hid-sp18-419/blob/master/project-code/pi-config/make-pi-images.py) 
 into the os-images directory:
