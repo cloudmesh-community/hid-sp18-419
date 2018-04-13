@@ -23,4 +23,28 @@ Determination of whether the node is the master or a worker is done with the `-m
 `brew install expect`. On Unix, use `apt-get install expect` or `yum install expect`.
 More information on `expect` can be found [here](https://likegeeks.com/expect-command/).
 
+## Setting up DHCP
+/TODO: Find out if cluster should be set up with or without internet enabled. Tutorial for 
+getting Pi on IU Secure [here](https://cs.iupui.edu/~xiaozhon/course_tutorials/Connecting_to_IU_Secure_RPi_Tutorial.pdf).
+
+/TODO: New version of isc-dhcp-server. Find out if INTERFACES in /etc/default/isc-dhcp-server 
+should be V4, V6 or both.
+
+/TODO: Switch is eth8 when internet sharing is off, names show up, and IP addresses are on 
+different subnet. When internet sharing is on, names don't show up. How should DHCP and 
+network be setup? What is the use case? Below is output of `arp -a` with internet sharing. 
+I turned it on so that installations via apt-get would work:
+```
+(2.7.13) BKS-MBP:project-code bsobolik$ arp -a
+hello (192.168.1.1) at 58:ef:68:a9:51:4e on en0 ifscope [ethernet]
+bertoltksiphone.hsd1.in.comcast.net (192.168.1.126) at e4:9a:79:7f:19:55 on en0 ifscope [ethernet]
+? (192.168.1.255) at ff:ff:ff:ff:ff:ff on en0 ifscope [ethernet]
+? (192.168.2.7) at b8:27:eb:0:c3:55 on bridge100 ifscope [bridge]
+? (192.168.2.8) at b8:27:eb:d1:21:33 on bridge100 ifscope [bridge]
+? (192.168.2.255) at ff:ff:ff:ff:ff:ff on bridge100 ifscope [bridge]
+? (224.0.0.251) at 1:0:5e:0:0:fb on en0 ifscope permanent [ethernet]
+? (239.255.255.250) at 1:0:5e:7f:ff:fa on en0 ifscope permanent [ethernet]
+broadcasthost (255.255.255.255) at ff:ff:ff:ff:ff:ff on en0 ifscope [ethernet]
+```
+
 
