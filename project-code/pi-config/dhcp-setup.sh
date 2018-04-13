@@ -1,9 +1,17 @@
 #!/bin/bash
 
+# If connected to the internet
 sudo apt-get update
 sudo apt-get install isc-dhcp-server
 
-cat <<EOT >> /etc/default/isc-dhcp-server
+# If not connected to the internet
+tar -zxf /home/pi/dhcp-4.3.6-P1.tar.gz
+cd dhcp-4.3.6-P1
+./configure
+make
+sudo make install
+
+cat <<EOT >> /etc/dhcp/dchpd.conf
 subnet 192.168.2.0 netmask 255.255.255.0 {
     range 192.168.2.100 192.168.2.200;
     option broadcast-address 192.168.2.255;
@@ -11,8 +19,6 @@ subnet 192.168.2.0 netmask 255.255.255.0 {
     max-lease-time 7200;
     option domain-name "red00";
     option domain-name-servers 8.8.8.8;
-INTERFACES=""
-iface eth0 inet dhcp
 }
 EOT
 
@@ -31,7 +37,3 @@ EOT
 sudo service isc-dhcp-server stop
 sudo service isc-dhcp-server start
 
-sudo systemctl enable ssh
-sudo systemctl start ssh
-
-# sudo update-rc.d -f dhcp-setup.sh remove

@@ -13,6 +13,10 @@ master-image:
 	unzip -d os-images/master os-images/pi-img.zip
 	SECTORSTARTS=$(file os-images/master/*.img | python parse-find.py)
 
+configure-pi:
+	curl -s -o dhcp-4.3.6-P1.tar.gz https://www.isc.org/downloads/file/dhcp-4-3-6-p1/?version=tar-gz
+
+
 clean: 
 	rm -R os-images
 
