@@ -85,7 +85,7 @@ You will need to replace it with the name of the current file that came out of t
 The customized image will be in a subdirectory called `make-pi-images.pyoutput`. If you run it multiple 
 times, you will need to remove the `mountpoint` directory and move the `make-pi-images.pyoutput`.
 
-## Gregor: congig.yaml
+## Gregor: pi-cluster-config.yaml
 
     data:
        images:
