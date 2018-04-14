@@ -15,6 +15,7 @@ The service requires that you have:
 * A Google Cloud Platform account
 * The Gcloud API installed
 * Default variables: project and compute zone configured.
+* Enable [Cloud Resource Manager API](https://console.developers.google.com/apis/api/cloudresourcemanager.googleapis.com/overview)
 
 [This tutorial](https://github.com/cloudmesh/book/blob/master/tutorial/google-compute-engine.md)
 walks through the whole process.
