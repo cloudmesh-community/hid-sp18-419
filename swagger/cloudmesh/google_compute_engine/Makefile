@@ -5,7 +5,7 @@
 GCP_PROJECT:=$(shell gcloud config get-value project)
 GCP_ZONE:=$(shell gcloud config get-value compute/zone)
 
-swagger_codegen:="swagger-codegen"
+swagger_codegen:=java -jar swagger-codegen-cli-2.3.1.jar
 
 SWAGGER:=${swagger_codegen}
 
@@ -18,6 +18,7 @@ all: service requirements run
 service:
 	pip install -r requirements.txt
 	cd server/${SERVICE}/flaskConnexion; pip install -r requirements.txt
+	wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.3.1/swagger-codegen-cli-2.3.1.jar
 	$(SWAGGER) generate \
 		-i ${SPEC} \
 		-l python-flask \
