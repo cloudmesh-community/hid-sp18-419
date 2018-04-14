@@ -10,11 +10,11 @@ make clean
 make stop
 make test
 ```
-## Preliminary Requiremnts
+## Preliminary Requirements
 The service requires that you have:
-* A Google Cloud Platform Account
+* A Google Cloud Platform account
 * The Gcloud API installed
-* Default variables for project and compute zone configured.
+* Default variables: project and compute zone configured.
 
 [This tutorial](https://github.com/cloudmesh/book/blob/master/tutorial/google-compute-engine.md)
 walks through the whole process.
