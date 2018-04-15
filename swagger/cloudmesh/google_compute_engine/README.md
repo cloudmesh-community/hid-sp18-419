@@ -9,12 +9,16 @@ make start
 make clean
 make stop
 make test
+make container
+make container-start
+make container-stop
 ```
 ## Preliminary Requirements
 The service requires that you have:
 * A Google Cloud Platform account
 * The Gcloud API installed
-* Default variables: project and compute zone configured.
+
+A service account has been provided for testing. 
 
 [This tutorial](https://github.com/cloudmesh/book/blob/master/tutorial/google-compute-engine.md)
 walks through the whole process.
