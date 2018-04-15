@@ -1,13 +1,19 @@
 import connexion
 import six
-
+import os
 import googleapiclient.discovery
 import json
 
 from swagger_server.models.vm import VM  # noqa: E501
 from swagger_server import util
 
-# GCP_PROJECT and GCP_ZONE get added by the makefile
+creds = os.environ['HOME'] + '/.cloudmesh/configuration_gce_419.json'
+
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = creds
+
+with open(creds) as json_data:
+    d = json.load(json_data)
+    project = d['project_id']
 
 def vms_get():  # noqa: E501
     """vms_get
@@ -19,9 +25,16 @@ def vms_get():  # noqa: E501
     """
     vms = []
     compute = googleapiclient.discovery.build('compute', 'v1')
-    results = compute.instances().list(project=GCP_PROJECT,
-                                       zone=GCP_ZONE).execute()
-    for result in results['items']:
+
+    zones = compute.zones().list(project=project).execute()
+    results=[]
+    
+    for zone in zones['items']:
+        instances = compute.instances().list(project=project, zone=zone['name']).execute()
+        if 'items' in instances.keys():
+            results = results + instances['items']
+    
+    for result in results:
         vm = VM(id=result['id'],
                 creation_timestamp=result['creationTimestamp'],
                 name=result['name'],
@@ -33,7 +46,6 @@ def vms_get():  # noqa: E501
         vms.append(vm)
     
     return vms
-
 
 def vms_id_get(id):  # noqa: E501
     """vms_id_get

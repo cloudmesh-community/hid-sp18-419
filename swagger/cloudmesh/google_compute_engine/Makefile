@@ -2,9 +2,6 @@
 # the path to swagger codegen jarfile
 # assumes Makefile is in Directory named for service specified
 
-GCP_PROJECT:=$(shell gcloud config get-value project)
-GCP_ZONE:=$(shell gcloud config get-value compute/zone)
-
 swagger_codegen:=java -jar swagger-codegen-cli-2.3.1.jar
 
 SWAGGER:=${swagger_codegen}
@@ -17,6 +14,8 @@ all: service requirements run
 
 service:
 	pip install -r requirements.txt
+	sh setup.sh
+
 	cd server/${SERVICE}/flaskConnexion; pip install -r requirements.txt
 	wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.3.1/swagger-codegen-cli-2.3.1.jar
 	$(SWAGGER) generate \
@@ -25,7 +24,7 @@ service:
 		-o server/${SERVICE}/flaskConnexion \
 		-D supportPython2=true
 	cp default_controller.py server/${SERVICE}/flaskConnexion/swagger_server/controllers/
-	awk -i inplace 'BEGINFILE{print "GCP_PROJECT=\"${GCP_PROJECT}\"\nGCP_ZONE=\"${GCP_ZONE}\""}{print}' server/${SERVICE}/flaskConnexion/swagger_server/controllers/default_controller.py
+
 
 start:
 	cd server/${SERVICE}/flaskConnexion/ &&\
@@ -39,3 +38,4 @@ test:
 
 clean:
 	rm -rf server/
+	rm swagger-codegen-cli-2.3.1.jar
