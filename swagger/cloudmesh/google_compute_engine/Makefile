@@ -31,7 +31,8 @@ start:
 	python -m swagger_server
 
 stop:
-	ps | grep swagger_server | grep -v "grep" | awk '{print $$1}' | xargs kill -9
+	ps -aux | grep swagger_server | grep -v "grep" | awk '{print $$2}' | xargs kill -9
+
 
 test:
 	curl -X GET --header 'Accept: application/json' 'http://localhost:8080/cloudmesh/google_compute_engine/vms'
