@@ -2,7 +2,7 @@
 
 file='configuration_gce_419.json'
 
-if [ ! -d ~/.cloudmesh]; then
+if [ ! -d ~/.cloudmesh ]; then
    mkdir ~/.cloudmesh
 fi
 
