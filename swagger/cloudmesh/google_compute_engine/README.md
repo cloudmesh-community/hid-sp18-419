@@ -1,6 +1,8 @@
 # REST Service with Swagger
-The makefile was adapted from [Arnav](https://github.com/cloudmesh-community/hid-sp18-503). The `stop` 
-strategy was adapted from [Min Chen](https://github.com/cloudmesh-community/hid-sp18-405).
+The makefile was adapted from [Arnav](https://github.com/cloudmesh-community/hid-sp18-503). 
+The `stop` strategy was adapted from [Min Chen](https://github.com/cloudmesh-community/hid-sp18-405). 
+Docker implementation were adapted from [Kadupitiya](https://github.com/cloudmesh-community/hid-sp18-409)
+and [Min Chen](https://github.com/cloudmesh-community/hid-sp18-405)
 
 These work:
 ```
