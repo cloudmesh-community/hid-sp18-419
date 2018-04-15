@@ -40,3 +40,12 @@ test:
 clean:
 	rm -rf server/
 	rm swagger-codegen-cli-2.3.1.jar
+	
+container: 
+	docker build -t gce .
+	
+container-run:
+	docker run -p 8080:8080 gce
+
+container-stop:
+	docker stop $$(docker ps -a -q -f status=running)
