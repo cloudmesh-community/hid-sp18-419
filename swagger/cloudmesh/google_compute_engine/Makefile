@@ -44,7 +44,7 @@ clean:
 container: 
 	docker build -t gce .
 	
-container-run:
+container-start:
 	docker run -p 8080:8080 gce
 
 container-stop:
