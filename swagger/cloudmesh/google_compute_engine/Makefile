@@ -31,7 +31,7 @@ start:
 	python -m swagger_server
 
 stop:
-	ps -aux | grep swagger_server | grep -v "grep" | awk '{print $$2}' | xargs kill -9
+	ps -ef | grep swagger_server | grep -v "grep" | awk '{print $$2}' | xargs kill -9
 
 
 test:
