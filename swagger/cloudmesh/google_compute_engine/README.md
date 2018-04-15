@@ -20,7 +20,9 @@ The service requires that you have:
 * A Google Cloud Platform account
 * The Gcloud API installed
 
-A service account has been provided for testing. 
+A service account was created for testing. It will be provided upon request. To run from a different 
+service account, rename the .json credentials file from Google to `configuration_gce_419.json` and put
+it in the empty `etc` folder. The service will not run without a credentials file there. 
 
 [This tutorial](https://github.com/cloudmesh/book/blob/master/tutorial/google-compute-engine.md)
 walks through the whole process.
