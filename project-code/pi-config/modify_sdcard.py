@@ -121,7 +121,7 @@ def main():
                         help="Image file to modify")
 
     args = parser.parse_args()
-    sectors = get_sectors(argv.image)
+    sectors = get_sectors(args.image)
     outdir = make_outdir(args.basename, '_images')
 
     images = []
