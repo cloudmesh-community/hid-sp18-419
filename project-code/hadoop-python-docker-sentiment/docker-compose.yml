@@ -9,6 +9,7 @@ services:
       - "19888:19888"
       - "8188:8188"
     container_name: "master"
+    #command: "/etc/startup.sh"
   worker1:
     build: ./hadoop-worker
     container_name: "worker1"

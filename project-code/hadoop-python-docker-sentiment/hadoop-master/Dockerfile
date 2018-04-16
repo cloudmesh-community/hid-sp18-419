@@ -28,4 +28,8 @@ RUN chmod +x /cloudmesh/python/*.py /cloudmesh/python/*.sh
 RUN curl -s http://www.cs.cornell.edu/people/pabo/movie-review-data/review_polarity.tar.gz | tar -xz -C /cloudmesh/python/data
 RUN mv /cloudmesh/python/split_data.sh /cloudmesh/python/data/split_data.sh
 
+
+COPY python/runall.sh /etc/runall.sh
+RUN chmod +x /etc/runall.sh
+
 CMD ["/etc/bootstrap.sh", "-d"]
