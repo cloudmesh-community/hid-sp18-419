@@ -86,7 +86,8 @@ def str2bool(v):
 
 
 def create_name(number, name):
-    return name + '{:03}'.format(number)
+    name += '{:03}'.format(number)
+    return name
 
 
 def make_outdir(basename, suffix):
