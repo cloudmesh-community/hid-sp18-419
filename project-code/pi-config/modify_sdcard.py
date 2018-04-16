@@ -85,7 +85,7 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 
-def create_name(number, name):
+def create_name(name, number):
     name += '{:03}'.format(number)
     return name
 
