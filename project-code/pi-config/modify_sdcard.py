@@ -13,6 +13,10 @@ class PiImage:
         self.pubkey = ''
 
         
+    def create_image(self, source):
+        copyfile(source, self.outputfile)
+
+        
     def create_mountpoints(self, sectors):
         for i, sector in enumerate(sectors):
             mp = self.hostname + '_{}'.format(i)
@@ -128,6 +132,7 @@ def main():
     images = []
     for i in range(args.num):
         pi = PiImage(create_name(args.basename, i + args.start), outdir)
+        pi.create_image(args.image)
         pi.create_mountpoints(sectors)
         pi.change_hostname()
             
