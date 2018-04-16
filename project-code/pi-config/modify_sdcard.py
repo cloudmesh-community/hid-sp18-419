@@ -126,7 +126,7 @@ def main():
 
     images = []
     for i in range(args.num):
-        pi = PiImage(create_name(basename, i + args.start), outdir))
+        pi = PiImage(create_name(basename, i + args.start), outdir)
         pi.create_mountpoints(sectors)
         pi.change_hostname()
             
