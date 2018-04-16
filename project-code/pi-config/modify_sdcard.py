@@ -134,12 +134,17 @@ def main():
         for pi in images:
             pi.enable_ssh()
             pi.create_key()
-            with open(args.sshkey, 'r') as f:
-                pi.add_auth_key(f.read())
-                f.close()
             for other_pi in images:
                 if pi.hostname != other_pi.hostname:
                     pi.put_auth_key(other_pi)
+    if args.sshkey:
+        for pi in images:
+            with open(args.sshkey, 'r') as f:
+                pi.add_auth_key(f.read())
+                f.close()
+
+    for pi in images:
+        pi.remove_mountpoints()
     
     
 if __name__ == '__main__':
