@@ -3,11 +3,12 @@ import sys
 from Crypto.PublicKey import RSA
 from shutil import copyfile
 import os
+import subprocess
 
 class PiImage:
     def __init__(self, hostname, path):
         self.hostname = hostname
-        self.outputfile = path + hostname + '.img'
+        self.outputfile = path + '/' + hostname + '.img'
         self.home = '/home/pi'
         self.mountpoints = []
         self.pubkey = ''
@@ -21,7 +22,7 @@ class PiImage:
         for i, sector in enumerate(sectors):
             mp = self.hostname + '_{}'.format(i)
             os.mkdir(mp)
-            subprocess.call(['sudo', 'mount', self.outputfile, '-o', 'offset=' + str(sector), mp])
+            subprocess.call(['sudo', 'mount', self.outputfile, '-o', 'offset=' + str(512*sector), mp])
             self.mountpoints.append(mp)
 
             
@@ -45,7 +46,7 @@ class PiImage:
 
         
     def change_hostname(self):
-        with open(self.mountpoints[1], 'w') as f:
+        with open(self.mountpoints[1] + '/etc/hostname', 'w') as f:
             f.write(self.hostname)
             f.close()
 
@@ -126,7 +127,9 @@ def main():
                         help="Image file to modify")
 
     args = parser.parse_args()
-    sectors = get_sectors(args.image)
+    file_info = subprocess.check_output(['file', args.image])
+
+    sectors = get_sectors(file_info)
     outdir = make_outdir(args.basename, '_images')
 
     images = []
