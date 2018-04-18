@@ -39,12 +39,13 @@ get: clean dest
 	docker cp master:/cloudmesh/python/output_pos_tagged ./$(DESTDIR)
 	docker cp master:/cloudmesh/python/output_neg_tagged ./$(DESTDIR)
 	docker cp master:/cloudmesh/python/log.txt ./$(DESTDIR)
-	mv docker-compose.yml ./$(DESTDIR)
+	cp docker-compose.yml ./$(DESTDIR)
 	
 
 down:
 	@echo "shutting down the cluster..."
 	docker-compose down
+	rm docker-compose.yml
 
 
 clean:
