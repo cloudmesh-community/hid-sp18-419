@@ -151,6 +151,7 @@ option to perform DHCP setup can be enabled with a flag. If DHCP is
 not used, the script assigns static IPs to each machine.
 
 \section{Data}
+\label{s:data}
 
 The data used for the project is the Polarity Data 2.0, which is a dataset of 
 movie reviews, first used by Bo Pang and Lillian 
@@ -180,11 +181,120 @@ sets. As a result, there are 1600 reviews (800 positive and 800 negative) in
 the training data set and 400 reviews (200 positive and 200 negative) in the 
 testing data set. The splitting process is done by using the random sort 
 functionality in bash with a fixed random seed to ensure consistency of 
-performance benchmarking on different clusters. 
+performance benchmarking on different platforms. 
 
 
 \section{Algorithm}
 \label{s:algorithm}
+
+This section introduces the algorithm used to classify the overall sentiment 
+of the movie reviews in the benchmarking process. The algorithm is a 
+modified version from Pang and 
+Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental} and also 
+explained in details by Jurafsky and 
+Martin~\cite{hid-sp18-405-sentiment-jurafsky2009}. 
+
+\subsection{Baseline algorithm}
+
+The baseline algorithm contains the following steps:
+
+\begin{enumerate}
+	\item Tokenization
+	\item Feature Extraction
+	\item Classification
+\end{enumerate}
+
+\paragraph{Tokenization}
+As mentioned in Section~\ref{s:data}, every token (which includes 
+single word, punctuation marks, numbers) has been separated by space in 
+the text files. Therefore, we just need to split the text strings with space to 
+perform tokenization rather than use sophisticated tokenizers. This saves 
+space and running time as well as the complication of loading  python 
+packages for hadoop worker nodes in hadoop-streaming. However, in more 
+general settings with text data, non-trivial tokenization step needs to be 
+performed before other type of text processing.
+
+\paragraph{Feature Extraction}
+The main feature that we use is the words contained in the documents, 
+however, there are several options mentioned by Jurafsky and 
+Martin~\cite{hid-sp18-405-sentiment-jurafsky2009}: 
+\begin{enumerate}
+	\item All tokens
+	\item Removing stoplist words
+	\item Removing punctuation tokens
+	\item Using only adjectives
+	\item Unify tokens with lemmas
+	\item Negation treatment
+\end{enumerate}
+In this project, we applied stoplist words removal, punctuation tokens 
+removal and negation treatment. 
+
+Stoplist is the list of words that are considered to be commonly used across 
+documents regardless of sentiments thus adding little value in classification 
+tasks. We removed stoplist words according to the english stopwords 
+module from the python package: NLTK 
+corpus~\cite{hid-sp18-405-sentiment-stopworddoc}. Punctuation removal is 
+done by using python string 
+module~\cite{hid-sp18-405-sentiment-punctuationdoc} supplemented by 
+self-defined regular expression. We applied a basic negation treatment by 
+adding a NOT\_ prefix to every token that follows a negation word and not 
+separated by any punctuation tokens. For example: I really do not like the 
+movie becomes: I really do not Not\_like Not\_the Not\_movie. This method is 
+used by Das and Chen~\cite{hid-sp18-405-sentiment-das2001yahoo} as well 
+as Pang, Lee, and 
+Vaithyanathan~\cite{hid-sp18-405-sentiment-pang2002thumbs}. 
+
+We did not apply the option of using adjectives only due to the result 
+provided by Pang and his 
+colleges~\cite{hid-sp18-405-sentiment-pang2004asentimental} that  
+adjectives only does not provide a better results than including all words. In 
+fact, the accuracy dropped by on average 2\% in the testing phase when we 
+implemented the algorithm. We also did not apply lemmatization for all the 
+tokens. Although lemmatization would increase the accuracy by around 2\% 
+in one of the authors previous studies, it requires ontologies such as 
+wordnet and including the wordnet corpus with lemmatizer is adding much 
+complication to the hadoop-streaming. We tried to follow the instructions 
+online~\cite{hid-sp18-405-hadoopstreaming-nltk}~\cite{hid-sp18-405-hadoopstreaming-corpus}
+ to pass python package (NLTk) and corpus (wordnet) as zipped files from 
+name nodes to data nodes in mapreduce tasks but the package can be 
+passed but not loaded and corpus cannot be passed. This issue could be 
+studied and solved in future projects. 
+
+Pang, Lee, and 
+Vaithyanathan~\cite{hid-sp18-405-sentiment-pang2002thumbs}, also 
+considered different set of 
+features such as bigrams, combination (back up) of bigrams and unigrams, 
+top-unigrams etc. For simplicity, we chose to only use unigram models i.e. 
+single tokens. 
+
+\paragraph{Classifier}
+We  used Naive Bayes as the classifier. The formulation is given as:
+\begin{equation*}
+c_{NB}=\text{argmax}_{c_j \in C} P(c_j) \prod_{i \in positions} P(w_i|c_j)
+\end{equation*}
+
+where in this case, $j \in \{positive, negative\}$, also for this movie review 
+dataset, we know the prior probabilities: 
+$P(c_{positive})=P(c_{negative})=0.5$
+
+\paragraph{Smoothing}
+To avoid the problem that the probability of some token in the 
+training/testing document is zero. We use the add-one smoothing or Laplace 
+smoothing in this case:
+\begin{equation*}
+P(w|c) = \frac{count(w,c) + 1}{count(c) + |V|}
+\end{equation*}
+
+Figure~\ref{f:algo} is the algorithm we implemented summarized by Jurafsky 
+and Martin:
+\begin{figure}[!ht]
+		\centering\includegraphics[width=\columnwidth]{images/algorithm.png}
+		\caption{Naive Bayes for Sentiment 
+		Analysis~\cite{hid-sp18-405-sentiment-jurafsky2009}}\label{f:algo}
+\end{figure}
+
+\subsection{Implementation using MapReduce}
+\TODO{Add mapreduce implementation here}
 
 \section{Benchmarking Process}
 \TODO{Describe MapReduce task used for benchmarking.}

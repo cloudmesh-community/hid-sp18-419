@@ -4,13 +4,13 @@
 
 ## Makefile can be used to start and shut the hadoop cluster, run analysis etc.
 
-* single command to build images, start cluster, run analysis and get back results before shutting down the cluster:
+* single command to build images, start cluster, run analysis and get back results before shutting down the cluster by providing the number of workers needed (default is 1):
 
-		make all
+		make all worker=(#OFWORKERS)
 
 * build images needed for master and workers
 
-		make build
+		make build worker=(#OFWORKERS)
 		
 * launch hadoop cluster by using docker-compose with interactive shell
 
@@ -31,9 +31,7 @@
 * shut down the cluster
 
 		make down
-
-* The information about number of workers are in docker-compose.yml
-
+		
 * One can check the ResourceManger at [http://localhost:8088](http://localhost:8088)
 
 
