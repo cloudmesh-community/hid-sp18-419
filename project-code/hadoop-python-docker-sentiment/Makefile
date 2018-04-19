@@ -23,15 +23,15 @@ build:scale
 start:
 	@echo "starting the containers..."
 	docker-compose up -d
-	echo "http://localhost:9870 for HDFS"
-	echo "http://localhost:8088 for YARN"
+	@echo "http://localhost:9870 for HDFS"
+	@echo "http://localhost:8088 for YARN"
 
 shell: start
-	echo "Now interactive shell for master..."
+	@echo "Now interactive shell for master..."
 	docker exec -it master bash
 
 run:
-	echo "running the sentiment analysis on movie reviews..."
+	@echo "running the sentiment analysis on movie reviews..."
 	docker exec master /etc/runall.sh
 
 get: clean dest

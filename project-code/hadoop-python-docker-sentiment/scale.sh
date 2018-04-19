@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ $1 == "1" ]; then
 	echo "docker-compose.yml created with #worker 1"
     cp ./docker-compose-template.yml ./docker-compose.yml
