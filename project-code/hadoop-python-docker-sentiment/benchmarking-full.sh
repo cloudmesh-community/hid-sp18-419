@@ -6,8 +6,7 @@ if [ $# -ne 2 ]; then
     exit -1
 fi
 
-DESTDIR=Results
-rm -rf $DESTDIR
+DESTDIR=benchmark-full
 mkdir -p $DESTDIR
 
 echo "Build the docker-compose.yml file"
@@ -20,7 +19,6 @@ docker build -t minchen57/hadoop-docker-python-sentiment-compose-worker:latest h
 
 for i in $(seq 1 $1)
 do
-TAG=`date +%Y%m%d%H%M%S`
 docker-compose build
 
 echo "starting the containers..."
@@ -32,7 +30,9 @@ docker exec master /etc/runall.sh
 echo "Get the results"
 #docker cp pseudo-hadoop:/cloudmesh/python/output_pos_tagged ./$DESTDIR/output_pos_tagged_$TAG
 #docker cp pseudo-hadoop:/cloudmesh/python/output_neg_tagged ./$DESTDIR/output_neg_tagged_$TAG
-docker cp master:/cloudmesh/python/log.txt ./$DESTDIR/log_$TAG.txt
+docker cp master:/cloudmesh/python/log.txt ./$DESTDIR/temp.txt
+tail -3 ./$DESTDIR/temp.txt |head -1>>./$DESTDIR$2_worker.txt
+rm ./$DESTDIR/temp.txt
 echo "Stop the container"
 docker-compose down
 done
