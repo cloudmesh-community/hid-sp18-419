@@ -31,7 +31,7 @@ echo "Get the results"
 #docker cp pseudo-hadoop:/cloudmesh/python/output_pos_tagged ./$DESTDIR/output_pos_tagged_$TAG
 #docker cp pseudo-hadoop:/cloudmesh/python/output_neg_tagged ./$DESTDIR/output_neg_tagged_$TAG
 docker cp master:/cloudmesh/python/log.txt ./$DESTDIR/temp.txt
-tail -3 ./$DESTDIR/temp.txt |head -1>>./$DESTDIR$2_worker.txt
+tail -3 ./$DESTDIR/temp.txt |head -1>>./$DESTDIR/$2_worker.txt
 rm ./$DESTDIR/temp.txt
 echo "Stop the container"
 docker-compose down
