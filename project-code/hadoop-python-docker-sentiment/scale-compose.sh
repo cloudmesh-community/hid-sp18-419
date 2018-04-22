@@ -10,7 +10,7 @@ cp ./docker-compose-template.yml ./docker-compose.yml
 for i in $(seq 2 $1)
 do
 printf "  worker"$i":\n\
-    build: ./hadoop-worker\n\
+    image: minchen57/hadoop-docker-python-sentiment-compose-worker\n\
     container_name: \"worker"$i"\"\n\
     ports:\n\
       - \"$((9900+$i)):9864\"\n\
