@@ -30,6 +30,8 @@ RUN mv /cloudmesh/python/split_data.sh /cloudmesh/python/data/split_data.sh
 
 
 COPY python/runall.sh /etc/runall.sh
+COPY python/startup.sh /etc/startup.sh
 RUN chmod +x /etc/runall.sh
+RUN chmod +x /etc/startup.sh
 
 CMD ["/etc/bootstrap.sh", "-d"]

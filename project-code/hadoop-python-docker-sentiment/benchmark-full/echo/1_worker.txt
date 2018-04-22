@@ -1,0 +1,11 @@
+18/04/21 07:21:09 INFO mapreduce.Job:  map 58% reduce 19%
+real	33m48.820s
+real	33m51.231s
+real	33m40.404s
+real	33m16.771s
+real	33m41.909s
+real	33m49.236s
+real	33m30.181s
+real	33m42.799s
+real	33m58.531s
+real	33m42.195s

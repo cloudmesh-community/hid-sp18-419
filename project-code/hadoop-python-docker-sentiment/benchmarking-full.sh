@@ -10,7 +10,7 @@ DESTDIR=benchmark-full
 mkdir -p $DESTDIR
 
 echo "Build the docker-compose.yml file"
-./scale.sh $2
+./scale-compose.sh $2
 
 echo "Build the image"
 docker build -t minchen57/hadoop-docker-python-sentiment-compose-base:latest hadoop-base

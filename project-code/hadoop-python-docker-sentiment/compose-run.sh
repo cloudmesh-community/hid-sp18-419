@@ -12,6 +12,7 @@ echo "DONE"
 echo "starting the containers..."
 docker-compose up -d
 echo "http://localhost:8088 for YARN"
+echo "http://localhost:50070 for HDFS"
 
 echo "running the sentiment analysis on movie reviews..."
 docker exec master /etc/runall.sh
