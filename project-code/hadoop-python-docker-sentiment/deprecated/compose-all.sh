@@ -8,3 +8,4 @@ fi
 ./compose-run.sh
 
 docker-compose down
+docker network rm -f hadoop-sentiment

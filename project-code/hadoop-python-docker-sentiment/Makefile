@@ -6,23 +6,20 @@ dest:
 
 all: build start run get down
 
-scale:
-	@echo "making docker-compose.yml with 1 master and $(worker) worker(s)"
-	./scale.sh $(worker)
-
-build:scale 
+build:
 	@echo "building images for master and worker..."
 	docker build -t minchen57/hadoop-docker-python-sentiment-compose-base:latest hadoop-base
 	docker build -t minchen57/hadoop-docker-python-sentiment-compose-master:latest hadoop-master
 	docker build -t minchen57/hadoop-docker-python-sentiment-compose-worker:latest hadoop-worker
-	@echo "build the cluster with 1 master and $(worker) worker(s)"
-	docker-compose build
+	@echo "create the network"
+	docker network rm hadoop-sentiment
+	docker network create hadoop-sentiment
 	@echo "DONE"
 
 
 start:
 	@echo "starting the containers..."
-	docker-compose up -d
+	docker-compose scale master=1 worker=$(worker)
 	@echo "http://localhost:50070 for HDFS"
 	@echo "http://localhost:8088 for YARN"
 
@@ -45,10 +42,10 @@ get: clean dest
 down:
 	@echo "shutting down the cluster..."
 	docker-compose down
-	rm docker-compose.yml
 
 
 clean:
 	rm -rf $(DESTDIR)
+	docker network rm hadoop-sentiment
 
 		
