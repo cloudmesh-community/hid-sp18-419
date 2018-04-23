@@ -6,11 +6,13 @@ if [ $# -ne 2 ]; then
     exit -1
 fi
 
+worker=$2
+
 DESTDIR=benchmark-full
 mkdir -p $DESTDIR
 
-echo "Build the docker-compose.yml file"
-./scale-compose.sh $2
+docker network rm hadoop-sentiment
+docker network create hadoop-sentiment
 
 echo "Build the image"
 docker build -t minchen57/hadoop-docker-python-sentiment-compose-base:latest hadoop-base
@@ -20,10 +22,9 @@ docker build -t minchen57/hadoop-docker-python-sentiment-compose-worker:latest h
 for i in $(seq 1 $1)
 do
 echo "Worker# =" $2 ", Iter :" $i
-docker-compose build
 
 echo "starting the containers..."
-docker-compose up -d
+docker-compose scale master=1 worker=$((worker))
 
 echo "Run the container with sentiment analysis on hadoop"
 docker exec master /etc/runall.sh
@@ -39,6 +40,8 @@ rm ./$DESTDIR/temp.txt
 echo "Stop the container"
 docker-compose down
 done
+
+docker network rm hadoop-sentiment
 
 
 

@@ -8,6 +8,14 @@ services:
       - "8088:8088"
       - "19888:19888"
       - "8188:8188"
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:    
+        constraints: [node.id == sssxd7rocpl67xyvm1979p67q]
+      #    - node.hostname == master.node.com
     #command: "/etc/startup.sh"
 
   worker1:
@@ -15,5 +23,8 @@ services:
     ports:
       - "9901:9864"
       - "8041:8042"
+    extra_hosts:
+      - "master:149.165.150.77"
+
 
 

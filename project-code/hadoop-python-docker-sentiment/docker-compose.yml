@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  master:
+    image: minchen57/hadoop-docker-python-sentiment-compose-master
+    ports:
+      - "8088:8088"
+      - "19888:19888"
+      - "8188:8188"
+      - "50070:50070"
+    container_name: "master"
+    hostname: "master"
+    domainname: "master"
+    networks:
+      - hadoop-sentiment
+
+  worker:
+    image: minchen57/hadoop-docker-python-sentiment-compose-worker
+    #container_name: "worker1"
+    depends_on:
+      - master
+    networks:
+      - hadoop-sentiment
+
+networks:
+  hadoop-sentiment:
+    external:
+      name: hadoop-sentiment
