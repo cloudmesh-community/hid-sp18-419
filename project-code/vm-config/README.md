@@ -111,6 +111,14 @@ For pseudo-distributed operation, modify the following files:
     </property>
 </configuration>
 ```
+Change the line in /usr/local/hadoop/etc/hadoop/hadoop_env.sh to:
+```
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+```
+Make hadoop_env.sh executable:
+```
+chmod +x /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+```
 
 
 
