@@ -32,6 +32,35 @@ Install Curl and Java:
 sudo apt-get install curl
 sudo apt install openjdk-8-jre-headless
 ```
+Create `hduser` in `hadoop` group:
+```
+su - hduser
+ssh-keygen -t rsa -P ""
+cat /home/hduser/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
+ssh localhost
+exit
+```
+The last step is so that localhost is added to /home/hduser/.ssh/known_hosts.
+
+Add the following to .bashrc for hduser
+```
+# HADOOP SETINGS
+# Set Hadoop-related environment variables
+export HADOOP_HOME=/usr/local/hadoop
+
+# Set JAVA_HOME (we will also configure JAVA_HOME directly for Hadoop later on)
+#export JAVA_HOME=/usr/lib/jvm/java-6-sun
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+# Some convenient aliases and functions for running Hadoop-related commands
+unalias fs &> /dev/null
+alias fs="hadoop fs"
+unalias hls &> /dev/null
+alias hls="fs -ls"
+
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin"
+export PATH="$PATH:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/hadoop/bin:."
+```
 
 Python 3.6.2 and six (using pynev):
 ```
@@ -58,7 +87,7 @@ Install Hadoop 2.9.0:
 cd /usr/local
 sudo -i
 curl -s http://mirrors.ocf.berkeley.edu/apache/hadoop/common/hadoop-2.9.0/hadoop-2.9.0.tar.gz | tar xvz
-cp hadoop-2.9.0 hadoop
+cp -R hadoop-2.9.0 hadoop
 chown -R hduser:hadoop hadoop
 ```
 For pseudo-distributed operation, modify the following files:
