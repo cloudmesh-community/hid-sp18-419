@@ -5,6 +5,7 @@
 all: start run
 
 start:
+	hdfs namenode -format
 	/usr/local/hadoop/etc/hadoop/hadoop-env.sh
 	/usr/local/hadoop/sbin/start-dfs.sh
 	hdfs dfs -mkdir /user
@@ -15,7 +16,6 @@ run:
 
 clean: 
 	/usr/local/hadoop/sbin/stop-dfs.sh
-	hdfs namenode -format
 	rm -R *.txt
 	rm -R data/test
 	rm -R data/train
