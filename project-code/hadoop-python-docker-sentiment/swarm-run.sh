@@ -8,9 +8,22 @@ fi
 DESTDIR=Results
 
 echo "starting the containers in swarm mode"
-docker stack deploy --compose-file docker-swarm.yml hadoop-sentiment
+if docker stack deploy --compose-file docker-swarm.yml hadoop-sentiment
+then
+    echo "services started"
+else
+    echo "something is wrong, continue with next iteration"
+    exit(1)
+fi
+
 echo "scale up the service to $worker worker"
-docker service scale hadoop-sentiment_worker=$worker
+if docker service scale hadoop-sentiment_worker=$worker
+then
+    echo "service scaled"
+else
+    echo "something is wrong, continue with next iteration"
+    eixt(1)
+fi
 
 echo "running the sentiment analysis on movie reviews at backend..."
 echo "getting physical node that runs master"

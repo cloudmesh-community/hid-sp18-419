@@ -16,10 +16,25 @@ sleep 20
 for i in $(seq 1 $1)
 do
     echo "Worker# =" $worker ", Iter :" $i
+
     echo "starting the containers in swarm mode"
-    docker stack deploy --compose-file docker-swarm.yml hadoop-sentiment
+    if docker stack deploy --compose-file docker-swarm.yml hadoop-sentiment
+    then
+        echo "services started"
+    else
+        echo "something is wrong, continue with next iteration"
+        continue
+    fi
+
     echo "scale up the service to $worker worker"
-    docker service scale hadoop-sentiment_worker=$worker
+    if docker service scale hadoop-sentiment_worker=$worker
+    then
+        echo "service scaled"
+    else
+        echo "something is wrong, continue with next iteration"
+        continue
+    fi
+
     echo "running the sentiment analysis on movie reviews at backend..."
     echo "getting physical node that runs master"
     nodeID=$(docker stack ps  -f "name=hadoop-sentiment_master.1" --format "{{.Node}}" hadoop-sentiment)
@@ -31,11 +46,11 @@ do
     else
         host="http://149.165.150.7${nodeID: -1}"
     fi
-
     echo "Please look for results at: "
     echo "$host:50070"
     echo "Please track jobs and resources at : "
     echo "$host:8088/cluster"
+
 
     echo "Please wait for results..."
     j=1
