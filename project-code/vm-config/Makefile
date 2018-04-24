@@ -16,8 +16,9 @@ run:
 
 clean: 
 	/usr/local/hadoop/sbin/stop-dfs.sh
-	rm -R *.txt
-	rm -R data/test
-	rm -R data/train
-	rm -R *train
-	rm -R *tagged
+	rm -rf /tmp/hadoop/*
+	rm  *.txt
+	rm -rf data/test
+	rm -rf data/train
+	rm -rf *train
+	rm -rf *tagged
