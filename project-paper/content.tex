@@ -195,6 +195,7 @@ explained in details by Jurafsky and
 Martin~\cite{hid-sp18-405-sentiment-jurafsky2009}. 
 
 \subsection{Baseline algorithm}
+\label{ss:base}
 
 The baseline algorithm contains the following steps:
 
@@ -269,9 +270,9 @@ single tokens.
 
 \paragraph{Classifier}
 We  used Naive Bayes as the classifier. The formulation is given as:
-\begin{equation*}
+\begin{equation}\label{eq:nb}
 c_{NB}=\text{argmax}_{c_j \in C} P(c_j) \prod_{i \in positions} P(w_i|c_j)
-\end{equation*}
+\end{equation}
 
 where in this case, $j \in \{positive, negative\}$, also for this movie review 
 dataset, we know the prior probabilities: 
@@ -281,9 +282,9 @@ $P(c_{positive})=P(c_{negative})=0.5$
 To avoid the problem that the probability of some token in the 
 training/testing document is zero. We use the add-one smoothing or Laplace 
 smoothing in this case:
-\begin{equation*}
+\begin{equation}\label{eq:sm}
 P(w|c) = \frac{count(w,c) + 1}{count(c) + |V|}
-\end{equation*}
+\end{equation}
 
 Figure~\ref{f:algo} is the algorithm we implemented summarized by Jurafsky 
 and Martin:
@@ -294,7 +295,70 @@ and Martin:
 \end{figure}
 
 \subsection{Implementation using MapReduce}
-\TODO{Add mapreduce implementation here}
+
+As illustrated in Equation~\ref{eq:nb} , Equation~\ref{eq:sm}, and 
+Figure\ref{f:algo}, the Naive Bayes classification algorithm is based on 
+comparing posterior probability. The likelihood of each single valid token can 
+be calculated by aggregating the count of this token among the training 
+documents for the two classes positive and negative. The the likelihood of a 
+testing document is an aggregation of the likelihood of each valid token 
+within that document. Therefore, both training and testing process can be 
+implemented in a MapReduce framework to facilitate the process of counting 
+tokens and aggregation. 
+
+There are two MapReduce jobs in the training process, one for training on 
+positive-labelled documents and the other for negative-labelled documents. 
+$count(w,c)$ in Equation~\ref{eq:sm} shows the necessity to count the 
+tokens according to the classes, which are positive and negative in this task. 
+During the training on positive-labelled documents, the TrainingMapper 
+python code will read in each positive movie reviews in the training set 
+through standard input, filter valid tokens (removing stoplist words, 
+punctuation, adding negation, see Subsection\ref{ss:base}) and print to the 
+standard output. TrainingReducer python code will take these standard 
+output performing aggregation by tokens. The result is a dictionary-like text 
+file containing number of occurrence for each valid token in the positive 
+training set. The negative training documents will be processed in a similar 
+way. 
+
+ In the testing process, each testing document is analyzed separately. The 
+ TestingMapper will read in the one document, perform the same filter to 
+ keep valid tokens and print to standard output. The testingReducer will read 
+ in both this standard output and the two results files from the training 
+ process, calculating the likelihood of each valid token in this document 
+ according to the smoothing formula given by Equation~\ref{eq:sm} before 
+ getting posterior probability through aggregation according to 
+ Equation~\ref{eq:nb}. Then for each document, there will be two posterior 
+ probabilities, positive and negative. The document will be assigned to the 
+ one with higher probability. The final output will be a text file and each line is 
+ the testing document name with its classification label. In the actual 
+ implementation, we performed the testing process using two MapReduce 
+ jobs, one for the testing data that are actually positive, the other for the 
+ testing data that are actually negative. This is essentially the same as 
+ performing testing process on each document blindly and then verify the 
+ results. However, it is easier to calculate the accuracy of the algorithm. 
+ 
+ In summary, we used python codes to implement two mappers 
+ (TrainingMapper and TestingMapper) and two reducers (TrainingReducer 
+ and Testingreducer) to perform 4 MapReduce jobs for the training and 
+ testing processes. For the fixed random seed mentioned in 
+ Section\ref{s:data}, we achieved the following results: out of the 200 
+ positive testing data, 162 are correctly labelled; out of the 200 negative 
+ testing data, 168 are correctly labelled. Therefore, the
+ overall accuracy of the algorithm is 82.5\%. This is acceptable 
+ compared to the result achieved by Pang, Lee, and Vaithyanatha, which is 
+ illustrated in Figure\ref{f:pang-result}. 
+% 
+%\begin{figure}[!ht]
+%	\centering\includegraphics[width=\columnwidth]{images/algoresult.png}
+%	\caption{Results of the Algorithm}
+%	\label{f:algoresult}
+%\end{figure}
+
+\begin{figure}[!ht]
+	\centering\includegraphics[width=\columnwidth]{images/pang-result.png}
+	\caption{Results from Pang, Lee, and Vaithyanatha (2002)
+	~\cite{hid-sp18-405-sentiment-pang2002thumbs}}\label{f:pang-result}
+\end{figure}
 
 \section{Benchmarking Process}
 \TODO{Describe MapReduce task used for benchmarking.}
