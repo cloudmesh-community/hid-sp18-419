@@ -1,0 +1,10 @@
+real	17m50.605s
+real	17m56.785s
+real	17m51.368s
+real	17m53.980s
+real	17m52.823s
+real	17m52.981s
+real	17m56.810s
+real	17m54.256s
+real	17m55.230s
+real	17m52.778s

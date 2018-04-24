@@ -28,11 +28,11 @@ echo "Load data to hdfs"
 echo "###############################################"
 
 cd /cloudmesh/python
-hadoop fs -mkdir /training_pos /training_neg /testing_pos /testing_neg
-hadoop fs -put ./data/train/pos/* /training_pos
-hadoop fs -put ./data/train/neg/* /training_neg
-hadoop fs -put ./data/test/pos/* /testing_pos
-hadoop fs -put ./data/test/neg/* /testing_neg
+hadoop fs -mkdir -p /nlp/training_pos /nlp/training_neg /nlp/testing_pos /nlp/testing_neg
+hadoop fs -put ./data/train/pos/* /nlp/training_pos
+hadoop fs -put ./data/train/neg/* /nlp/training_neg
+hadoop fs -put ./data/test/pos/* /nlp/testing_pos
+hadoop fs -put ./data/test/neg/* /nlp/testing_neg
 
 echo "###############################################"
 echo "Data loaded"
@@ -45,8 +45,8 @@ echo "Mapreduce job 1/4: training on negative reviews"
 echo "###############################################"
 
 hadoop  jar $JARFILE \
-		-input /training_neg \
-		-output /neg_train   \
+		-input /nlp/training_neg \
+		-output /nlp/neg_train   \
 		-file /cloudmesh/python/trainingMapper.py  \
 		-file /cloudmesh/python/trainingReducer.py \
 		-mapper /cloudmesh/python/trainingMapper.py  \
@@ -57,8 +57,8 @@ echo "Mapreduce job 2/4: training on positive reviews"
 echo "###############################################"
 
 hadoop  jar $JARFILE \
-		-input /training_pos \
-		-output /pos_train   \
+		-input /nlp/training_pos \
+		-output /nlp/pos_train   \
 		-file /cloudmesh/python/trainingMapper.py  \
 		-file /cloudmesh/python/trainingReducer.py \
 		-mapper /cloudmesh/python/trainingMapper.py  \
@@ -71,8 +71,8 @@ echo "Get the trained model"
 echo "###############################################"
 
 rm -rf pos_train neg_train
-hadoop fs -get /pos_train
-hadoop fs -get /neg_train
+hadoop fs -get /nlp/pos_train
+hadoop fs -get /nlp/neg_train
 cp pos_train/part-00000 pos.txt
 cp neg_train/part-00000 neg.txt
 
@@ -82,8 +82,8 @@ echo "###############################################"
 
 # testing
 hadoop  jar $JARFILE \
-		 -input /testing_pos \
-		 -output /output_pos_tagged   \
+		 -input /nlp/testing_pos \
+		 -output /nlp/output_pos_tagged   \
 		 -file /cloudmesh/python/pos.txt \
 		 -file /cloudmesh/python/neg.txt \
 		 -file /cloudmesh/python/testingMapper.py \
@@ -96,8 +96,8 @@ echo "Mapreduce job 4/4: testing on negative reviews"
 echo "###############################################"
 
 hadoop  jar $JARFILE \
-		 -input /testing_neg \
-		 -output /output_neg_tagged   \
+		 -input /nlp/testing_neg \
+		 -output /nlp/output_neg_tagged   \
 		 -file /cloudmesh/python/pos.txt \
 		 -file /cloudmesh/python/neg.txt \
 		 -file /cloudmesh/python/testingMapper.py \
@@ -109,8 +109,8 @@ hadoop  jar $JARFILE \
 		
 rm -rf output_pos_tagged
 rm -rf output_neg_tagged
-hadoop fs -get /output_pos_tagged
-hadoop fs -get /output_neg_tagged
+hadoop fs -get /nlp/output_pos_tagged
+hadoop fs -get /nlp/output_neg_tagged
 
 echo "###############################################"
 echo "Sentiment analysis finished execution"

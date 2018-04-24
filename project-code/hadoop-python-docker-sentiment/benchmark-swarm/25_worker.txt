@@ -1,0 +1,5 @@
+real 7m53.360s
+real 7m52.263s
+real 7m50.840s
+real 7m54.829s
+real 7m52.731s

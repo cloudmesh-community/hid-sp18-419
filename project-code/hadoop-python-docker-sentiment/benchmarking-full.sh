@@ -26,6 +26,8 @@ echo "Worker# =" $2 ", Iter :" $i
 echo "starting the containers..."
 docker-compose scale master=1 worker=$((worker))
 
+echo "pause for 20 seconds"
+sleep 20
 echo "Run the container with sentiment analysis on hadoop"
 docker exec master /etc/runall.sh
 

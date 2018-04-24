@@ -20,6 +20,10 @@ nohup $HADOOP_PREFIX/bin/yarn resourcemanager &
 nohup $HADOOP_PREFIX/bin/yarn timelineserver &
 nohup $HADOOP_PREFIX/bin/mapred historyserver &
 
+mkdir -p $HADOOP_PREFIX/logs
+chmod 777 $HADOOP_PREFIX/logs
+date > $HADOOP_PREFIX/logs/temp.txt
+
 if [[ $1 == "-d" ]]; then
     while true; do sleep 1000; done
 fi
@@ -28,3 +32,30 @@ if [[ $1 == "-bash" ]]; then
     /bin/bash
 fi
 
+if [[ $1 == "-run" ]]; then
+    sleep 45
+    (time /cloudmesh/python/runPythonMapReduce.sh) 2>&1 | tee -a /cloudmesh/python/log.txt
+    export PATH=$PATH:/$HADOOP_PREFIX/bin
+    tail -3 /cloudmesh/python/log.txt |head -1>> /cloudmesh/python/time.txt
+    cp /cloudmesh/python/time.txt $HADOOP_PREFIX/logs/time.txt
+    cp /cloudmesh/python/log.txt $HADOOP_PREFIX/logs/log.txt
+    cp -r /cloudmesh/python/output_pos_tagged $HADOOP_PREFIX/logs/output_pos_tagged
+    cp -r /cloudmesh/python/output_neg_tagged $HADOOP_PREFIX/logs/output_neg_tagged
+    while true; do sleep 1000; done
+fi
+
+#if [[ $1 == "-benchmark" ]]; then
+#    sleep 30
+#    export PATH=$PATH:/$HADOOP_PREFIX/bin
+#    for i in $(seq 1 $2)
+#    do
+#        hadoop fs -rm -R /nlp
+#        (time /cloudmesh/python/runPythonMapReduce.sh) 2>&1 | tee -a /cloudmesh/python/log.txt
+#        tail -3 /cloudmesh/python/log.txt |head -1>>/cloudmesh/python/$3_worker.txt
+#        mkdir -p $HADOOP_PREFIX/logs
+#        chmod 777 $HADOOP_PREFIX/logs
+#        cp /cloudmesh/python/log.txt $HADOOP_PREFIX/logs/log.txt
+#        cp /cloudmesh/python/$3_worker.txt $HADOOP_PREFIX/logs/$3_worker.txt
+#    done
+#    while true; do sleep 1000; done
+#fi
