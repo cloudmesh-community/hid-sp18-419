@@ -1,6 +1,13 @@
 ## Standalone sentement analysis using Map Reduce. 
 
-/TODO Create a Makefile
+Usage:
+```
+make - start and run
+make start - formats the file system and initializes the daemons
+make run - runs the mapreduce job
+make clean
+```
+Assumes you have done the congiguration below.
 
 Config based on [Apache's instructions](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html).
 
@@ -95,6 +102,11 @@ For pseudo-distributed operation, modify the following files:
 /usr/local/hadoop/etc/hadoop/core-site.xml:
 ```
 <configuration>
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/app/hadoop/tmp</value>
+        <description>A base for other temporary directories.</description>
+    </property>
     <property>
         <name>fs.defaultFS</name>
         <value>hdfs://localhost:9000</value>
