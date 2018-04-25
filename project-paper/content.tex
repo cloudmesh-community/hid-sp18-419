@@ -59,11 +59,11 @@ discussed.
 
 \maketitle
 
-\section{Introduction}
+\section{Introduction}\label{s:intro}
 \TODO{Write an introduction.}
 
 
-\section{Technology Used}
+\section{Technology Used}\label{s:techused}
 
 This section describes the technologies that has been utilized
 throughout the project. These technologies can be grouped into several
@@ -240,7 +240,7 @@ and Martin:
 		Analysis~\cite{hid-sp18-405-sentiment-jurafsky2009}}\label{f:algo}
 \end{figure}
 
-\subsection{Implementation using MapReduce}
+\subsection{Implementation Using MapReduce}
 
 As illustrated in Equation~\ref{eq:nb}, Equation~\ref{eq:sm}, and 
 Figure\ref{f:algo}, the Naive Bayes classification algorithm is based on 
@@ -320,11 +320,11 @@ way.
 \subsection{Fully Distributed using docker swarm}
 
 
-\section{Benchmarking Process}
+\section{Benchmarking Process}\label{s:benchrproc}
 \TODO{Describe machines and platform used, data points collection}
 
 
-\section{Results}
+\section{Results}\label{s:results}
 \TODO{Add results.}
 
 \begin{table}[hbt]
@@ -341,12 +341,12 @@ Echo        & No     & TBD             & TBD            \\
 
 
 
-\section{Conclusion}
+\section{Conclusion}\label{s:conclusion}
 
 \TODO{Put here an conclusion. Conclusion and abstracts must not have any
 citations in the section.}
 
-\section{Appendix: Hadoop Cluster on Raspberry Pi}
+\section{Appendix: Hadoop Cluster on Raspberry Pi}\label{s:appendix}
 This section describes steps taken toward the goal of creating a
 Hadoop cluster using 5 Raspberry Pi 3 Model B computers in a
 repeatable, scalable way. Successes and challenges are described and
@@ -412,7 +412,13 @@ is shown in Figure~\ref{f:cluster-no-wires}.
 \end{figure*}
 
 Each node of the cluster is then attached to the switch using the
-ethernet cables.
+ethernet cables and to the power supply using usb cables. The fully wired cluster is shown in Figure~\ref{f:complete-cluster}.
+
+\begin{figure*}[!ht]
+  \centering\includegraphics[width=\columnwidth]{images/complete-pi-cluster.jpg}
+  \caption{Fully assembled 5-node Pi cluster.}\label{f:complete-cluster}
+\end{figure*}
+
 
 \subsection{Configuring the Pi Cluster}
 To configure the Raspberry Pis, first SD cards were burned using a
