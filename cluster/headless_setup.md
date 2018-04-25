@@ -51,12 +51,11 @@ Change the string in /etc/hostname
 
 Building a custom raspbian image:
 
-https://github.com/RPi-Distro/pi-gen
-https://github.com/niklasf/build-raspbian-image
-https://github.com/andrius/build-raspbian-image
-https://www.raspberrypi.org/blog/pibakery/
-
-[Latest source](http://archive.raspbian.org/raspbian/dists/stretch/)
+* [Code for official distribution on GitHub](https://github.com/RPi-Distro/pi-gen)
+* [niklasf's custom image project on GitHub](https://github.com/niklasf/build-raspbian-image)
+* [andrius's custom image project on GitHub]](https://github.com/andrius/build-raspbian-image)
+* [PiBakery](https://www.raspberrypi.org/blog/pibakery/) a GUI for custom Pi images. 
+* [Latest source](http://archive.raspbian.org/raspbian/dists/stretch/)
 
 ## Modifications to image
 * enable ssh
