@@ -10,11 +10,12 @@ worker=$2
 
 DESTDIR=benchmark-swarm
 mkdir -p $DESTDIR
-./swarm-down.sh
-sleep 20
 
 for i in $(seq 1 $1)
 do
+
+    ./swarm-down.sh
+    sleep 30
     echo "Worker# =" $worker ", Iter :" $i
 
     echo "starting the containers in swarm mode"
@@ -67,10 +68,8 @@ do
     echo "getting the results..."
     curl "$host:8088/logs/time.txt" >> ./$DESTDIR/$2_worker.txt
 
-    ./swarm-down.sh
-    sleep 30
 done
 
-
+./swarm-down.sh
 
 
