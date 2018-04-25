@@ -1,4 +1,4 @@
-\title{Headless Pi Cluster Initialization and Hadoop Benchmarking}
+\title{Benchmarking a Sentiment Analysis Algorithm on Multiple Platforms}
 
 
 \author{Min Chen}
@@ -37,18 +37,21 @@
 
 
 \begin{abstract}
-Hadoop clusters are created on five networked Raspberry Pi 3 model B
-computers. The aim is to create the cluster in a repeatable and
-scalable fashion, automating as much of the setup process as
-possible. Hadoop is deployed and configured to run as Docker
-containers and directly on the operating system. Configurations are
-tested to compare Docker against direct installation. Hadoop is also
-configured in Docker and natively on Futuresystems Echo both with and 
-without swarm mode and similar performance tests are done to compare the 
-performance of the configuration on Echo against that of the Pis and several 
-personal computers. Performance tests are natural language processing 
-based sentiment analysis on movie reviews (Polarity 2.0) implemented under 
-MapReduce framework using Hadoop Streaming.
+A sentiment analysis algorithm is run on several Hadoop
+configurations: in pseudo-cluster mode on an Ubuntu 16.04 virtual
+machine on a MacBook Pro with and without YARN, in pseudo-cluster mode
+in a Docker container on various personal computers and on
+Futuresystems Echo, in a cluster created using Docker Compose on
+various personal computers and on Futuresystems Echo, and in a cluster
+created using Docker Swarm on various Futuresystems Echo. Performance
+tests are natural language processing based sentiment analysis on
+movie reviews (Polarity 2.0) implemented under MapReduce framework
+using Hadoop Streaming. Configurations are described in detail and
+steps to recreate them are outlined. In an appendix, steps toward
+creating a Hadoop cluster on five networked Raspberry Pi 3 model B
+computers in a repeatable and scalable fashion, automating as much of
+the setup process as possible are detailed and next steps are
+discussed.
 \end{abstract}
 
 \keywords{hid-sp18-419, hid-sp18-405, Hadoop, Raspberry Pi, Docker}
