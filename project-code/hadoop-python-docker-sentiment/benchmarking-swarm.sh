@@ -57,7 +57,7 @@ do
     j=1
     until curl -f -s "$host:8088/logs/log.txt";
     do
-        if [[ j -gt 12 ]]; then
+        if [[ j -gt 20 ]]; then
             break
         fi
         echo "not yet, please wait"

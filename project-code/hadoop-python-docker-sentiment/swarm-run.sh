@@ -13,7 +13,7 @@ then
     echo "services started"
 else
     echo "something is wrong, continue with next iteration"
-    exit(1)
+    exit 1
 fi
 
 echo "scale up the service to $worker worker"
@@ -22,7 +22,7 @@ then
     echo "service scaled"
 else
     echo "something is wrong, continue with next iteration"
-    eixt(1)
+    exit 1
 fi
 
 echo "running the sentiment analysis on movie reviews at backend..."

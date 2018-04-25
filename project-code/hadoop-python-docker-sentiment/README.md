@@ -110,7 +110,7 @@ The cluster can be deployed on FutureSystem Echo under the docker swarm mode. Th
 
 * Similarly, the service could be scaled up or down to $N workers using the following command at any point when the cluster is actually running:
 
-		docker service hadoop-sentiment_worker=$N
+		docker service scale hadoop-sentiment_worker=$N
 
 ## Benchmarking running time
 
