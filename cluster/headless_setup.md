@@ -10,9 +10,9 @@ Add ssh file to SD card
  - `cd /Volumes/boot`
  - `touch ssh`
 
-Connect mac to hub
+Connect mac to switch
 
-Turn on internet sharing - share with hub
+Turn on internet sharing - share with switch
 - Used iPhone internet because IU wifi is protected by 801.x 
 `ifconfig | grep "inet "` to get mac ip address
 
