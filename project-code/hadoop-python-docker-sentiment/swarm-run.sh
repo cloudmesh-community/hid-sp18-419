@@ -13,7 +13,7 @@ then
     echo "services started"
 else
     echo "something is wrong, continue with next iteration"
-    exit(1)
+    exit 1
 fi
 
 echo "scale up the service to $worker worker"
@@ -22,7 +22,7 @@ then
     echo "service scaled"
 else
     echo "something is wrong, continue with next iteration"
-    eixt(1)
+    exit 1
 fi
 
 echo "running the sentiment analysis on movie reviews at backend..."
@@ -47,7 +47,7 @@ echo "Please wait for results..."
 j=1
 until curl -f -s "$host:8088/logs/log.txt";
 do
-    if [[ j -gt 12 ]]; then
+    if [[ j -gt 20 ]]; then
         break
     fi
     echo "not yet, please wait"
