@@ -54,7 +54,7 @@ the setup process as possible are detailed and next steps are
 discussed.
 \end{abstract}
 
-\keywords{hid-sp18-419, hid-sp18-405, Hadoop, Raspberry Pi, Docker}
+\keywords{hid-sp18-419, hid-sp18-405, Hadoop, Docker, Futuresystems}
 
 
 \maketitle
@@ -65,33 +65,9 @@ discussed.
 
 \section{Technology Used}
 
-This section describes the technologies that has been utilized throughout 
-the project. These technologies can be grouped into several groups: 
-Raspberry Pi Cluster, Hadoop, Docker and Cloud Platforms.
-
-\subsection{Raspberry Pi Cluster}
-
-\TODO{Decide whether to use six pis or 5 pis and the screen. If the former, the hardware description below will need to change. We could use the sixth pi in the other cluster we made and create a cluster of 11.}
-The hardware used for the Raspberry Pi cluster consists of:
-
-\begin{itemize}
-\item Five Raspberry Pi 3 Model B computers 
-\item One Waveshare 4in HDMI LCD touchscreen
-\item One Netgear model GS308 8-Port Gigabit ethernet switch
-\item One Anker PowerPort 6 USB power supply
-\item One Powtech 125V AC 15A 1875w adaptor with switch
-\item Five 1-foot ethernet cables
-\item Five 32 GB microSDHC UHS-I cards
-\item Six 6in USB 2.0 A-Male to Micro B cables
-\item 24 20mm by 5mm Hex Hexagonal Threaded Spacer Supports
-\end{itemize}
-
-A pinout diagram of the Pi 3B is shown in Figure~\ref{f:pinout-diagram}.
-
-\begin{figure*}[!ht]
-  \centering\includegraphics[width=\columnwidth]{images/raspberry_pi_circuit_note_fig2.png}
-  \caption{Pinout diagram of Raspberry Pi 3B~\cite{hid-sp18-419-pi-pinout}. Note: the Pi used for this project has a Broadcom BCM2837, not the Broadcom BMC2835 shown in this figure.}\label{f:pinout-digram}
-\end{figure*}
+This section describes the technologies that has been utilized
+throughout the project. These technologies can be grouped into several
+groups: Hadoop, Docker, personal computers, and cloud platforms.
 
 \subsection{Hadoop}
 
@@ -117,56 +93,20 @@ release of Docker Community Edition was used for this project
 \paragraph{Echo}
 \paragraph{Google Cloud}
 
-\section{Building a Cluster}
-\TODO{Finish building descrition. Depending on how elaborate this
-is, it could be folded into the deployment section instead of being in
-it's own section.}  Physical assmebly of the cluster is fairly
-simple. First, aluminium and copper heat syncs need to be attached to
-each Pi. The two aluminium heat syncs are attached to the Broadcom
-chip and the SMSC ethernet controller located on the top of the
-Pi. The blades of the heat syncs are parallel to the longer side of
-the Pi as shown in Figure~\ref{f:heat-sync-top}.
 
-\begin{figure*}[!ht]
-  \centering\includegraphics[width=\columnwidth]{images/heat-sync-top.jpg}
-  \caption{Top view of a Raspberry Pi 3B with heat syncs attached.}\label{f:heat-sync-top}
-\end{figure*}
-
-The flat copper heat sync is attached to the Elpida RAM on the bottom
-of the Pi as shown in Figure~\ref{f:heat-sync-bottom}.
-
-\begin{figure*}[!ht]
-  \centering\includegraphics[width=\columnwidth]{images/heat-sync-bottom.jpg}
-  \caption{Bottom view of a Raspberry Pi 3B with heat sync attached.}\label{f:heat-sync-bottom}
-\end{figure*}
-
-After attaching the heat syncs, threaded hexagonal spacer supports are used to connect the Pis together. A fully-assembled 5-node Pi cluster is shown in Figure~\ref{f:cluster-no-wires}.
-
-\begin{figure*}[!ht]
-  \centering\includegraphics[width=\columnwidth]{images/pi-cluster-no-wires.jpg}
-  \caption{5-node Pi cluster before wiring.}\label{f:cluster-no-wires}
-\end{figure*}
-
-Each node of the cluster is then attached to the switch using the ethernet cables. 
-
-\section{Deployment}
+\section{Deployment}\label{s:deployment}
 \TODO{Finish Deployment section}
-\TODO{Probably this section should be a subsection of the Building a 
-Cluster? I planned to have a section discuss details about deployment of 
+\TODO{Write a section discuss details about deployment of 
 hadoop on different platforms, and in different forms}
-To configure the Raspberry Pis, first SD cards were burned using a
-script that takes start and end machine id numbers as an input. The
-option to perform DHCP setup can be enabled with a flag. If DHCP is
-not used, the script assigns static IPs to each machine.
 
-\section{Data}
-\label{s:data}
+\section{Data}\label{s:data}
 
-The data used for the project is the Polarity Data 2.0, which is a dataset of 
-movie reviews, first used by Bo Pang and Lillian 
+The data used for the project is the Polarity Data 2.0, which is a
+dataset of movie reviews, first used by Bo Pang and Lillian
 Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental}~\cite{hid-sp18-405-sentiment-pang2002thumbs}.
- The dataset includes 1000 positive and 1000 negative processed reviews, 
-which are labelled with respect to their overall sentiment polarity. 
+The dataset includes 1000 positive and 1000 negative processed
+reviews, which are labelled with respect to their overall sentiment
+polarity.
 
 Each of the review is in a format of text file, and each of the single line in a 
 file is corresponding to a sentence. Further, every token (which includes 
@@ -178,8 +118,7 @@ algorithm especially under map-reduce framework, which will be discussed in
 details in Section~\ref{s:algorithm}.
 \begin{figure*}[!ht]
 	\centering\includegraphics[width=\columnwidth]{images/polarity-data.png}
-	\caption{Example Data File}
-	\label{f:data}
+	\caption{Example Data File}\label{f:data}
 \end{figure*}
 
 The data is directly pulled from the 
@@ -193,8 +132,7 @@ functionality in bash with a fixed random seed to ensure consistency of
 performance benchmarking on different platforms. 
 
 
-\section{Algorithm}
-\label{s:algorithm}
+\section{Algorithm}\label{s:algorithm}
 
 This section introduces the algorithm used to classify the overall sentiment 
 of the movie reviews in the benchmarking process. The algorithm is a 
@@ -203,8 +141,7 @@ Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental} and also
 explained in details by Jurafsky and 
 Martin~\cite{hid-sp18-405-sentiment-jurafsky2009}. 
 
-\subsection{Baseline algorithm}
-\label{ss:base}
+\subsection{Baseline algorithm}\label{ss:base}
 
 The baseline algorithm contains the following steps:
 
@@ -305,7 +242,7 @@ and Martin:
 
 \subsection{Implementation using MapReduce}
 
-As illustrated in Equation~\ref{eq:nb} , Equation~\ref{eq:sm}, and 
+As illustrated in Equation~\ref{eq:nb}, Equation~\ref{eq:sm}, and 
 Figure\ref{f:algo}, the Naive Bayes classification algorithm is based on 
 comparing posterior probability. The likelihood of each single valid token can 
 be calculated by aggregating the count of this token among the training 
@@ -365,13 +302,13 @@ way.
 
 \begin{figure}[!ht]
 	\centering\includegraphics[width=\columnwidth]{images/pang-result.png}
-	\caption{Results from Pang, Lee, and Vaithyanatha (2002)
-	~\cite{hid-sp18-405-sentiment-pang2002thumbs}}\label{f:pang-result}
+        \caption{Results
+	from Pang, Lee, and Vaithyanatha
+	(2002)~\cite{hid-sp18-405-sentiment-pang2002thumbs}}\label{f:pang-result}
 \end{figure}
 
 
-\section{Hadoop Deployment}
-\label{s:hadoopdep}
+\section{Hadoop Deployment}\label{s:hadoopdep}
 
 \subsection{Pseudo Distributed}
 \paragraph{Direct Installation}
@@ -409,6 +346,79 @@ Echo        & No     & TBD             & TBD            \\
 \TODO{Put here an conclusion. Conclusion and abstracts must not have any
 citations in the section.}
 
+\section{Appendix: Hadoop Cluster on Raspberry Pi}
+This section describes steps taken toward the goal of creating a
+Hadoop cluster using 5 Raspberry Pi 3 Model B computers in a
+repeatable, scalable way. Successes and challenges are described and
+recommended next steps are outlined.
+
+\subsection{Hardware}
+
+The hardware used for the Raspberry Pi cluster consists of:
+
+\begin{itemize}
+\item Five Raspberry Pi 3 Model B computers 
+\item One Waveshare 4in HDMI LCD touchscreen
+\item One Netgear model GS308 8-Port Gigabit ethernet switch
+\item One Anker PowerPort 6 USB power supply
+\item One Powtech 125V AC 15A 1875w adaptor with switch
+\item Five 1-foot ethernet cables
+\item Five 32 GB microSDHC UHS-I cards
+\item Six 6in USB 2.0 A-Male to Micro B cables
+\item 24 20mm by 5mm Hex Hexagonal Threaded Spacer Supports
+\end{itemize}
+
+A pinout diagram of the Pi 3B is shown in Figure~\ref{f:pinout-diagram}.
+
+\begin{figure*}[!ht]
+  \centering\includegraphics[width=\columnwidth]{images/raspberry_pi_circuit_note_fig2.png} \caption{Pinout
+  diagram of Raspberry Pi 3B~\cite{hid-sp18-419-pi-pinout}. Note: the
+  Pi used for this project has a Broadcom BCM2837, not the Broadcom
+  BMC2835 shown in this figure.}\label{f:pinout-digram}
+\end{figure*}
+
+\subsection{Building a Pi Cluster}
+\TODO{Finish building descrition. Depending on how elaborate this
+is, it could be folded into the deployment section instead of being in
+it's own section.}  Physical assmebly of the cluster is fairly
+simple. First, aluminium and copper heat syncs need to be attached to
+each Pi. The two aluminium heat syncs are attached to the Broadcom
+chip and the SMSC ethernet controller located on the top of the
+Pi. The blades of the heat syncs are parallel to the longer side of
+the Pi as shown in Figure~\ref{f:heat-sync-top}.
+
+\begin{figure*}[!ht]
+  \centering\includegraphics[width=\columnwidth]{images/heat-sync-top.jpg} \caption{Top
+  view of a Raspberry Pi 3B with heat syncs
+  attached.}\label{f:heat-sync-top}
+\end{figure*}
+
+The flat copper heat sync is attached to the Elpida RAM on the bottom
+of the Pi as shown in Figure~\ref{f:heat-sync-bottom}.
+
+\begin{figure*}[!ht]
+  \centering\includegraphics[width=\columnwidth]{images/heat-sync-bottom.jpg} \caption{Bottom
+  view of a Raspberry Pi 3B with heat sync
+  attached.}\label{f:heat-sync-bottom}
+\end{figure*}
+
+After attaching the heat syncs, threaded hexagonal spacer supports are
+used to connect the Pis together. A fully-assembled 5-node Pi cluster
+is shown in Figure~\ref{f:cluster-no-wires}.
+
+\begin{figure*}[!ht]
+  \centering\includegraphics[width=\columnwidth]{images/pi-cluster-no-wires.jpg}
+  \caption{5-node Pi cluster before wiring.}\label{f:cluster-no-wires}
+\end{figure*}
+
+Each node of the cluster is then attached to the switch using the
+ethernet cables.
+
+\subsection{Configuring the Pi Cluster}
+To configure the Raspberry Pis, first SD cards were burned using a
+script that takes start and end machine id numbers as an input. The
+option to perform DHCP setup can be enabled with a flag. If DHCP is
+not used, the script assigns static IPs to each machine.
 
 \begin{acks}
 
