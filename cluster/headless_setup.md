@@ -53,7 +53,7 @@ Building a custom raspbian image:
 
 * [Code for official distribution on GitHub](https://github.com/RPi-Distro/pi-gen)
 * [niklasf's custom image project on GitHub](https://github.com/niklasf/build-raspbian-image)
-* [andrius's custom image project on GitHub]](https://github.com/andrius/build-raspbian-image)
+* [andrius's custom image project on GitHub](https://github.com/andrius/build-raspbian-image)
 * [PiBakery](https://www.raspberrypi.org/blog/pibakery/) a GUI for custom Pi images. 
 * [Latest source](http://archive.raspbian.org/raspbian/dists/stretch/)
 
