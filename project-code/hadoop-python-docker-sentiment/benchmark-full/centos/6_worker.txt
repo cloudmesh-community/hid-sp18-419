@@ -1,0 +1,5 @@
+real	92m47.469s
+real	92m19.155s
+real	92m25.182s
+real	92m33.456s
+real	92m34.514s

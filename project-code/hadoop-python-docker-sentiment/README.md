@@ -1,6 +1,10 @@
 # Apache Hadoop 2.9.0 Docker cluster for sentiment analysis on movie reviews
 
-## More info regarding the image will be provided later
+This directory contains running dockerized hadoop clusters with application of sentiment analysis on movie review (Polarity 2.0 data)
+
+Dockerfiles are modified from [sequenceiq/hadoop-docker](https://github.com/sequenceiq/hadoop-docker) and [Lewuathe/docker-hadoop-cluster](https://github.com/Lewuathe/docker-hadoop-cluster)
+
+The author appreciates the help of Bo Feng regarding the cluster deployment on Echo using swarm mode.
 
 ## Run fully distributed cluster using the Makefile
 
@@ -68,45 +72,72 @@ The cluster can be deployed on FutureSystem Echo. Both pseudo-distributed and fu
 
 		./clean.sh
 
+* Notice that when the cluster is up and running, one can also use the folloiwng command to scale up or down the size of the cluster (to $N workers) without shutting down the cluster
+
+		docker-compose scale master=1 worker=$N
 
 ## Run cluster on Echo using docker stack deploy (with swarm mode)
-
-Note: This part is incomplete, still under development
 
 The cluster can be deployed on FutureSystem Echo under the docker swarm mode. There is no point to run pseudo-distributed cluster here, the following is for fully distributed cluster:
 
 * cd to the directory hadoop-python-docker-sentiment
-* To start fully distributed cluster with number of workers using docker stack deploy, run analysis: 
+* To start fully distributed cluster with number of workers using docker stack deploy, run analysis and get back the result: 
 
-		./swarm-all.sh (#OFWORKERS)
+		./swarm-run.sh (#OFWORKERS)
 
 	example:
-		./swarm-all.sh 3
-
-* At the end of the previous command, there will be a http address provided such as:
+		./swarm-run.sh 30
+	
+* At the end of the previous command, there will be http addresses provided in the terminal such as:
 
 		Please look for results at:
-		http://149.165.150.7X:50070
+		http://149.165.150.XX:50070
 		Please track jobs and resources at : 
-		http://149.165.150.7X:8088/cluster
+		http://149.165.150.XX:8088/cluster
 
-	The X here represents the physical node id that the master is running which will be provided by previous command. One could use the second address to check if job is done and then look at or download the result from the first address. 
+	These addresses could used access the resourcemanager YARN and HDFS, one can view the process of the mapreduce jobs there. 
 
 * To remove the deployed stack after running
 
 		./swarm-down.sh
 
+* Note: due to the complication of different physical nodes, sometimes one node could be pulling images from docker-hub and causing delay in start-up of datanodes thus ignored by the namenode. In extreme case, the web interface at http://149.165.150.XX:8088/cluster will show 0 active node and one need to use ctrl+C to stop the script, remove the stack and rerun the command:
+		
+		ctrl + c
+		./swarm-down.sh
+		./swarm-run.sh (#OFWORKERS)
+
+
+* Similarly, the service could be scaled up or down to $N workers using the following command at any point when the cluster is actually running:
+
+		docker service hadoop-sentiment_worker=$N
 
 ## Benchmarking running time
 
 Use the two following shell scripts to run customized number of iterations in order to compute average running time. This can be applied to both echo and local environment. 
 
-* Fully distributed cluster with (#OFWORKERS) of workers and (#ITER) iterations
+* Fully distributed cluster with (#OFWORKERS) of workers and (#ITER) iterations (without swarm)
 
 		./benchmark-full.sh (#ITER) (#OFWORKERS)
 Result of each iteration will be written to each line of a text file at
 
 		 ./benchmark-full/(#OFWORKERS)_worker.txt
+
+* Fully distributed cluster with (#OFWORKERS) of workers and (#ITER) iterations (with swarm)
+
+		./benchmark-swarm.sh (#ITER) (#OFWORKERS)
+Result of each iteration will be written to each line of a text file at
+
+		 ./benchmark-swarm/(#OFWORKERS)_worker.txt
+
+	Note: due to the complication of different physical nodes, sometimes one node could cause delay in start-up of datanodes thus ignored by the namenode. In extreme case, the web interface at http://149.165.150.XX:8088/cluster will show 0 active node and the mapreduce job will terminate when it tries to start. The result written to the txt file would be really small like 1 or 2 minutes which needs to be filtered out in post-processing. The script will continue running and 
+	previous successful results will be saved. In case one wants to 
+	use ctrl+C to stop the script, remove the stack and rerun the command: 
+		
+		ctrl + c
+		./swarm-down.sh
+		./benchmark-swarm.sh (#ITER) (#OFWORKERS)
+
 
 * Pseudo-distributed cluster with (#ITER) iterations
 

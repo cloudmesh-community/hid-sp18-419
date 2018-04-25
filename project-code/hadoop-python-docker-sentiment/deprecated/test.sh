@@ -22,19 +22,22 @@ docker-compose scale master=1 worker=$((worker))
 echo "http://hostname:8088 for YARN"
 echo "http://hostname:50070 for HDFS"
 
-echo "pause for 20 seconds"
-sleep 20
-echo "running the sentiment analysis on movie reviews..."
-docker exec master /etc/runall.sh
+host="http://149.165.150.76"
+
+echo "Please look for results at: "
+echo "$host:50070"
+echo "Please track jobs and resources at : "
+echo "$host:8088/cluster"
+
+until curl -f -s "$host:8088/logs/log.txt";
+do
+    echo "not yet, please wait"
+    sleep 120
+done
 
 echo "getting the results..."
 rm -rf $DESTDIR
-mkdir $DESTDIR
-docker cp master:/cloudmesh/python/output_pos_tagged ./$DESTDIR
-docker cp master:/cloudmesh/python/output_neg_tagged ./$DESTDIR
-docker cp master:/cloudmesh/python/log.txt ./$DESTDIR
-cp docker-compose.yml ./$DESTDIR
+wget -r -nH -np -R "index.html*" "$host:8088/logs"
+mv logs/ $DESTDIR/
 
-docker-compose down
-docker network rm hadoop-sentiment
-echo "containers and netowrk removed"
+echo "done"

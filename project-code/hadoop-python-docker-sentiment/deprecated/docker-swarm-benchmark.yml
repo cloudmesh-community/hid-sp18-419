@@ -13,21 +13,13 @@ services:
     container_name: "master"
     hostname: "master"
     domainname: "master"
-    networks:
-      - hadoop-sentiment
-    command: ["/etc/bootstrap.sh", "-d"]
+    entrypoint: ["/etc/bootstrap.sh", "-benchmark", "2",  "15"]
 
   worker:
     image: minchen57/hadoop-docker-python-sentiment-compose-worker:latest
     #container_name: "worker1"
     depends_on:
       - master
-    networks:
-      - hadoop-sentiment
-
-networks:
-  hadoop-sentiment:
-    external:
-      name: hadoop-sentiment
-
-
+    deploy:
+      mode: replicated
+      replicas: 1

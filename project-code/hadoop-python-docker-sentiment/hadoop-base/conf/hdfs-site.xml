@@ -7,4 +7,8 @@
         <name>dfs.namenode.ec.policies.enabled</name>
         <value>RS-3-2-1024k</value>
     </property>
+    <property>
+        <name>dfs.webhdfs.enabled</name>
+        <value>true</value>
+    </property>
 </configuration>

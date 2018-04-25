@@ -1,4 +1,4 @@
-\title{Benchmarking Hadoop and Spark}
+\title{Headless Pi Cluster Initialization and Hadoop Benchmarking}
 
 
 \author{Min Chen}
@@ -37,19 +37,21 @@
 
 
 \begin{abstract}
-\TODO{Add data set used}
 Hadoop clusters are created on five networked Raspberry Pi 3 model B
 computers. The aim is to create the cluster in a repeatable and
 scalable fashion, automating as much of the setup process as
 possible. Hadoop is deployed and configured to run as Docker
 containers and directly on the operating system. Configurations are
 tested to compare Docker against direct installation. Hadoop is also
-configured in Docker and natively on Futuresystems Echo and similar
-performance tests are done to compare the performance of the
-configuration on Echo against that of the Pis.
+configured in Docker and natively on Futuresystems Echo both with and 
+without swarm mode and similar performance tests are done to compare the 
+performance of the configuration on Echo against that of the Pis and several 
+personal computers. Performance tests are natural language processing 
+based sentiment analysis on movie reviews (Polarity 2.0) implemented under 
+MapReduce framework using Hadoop Streaming.
 \end{abstract}
 
-\keywords{hid-sp18-419, hid-sp18-405, Hadoop, Raspberry, Pi}
+\keywords{hid-sp18-419, hid-sp18-405, Hadoop, Raspberry Pi, Docker}
 
 
 \maketitle
@@ -104,8 +106,9 @@ VMs and is supported by all the major public cloud
 vendors~\cite{Foster:2017:CCS:3158276}. The most current stable
 release of Docker Community Edition was used for this project
 (18.03.0-ce).
-\paragraph{Docker Swarm}
 \paragraph{Docker Compose}
+\paragraph{Docker Swarm}
+
 
 \subsection{Cloud Platforms}
 \paragraph{Echo}
@@ -145,6 +148,9 @@ Each node of the cluster is then attached to the switch using the ethernet cable
 
 \section{Deployment}
 \TODO{Finish Deployment section}
+\TODO{Probably this section should be a subsection of the Building a 
+Cluster? I planned to have a section discuss details about deployment of 
+hadoop on different platforms, and in different forms}
 To configure the Raspberry Pis, first SD cards were burned using a
 script that takes start and end machine id numbers as an input. The
 option to perform DHCP setup can be enabled with a flag. If DHCP is
@@ -360,8 +366,22 @@ way.
 	~\cite{hid-sp18-405-sentiment-pang2002thumbs}}\label{f:pang-result}
 \end{figure}
 
+
+\section{Hadoop Deployment}
+\label{s:hadoopdep}
+
+\subsection{Pseudo Distributed}
+\paragraph{Direct Installation}
+\paragraph{Dockerized Installation}
+
+\subsection{Fully Distributed using docker compose}
+
+
+\subsection{Fully Distributed using docker swarm}
+
+
 \section{Benchmarking Process}
-\TODO{Describe MapReduce task used for benchmarking.}
+\TODO{Describe machines and platform used, data points collection}
 
 
 \section{Results}

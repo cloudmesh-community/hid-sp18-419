@@ -1,0 +1,10 @@
+real	57m13.510s
+real	60m50.354s
+real	62m18.828s
+real	56m45.371s
+real	55m35.997s
+real	58m50.927s
+real	55m44.386s
+real	57m21.827s
+real	61m20.948s
+real	63m30.182s
