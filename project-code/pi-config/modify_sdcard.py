@@ -64,7 +64,7 @@ class PiImage:
 
         
     def add_auth_key(self, key):
-        p = self.mountpoints[1] + pi.home + '.ssh/'
+        p = self.mountpoints[1] + self.home + '.ssh/'
         if not os.path.exists('p'):
             os.mkdir(p)
         with open(p + 'authorized_keys', 'a') as f:
