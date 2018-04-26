@@ -1,4 +1,5 @@
-\title{Benchmarking a Sentiment Analysis Algorithm on Multiple Platforms}
+\title{Benchmarking a Sentiment Analysis Algorithm Using Hadoop on Multiple 
+Platforms}
 
 
 \author{Min Chen}
@@ -70,11 +71,74 @@ throughout the project. These technologies can be grouped into several
 groups: Hadoop, Docker, personal computers, and cloud platforms.
 
 \subsection{Hadoop}
+Apache Hadoop is a software library that allows for processinglarge data sets 
+in a distributed computing environment~\cite{hid-sp18-405-hadoop-wiki}. 
+Inspired by the Google File 
+System~\cite{hid-sp18-405-ghem2003goolefilesystem} and MapReduce 
+programing model~\cite{hid-sp18-405-dean2008mapreduce} developed at 
+Google, Hadoop was initially released in December 2011. ``Rather than rely 
+on hardware to deliver high-availability, the library itself is designed 
+to detect and handle failures at the application layer, so delivering a 
+highly-available service on top of a cluster of computers, each of which may 
+be prone to failures''~\cite{hid-sp18-405-hadoop-official}.
 
-\paragraph{Hadoop}
-\paragraph{HDFS}
-\paragraph{Hadoop-streaming}
-\paragraph{Map-reduce}
+The core of Hadoop include the following components: Hadoop Common, 
+Hadoop Distributed File System (HDFS), Hadoop YARN and Hadoop 
+MapReduce~\cite{hid-sp18-405-hadoop-official}. There is also a large variety 
+of Hadoop-related projects at Apache covering aspects such as machine 
+learning (Mahout), data warehousing (Hive), data serialization (Avro), and 
+databases (Hbase, Cassandra) etc. Alla these components are available
+via the Apache open source license. The high level basic Hadoop architecture 
+in a distributed cluster with one Master Node and two Worker Node is 
+illustrated in Figure~\ref{f:hadoop-high}.
+
+\begin{figure*}[!ht]
+	\centering\includegraphics[width=\columnwidth]{images/hadoop.png}
+	 \caption{Hadoop High Level Architecture}\label{f:hadoop-high}
+\end{figure*}
+
+\paragraph{HDFS} Hadoop Distributed File System stores metadata and 
+application data separately: metadata are stored on the NameNode (usually 
+sitting on the Master Node) and application data are distributively stored on 
+Datanodes and the communication between them are through TCP-based
+protocols~\cite{hid-sp18-405-shvachko2010hdfs}. Instead of storing one 
+copy, data is replicated on multiple DataNodes to ensure high-availability. 
+
+\paragraph{MapReduce} Hadoop MapReduce is an ``implementation of the 
+MapReduce programming model for large-scale data 
+processin''~\cite{hid-sp18-405-hadoop-official}. ``Users specify a map 
+function that processes a key/value pair to generate a set of intermediate 
+key/value pairs, and a reduce function that merges all intermediate
+values associated with the same intermediate 
+key''~\cite{hid-sp18-405-dean2008mapreduce}. As illustrated in 
+Figure~\ref{f:hadoop-high}, Master Node will have a JobTracker who 
+distributes MapReduce tasks to nodes in the cluster. On the other hand, 
+TaskTracker within each node is monitored by the Jobtracker. In case of a 
+failure reported by a TaskTracker, the Jobtracker may reschedule the work to 
+some other nodes~\cite{hid-sp18-405-hadoop-jobtracker}. 
+
+\paragraph{YARN} Hadoop YARN provides resource management for the 
+Hadoop cluaster~\cite{hid-sp18-405-hadoop-official}. As shown in 
+Figure~\ref{f:hadoop-high}, based on application demand, priorities,
+and resource availability, the Resource Manager dynamically allocates
+containers (logical bundle of resources different from Docker containers) to 
+applications to run on particular nodes~\cite{hid-sp18-405-vavi2013yarn}. It 
+interacts with Node Manager on each nodes, whose job is to monitor 
+resource availability, report faults, and manage container 
+lifecycles~\cite{hid-sp18-405-vavi2013yarn}. 
+
+\paragraph{Hadoop-streaming} Although Hadoop is written in Java as well 
+as most of its applications, Hadoop streaming, a tool that comes with the 
+Hadoop distribution, ``allows creating and running MapReduce jobs with any 
+executable or script as the mapper and/or the 
+reducer''~\cite{hid-sp18-405-hadoop-streaming}. In this project, all the 
+mappers and reducers are written in Python and passed to 
+Hadoop-Streaming. One drawback for this approach is that if the executable 
+contains outside packages, they need to be zipped in a flat way and passed 
+to each job containers for a special import before use. 
+It will be discussed in Section\label{s:algorithm} that some of the linguistic 
+features in this project are omitted due to the difficulties of transporting and 
+loading necessary packages and corpus. 
 
 
 \subsection{Docker}
@@ -103,7 +167,7 @@ peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 \item Operating system: macOS Sierra 10.12.6 
 \item Processor: 3.1 GHz Intel Core i7
 \item Memory: 16 GB 2133 MHz LPDDR3
-\item Graphics: Intel HD Graphics 630 1536 MB
+%\item Graphics: Intel HD Graphics 630 1536 MB
 \item Periphals
 \begin{itemize}
 \item HyperDrive - USB Type-C Hub (has microSD card slot)
@@ -115,16 +179,35 @@ peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 \end{itemize}
 \end{itemize}
 
+\paragraph{Macbook Pro (13-inch, 2015)}
+\begin{itemize}
+	\item Operating system: macOS High Sierra 10.13.4 
+	\item Processor: 2.7 GHz Intel Core i5
+	\item Memory: 8 GB 1867 MHz DDR3
+	%\item Graphics: Intel HD Graphics 6100 1536 MB
+\end{itemize}
+
+\paragraph{Acer Laptop (Aspire 4830)}
+\begin{itemize}
+	\item Operating system: CentOS Linux 7 (Core)
+	\item Processor: Intel (R) Core (TM) i5-2430M CPU @2.40GHz
+	\item Memory: 16 GB 1600 MHz DDR3
+\end{itemize}
+
+\paragraph{Asus Desktop}
+\begin{itemize}
+	\item Operating system: Windows 7 Professional
+	\item Processor: Intel (R) Core (TM) i5-4690K CPU @3.50GHz
+	\item Memory: 16 GB 1600 MHz DDR3
+	\item Software
+	\begin{itemize}
+		\item VirtualBox 5.2.8
+	\end{itemize}
+\end{itemize}
 
 \subsection{Cloud Platforms}
-\paragraph{Echo}
-\paragraph{Google Cloud}
+\paragraph{FutureSystem Echo}
 
-
-\section{Deployment}\label{s:deployment}
-\TODO{Finish Deployment section}
-\TODO{Write a section discuss details about deployment of 
-hadoop on different platforms, and in different forms}
 
 \section{Data}\label{s:data}
 
@@ -242,7 +325,7 @@ Pang, Lee, and
 Vaithyanathan~\cite{hid-sp18-405-sentiment-pang2002thumbs}, also
 considered different set of features such as bigrams, combination
 (back up) of bigrams and unigrams, top-unigrams etc. For simplicity,
-we chose to only use unigram models i.e.  single tokens.
+we chose to only use unigram models i\.e\. single tokens.
 
 \paragraph{Classifier}
 We  used Naive Bayes as the classifier. The formulation is given as:
@@ -281,7 +364,12 @@ negative. The the likelihood of a testing document is an aggregation
 of the likelihood of each valid token within that document. Therefore,
 both training and testing process can be implemented in a MapReduce
 framework to facilitate the process of counting tokens and
-aggregation.
+aggregation. The implementation is summarized in Figure~\ref{f:mapreduce}
+
+\begin{figure}[!ht]
+	\centering\includegraphics[width=\columnwidth]{images/mapreduce.png}
+	\caption{MapReduce Implemenation of the Algorithm}\label{f:mapreduce}
+\end{figure}
 
 There are two MapReduce jobs in the training process, one for training
 on positive-labelled documents and the other for negative-labelled
@@ -292,7 +380,11 @@ documents, the TrainingMapper python code will read in each positive
 movie reviews in the training set through standard input, filter valid
 tokens (removing stoplist words, punctuation, adding negation, see
 Subsection\ref{ss:base}) and print to the standard
-output. TrainingReducer python code will take these standard output
+output. The read-in process is done on a line-by-line basis using a Python 
+generator. This is achievable because the data is formatted in the way that 
+each line is one sentence (see Section~\ref{s:data}), thus no sentence 
+splitting is accomplished by line breaks. TrainingReducer python code will 
+take these standard output
 performing aggregation by tokens. The result is a dictionary-like text
 file containing number of occurrence for each valid token in the
 positive training set. The negative training documents will be
@@ -504,7 +596,8 @@ boot~\cite{hid-sp18-419-so-password}.
 \begin{acks}
 
   The authors would like to thank Dr.~Gregor~von~Laszewski for his
-  support and suggestions to write this paper.
+  support and suggestions to write this paper, and Bo Feng for his guidance 
+  and help on Hadoop deployment in Docker Swarm mode.
 
 \end{acks}
 
