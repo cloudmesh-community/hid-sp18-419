@@ -22,7 +22,7 @@ class PiImage:
         for i, sector in enumerate(sectors):
             mp = self.hostname + '_{}'.format(i)
             os.mkdir(mp)
-            subprocess.call(['sudo', 'mount', self.outputfile, '-o', 'offset=' + str(512*sector), mp])
+            subprocess.call(['mount', self.outputfile, '-o', 'offset=' + str(512*sector), mp])
             self.mountpoints.append(mp)
 
             
@@ -40,7 +40,7 @@ class PiImage:
 
     def remove_mountpoints(self):
         for mp in self.mountpoints:
-            subprocess.call(['sudo', 'unmount',  mp])
+            subprocess.call(['unmount',  mp])
             os.rmdir(mp)
         self.mountpoints = []
 
@@ -102,6 +102,7 @@ def make_outdir(basename, suffix):
 
 
 def main():
+    subprocess.call(['sudo', '-i'])
     parser = argparse.ArgumentParser()
     parser.add_argument("--ssh",
                         type=str2bool,
@@ -154,7 +155,8 @@ def main():
 
     for pi in images:
         pi.remove_mountpoints()
-    
+
+    subprocess.call(['exit'])
     
 if __name__ == '__main__':
     main()
