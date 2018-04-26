@@ -33,8 +33,7 @@ class PiImage:
     def create_key(self):
         key = RSA.generate(2048)
         p = self.mountpoints[1] + self.home + '.ssh/'
-        if not os.path.exists('p'):
-            os.mkdir(p)
+        os.mkdir(p) if not os.path.exists(p)
         with open(p + 'id_rsa', 'w') as f:
             os.chmod(p + 'id_rsa', 0600)
             f.write(key.exportKey(passphrase=self.secret_code,
@@ -65,20 +64,11 @@ class PiImage:
         
     def add_auth_key(self, key):
         p = self.mountpoints[1] + self.home + '.ssh/'
-        if not os.path.exists('p'):
-            os.mkdir(p)
+        os.mkdir(p) if not os.path.exists(p)
         with open(p + 'authorized_keys', 'a') as f:
             f.write(key)
             f.close()
-
-    def put_auth_key(self, pi):
-        p = pi.mountpoints[1] + pi.home + '/.ssh'
-        if not os.path.exists('p'):
-            os.mkdir(p)
-        with open(pi.mountpoints[1] + pi.home + '/.ssh/authorized_keys', 'a') as f:
-            f.write(self.pubkey)
-            f.close()
-
+            
         
 def get_sectors(inp):
     foo = inp.split('; ')
