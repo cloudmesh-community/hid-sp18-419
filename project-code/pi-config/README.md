@@ -42,7 +42,7 @@ sudo -H python modify_sdcard.py --num 5\
                                 --start=3\
                                 2018-04-18-raspbian-stretch-lite.img
 ```
-The '--ssh` flag defaults to true, `--basename` defaults to `snowcluster`, and 
+The `--ssh` flag defaults to true, `--basename` defaults to `snowcluster`, and 
 `--num` defaults to 1.
 
 ## Known issues:
@@ -51,6 +51,7 @@ Because the script needs to be run as root, `~/.ssh` and its contents: `id_rsa`,
 
 ## Next Steps
 * Fix permissions problem
+* Add ano option to specify paramaters in a yaml file
 * Create keys for `known_hosts` and populate to all images
 * Set fixed IP address on all Pis
 * Incorporate `download_image.sh` functionality into script, with option to select 
