@@ -22,14 +22,18 @@ class PiImage:
         for i, sector in enumerate(sectors):
             mp = self.hostname + '_{}'.format(i)
             os.mkdir(mp)
-            subprocess.call(['mount', self.outputfile, '-o', 'offset=' + str(512*sector), mp])
+            subprocess.call(['mount',
+                             self.outputfile,
+                             '-o', 'offset=' + str(512*sector),
+                             mp])
             self.mountpoints.append(mp)
 
             
     def create_key(self):
         key = RSA.generate(2048)
         p = self.mountpoints[1] + self.home + '/.ssh'
-        os.mkdir(p)
+        if not os.path.exists('p'):
+            os.mkdir(p)
         with open(p + 'id_rsa', 'w') as f:
             os.chmod(p + 'id_rsa', 0600)
             f.write(key.exportKey('PEM'))
@@ -57,11 +61,17 @@ class PiImage:
 
         
     def add_auth_key(self, key):
+        p = self.mountpoints[1] + pi.home + '/.ssh'
+        if not os.path.exists('p'):
+            os.mkdir(p)
         with open(self.mountpoints[1] + self.home + '/.ssh/authorized_keys', 'a') as f:
             f.write(key)
             f.close()
 
     def put_auth_key(self, pi):
+        p = pi.mountpoints[1] + pi.home + '/.ssh'
+        if not os.path.exists('p'):
+            os.mkdir(p)
         with open(pi.mountpoints[1] + pi.home + '/.ssh/authorized_keys', 'a') as f:
             f.write(self.pubkey)
             f.close()
@@ -148,7 +158,7 @@ def main():
             pi.create_key()
             for other_pi in images:
                 if pi.hostname != other_pi.hostname:
-                    pi.put_auth_key(other_pi)
+                    other_pi.add_auth_key(pi.pubkey.exportKey('OpenSSH'))
     if args.sshkey:
         for pi in images:
             with open(args.sshkey, 'r') as f:
