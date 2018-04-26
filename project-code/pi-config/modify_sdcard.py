@@ -63,12 +63,13 @@ class PiImage:
         open(self.mountpoints[0] + '/ssh', 'a').close()
 
         
-    def add_auth_key(self, key):
+    def add_auth_key(self, pi):
         p = self.mountpoints[1] + self.home + '.ssh/'
+        key = pi.pubkey.exportKey('OpenSSH')
         if not os.path.exists(p):
             os.mkdir(p)
         with open(p + 'authorized_keys', 'a') as f:
-            f.write(key)
+            f.write('{} pi@{}\n\n'.format(key, pi.hostname))
             f.close()
             
         
@@ -153,7 +154,8 @@ def main():
             pi.create_key()
             for other_pi in images:
                 if pi.hostname != other_pi.hostname:
-                    other_pi.add_auth_key(pi.pubkey.exportKey('OpenSSH'))
+                    other_pi.add_auth_key(pi)
+                )
     if args.sshkey:
         for pi in images:
             with open(args.sshkey, 'r') as f:
