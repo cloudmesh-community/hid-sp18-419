@@ -1,0 +1,10 @@
+real	18m34.756s
+real	18m34.861s
+real	18m34.036s
+real	18m33.874s
+real	18m34.853s
+real	18m35.013s
+real	18m33.432s
+real	18m38.209s
+real	18m34.070s
+real	18m36.397s
