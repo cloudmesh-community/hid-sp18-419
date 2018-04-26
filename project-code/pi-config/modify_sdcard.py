@@ -111,7 +111,7 @@ def create_name(name, number):
 
 def make_outdir(basename, suffix):
     outdir = basename + suffix
-    hi    os.mkdir(outdir)
+        os.mkdir(outdir)
     return outdir
 
 
