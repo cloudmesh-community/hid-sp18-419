@@ -2,7 +2,7 @@
 
 To download the latest version of Raspbian Stretch Lite: 
 ```
-bash download_image.sh.
+bash download_image.sh
 ```
 
 To create custom images for a Pi cluster:
@@ -11,7 +11,7 @@ sudo pip install -r requirements.txt
 sudo python modify_sdcard.py <flags> <base_image>
 ```
 It needs to be run on Linux and has only been tested on Ubuntu 16.04. It will 
-not work on a Mac. The machine running the script will need 1.9GB * the number of images 
+not work on a Mac. The machine running the script will need 1.9GB times the number of images 
 created of free disk space. The base image is used to create the number of images specified
 with the `--num` flag. A list of available flags is available with:
 ```
