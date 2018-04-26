@@ -155,7 +155,7 @@ def main():
             for other_pi in images:
                 if pi.hostname != other_pi.hostname:
                     other_pi.add_auth_key(pi)
-                )
+
     if args.sshkey:
         for pi in images:
             with open(args.sshkey, 'r') as f:
