@@ -102,7 +102,6 @@ def make_outdir(basename, suffix):
 
 
 def main():
-    subprocess.call(['sudo', '-i'])
     parser = argparse.ArgumentParser()
     parser.add_argument("--ssh",
                         type=str2bool,
@@ -156,7 +155,5 @@ def main():
     for pi in images:
         pi.remove_mountpoints()
 
-    subprocess.call(['exit'])
-    
 if __name__ == '__main__':
     main()
