@@ -9,9 +9,10 @@ class PiImage:
     def __init__(self, hostname, path):
         self.hostname = hostname
         self.outputfile = path + '/' + hostname + '.img'
-        self.home = '/home/pi'
+        self.home = '/home/pi/'
         self.mountpoints = []
         self.pubkey = ''
+        self.secret_code='snowcluster'
 
         
     def create_image(self, source):
@@ -31,12 +32,14 @@ class PiImage:
             
     def create_key(self):
         key = RSA.generate(2048)
-        p = self.mountpoints[1] + self.home + '/.ssh'
+        p = self.mountpoints[1] + self.home + '.ssh/'
         if not os.path.exists('p'):
             os.mkdir(p)
         with open(p + 'id_rsa', 'w') as f:
             os.chmod(p + 'id_rsa', 0600)
-            f.write(key.exportKey('PEM'))
+            f.write(key.exportKey(passphrase=self.secret_code,
+                                  pkcs=8,
+                                  protection="scryptAndAES128-CBC"))
         self.pubkey = key.publickey()
         with open(p + 'id_rsa.pub', 'w') as f:
             f.write(self.
@@ -61,10 +64,10 @@ class PiImage:
 
         
     def add_auth_key(self, key):
-        p = self.mountpoints[1] + pi.home + '/.ssh'
+        p = self.mountpoints[1] + pi.home + '.ssh/'
         if not os.path.exists('p'):
             os.mkdir(p)
-        with open(self.mountpoints[1] + self.home + '/.ssh/authorized_keys', 'a') as f:
+        with open(p + 'authorized_keys', 'a') as f:
             f.write(key)
             f.close()
 
@@ -108,7 +111,7 @@ def create_name(name, number):
 
 def make_outdir(basename, suffix):
     outdir = basename + suffix
-    os.mkdir(outdir)
+    hi    os.mkdir(outdir)
     return outdir
 
 
