@@ -9,9 +9,10 @@ class PiImage:
     def __init__(self, hostname, path):
         self.hostname = hostname
         self.outputfile = path + '/' + hostname + '.img'
-        self.home = '/home/pi'
+        self.home = '/home/pi/'
         self.mountpoints = []
         self.pubkey = ''
+        self.secret_code='snowcluster'
 
         
     def create_image(self, source):
@@ -22,27 +23,36 @@ class PiImage:
         for i, sector in enumerate(sectors):
             mp = self.hostname + '_{}'.format(i)
             os.mkdir(mp)
-            subprocess.call(['mount', self.outputfile, '-o', 'offset=' + str(512*sector), mp])
+            subprocess.call(['mount',
+                             self.outputfile,
+                             '-o', 'offset=' + str(512*sector),
+                             mp])
             self.mountpoints.append(mp)
 
-            
-    def create_key(self):
+    def create_keys(self):
         key = RSA.generate(2048)
-        p = self.mountpoints[1] + self.home + '/.ssh'
-        os.mkdir(p)
+        p = self.mountpoints[1] + self.home + '.ssh/'
+
+        if not os.path.exists(p):
+            os.mkdir(p)
+
         with open(p + 'id_rsa', 'w') as f:
             os.chmod(p + 'id_rsa', 0600)
-            f.write(key.exportKey('PEM'))
-        self.pubkey = key.publickey()
+            f.write(key.exportKey(passphrase=self.secret_code,
+                                  pkcs=8,
+                                  protection="scryptAndAES128-CBC"))
+
+        self.pubkey = '{} pi@{}'.format(key.publickey().exportKey('OpenSSH'), self.hostname)
+
         with open(p + 'id_rsa.pub', 'w') as f:
-            f.write(self.
-                    pubkey.exportKey('OpenSSH'))
+            f.write(self.pubkey)
         
 
     def remove_mountpoints(self):
         for mp in self.mountpoints:
-            subprocess.call(['unmount',  mp])
+            subprocess.call(['umount',  mp])
             os.rmdir(mp)
+
         self.mountpoints = []
 
         
@@ -57,15 +67,13 @@ class PiImage:
 
         
     def add_auth_key(self, key):
-        with open(self.mountpoints[1] + self.home + '/.ssh/authorized_keys', 'a') as f:
-            f.write(key)
+        p = self.mountpoints[1] + self.home + '.ssh/'
+        if not os.path.exists(p):
+            os.mkdir(p)
+        with open(p + 'authorized_keys', 'a') as f:
+            f.write('{}\n\n'.format(key))
             f.close()
-
-    def put_auth_key(self, pi):
-        with open(pi.mountpoints[1] + pi.home + '/.ssh/authorized_keys', 'a') as f:
-            f.write(self.pubkey)
-            f.close()
-
+            
         
 def get_sectors(inp):
     foo = inp.split('; ')
@@ -145,10 +153,11 @@ def main():
         print("Congifuring ssh...")
         for pi in images:
             pi.enable_ssh()
-            pi.create_key()
+            pi.create_keys()
             for other_pi in images:
                 if pi.hostname != other_pi.hostname:
-                    pi.put_auth_key(other_pi)
+                    other_pi.add_auth_key(pi.pubkey)
+
     if args.sshkey:
         for pi in images:
             with open(args.sshkey, 'r') as f:
