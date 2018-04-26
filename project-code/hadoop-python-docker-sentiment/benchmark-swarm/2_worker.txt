@@ -1,0 +1,10 @@
+real	15m58.976s
+real	15m36.312s
+real	15m18.956s
+real	15m25.334s
+real	15m23.773s
+real	15m14.802s
+real	15m49.550s
+real	15m4.277s
+real	15m14.369s
+real	15m15.991s

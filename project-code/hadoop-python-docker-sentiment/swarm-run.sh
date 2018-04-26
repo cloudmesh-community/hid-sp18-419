@@ -47,7 +47,7 @@ echo "Please wait for results..."
 j=1
 until curl -f -s "$host:8088/logs/log.txt";
 do
-    if [[ j -gt 20 ]]; then
+    if [[ j -gt 40 ]]; then
         break
     fi
     echo "not yet, please wait"
@@ -63,3 +63,4 @@ mv logs/ $DESTDIR/
 echo "shutting down the service"
 ./swarm-down.sh
 echo "done"
+echo "see results in Results/"

@@ -2,3 +2,9 @@ real	7m35.511s
 real	7m40.072s
 real	7m37.588s
 real	7m44.440s
+real	7m35.375s
+real	7m38.222s
+real	7m35.181s
+real	7m33.904s
+real	7m38.380s
+real	7m38.252s

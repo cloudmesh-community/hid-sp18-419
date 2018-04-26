@@ -4,7 +4,7 @@ This directory contains running dockerized hadoop clusters with application of s
 
 Dockerfiles are modified from [sequenceiq/hadoop-docker](https://github.com/sequenceiq/hadoop-docker) and [Lewuathe/docker-hadoop-cluster](https://github.com/Lewuathe/docker-hadoop-cluster)
 
-The author appreciates the help of Bo Feng regarding the cluster deployment on Echo using swarm mode.
+The author appreciates the help of Bo Feng regarding the cluster deployment on Echo under swarm mode.
 
 ## Run fully distributed cluster using the Makefile
 
@@ -55,8 +55,14 @@ There is also a Makefile in the directory hadoop-pseudo allowing more options in
 
 The cluster can be deployed on FutureSystem Echo. Both pseudo-distributed and fully distributed clusters are supported. 
 
-* clone the repository (WILL finalize this)
+* clone the repository 
+		
+		git clone https://github.com/cloudmesh-community/hid-sp18-419.git
+
 * cd to the directory hadoop-python-docker-sentiment
+
+		 cd hid-sp18-419/project-code/hadoop-python-docker-sentiment/
+
 * To start pseudo-distributed cluster, run analysis and get back results before shutting down the cluster
 
 		./pseudo-run.sh
@@ -76,11 +82,19 @@ The cluster can be deployed on FutureSystem Echo. Both pseudo-distributed and fu
 
 		docker-compose scale master=1 worker=$N
 
+
 ## Run cluster on Echo using docker stack deploy (with swarm mode)
 
 The cluster can be deployed on FutureSystem Echo under the docker swarm mode. There is no point to run pseudo-distributed cluster here, the following is for fully distributed cluster:
 
+* clone the repository (if you have not done so)
+		
+		git clone https://github.com/cloudmesh-community/hid-sp18-419.git
+
 * cd to the directory hadoop-python-docker-sentiment
+
+		 cd hid-sp18-419/project-code/hadoop-python-docker-sentiment/
+
 * To start fully distributed cluster with number of workers using docker stack deploy, run analysis and get back the result: 
 
 		./swarm-run.sh (#OFWORKERS)
@@ -130,9 +144,7 @@ Result of each iteration will be written to each line of a text file at
 
 		 ./benchmark-swarm/(#OFWORKERS)_worker.txt
 
-	Note: due to the complication of different physical nodes, sometimes one node could cause delay in start-up of datanodes thus ignored by the namenode. In extreme case, the web interface at http://149.165.150.XX:8088/cluster will show 0 active node and the mapreduce job will terminate when it tries to start. The result written to the txt file would be really small like 1 or 2 minutes which needs to be filtered out in post-processing. The script will continue running and 
-	previous successful results will be saved. In case one wants to 
-	use ctrl+C to stop the script, remove the stack and rerun the command: 
+	Note: due to the complication of different physical nodes, sometimes one node could cause delay in start-up of datanodes thus ignored by the namenode. In extreme case, the web interface at http://149.165.150.XX:8088/cluster will show 0 active node and the mapreduce job will terminate when it tries to start. The benchmarking script will continue running and ignore the unsuccessful iteration. In case one wants to use ctrl+C to stop the script, remove the stack and rerun the command: 
 		
 		ctrl + c
 		./swarm-down.sh

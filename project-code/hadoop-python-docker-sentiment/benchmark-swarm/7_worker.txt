@@ -1,0 +1,10 @@
+real	8m0.986s
+real	8m0.719s
+real	8m3.987s
+real	8m1.241s
+real	8m6.204s
+real	7m59.246s
+real	8m4.989s
+real	7m58.365s
+real	8m11.858s
+real	8m2.124s
