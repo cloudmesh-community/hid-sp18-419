@@ -42,7 +42,7 @@ sudo -H python modify_sdcard.py --num 5\
                                 --start=3\
                                 2018-04-18-raspbian-stretch-lite.img
 ```
-The '--ssh` flag defaults to true, `--basename` defaults to `snowcluster`, and 
+The `--ssh` flag defaults to true, `--basename` defaults to `snowcluster`, and 
 `--num` defaults to 1.
 
 ## Known issues:
