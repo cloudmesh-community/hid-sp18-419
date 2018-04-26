@@ -35,7 +35,8 @@ class PiImage:
             f.write(key.exportKey('PEM'))
         self.pubkey = key.publickey()
         with open(p + 'id_rsa.pub', 'w') as f:
-            f.write(pubkey.exportKey('OpenSSH'))
+            f.write(self.
+                    pubkey.exportKey('OpenSSH'))
         
 
     def remove_mountpoints(self):
@@ -138,8 +139,10 @@ def main():
         pi.create_image(args.image)
         pi.create_mountpoints(sectors)
         pi.change_hostname()
-            
+        images.append(pi)
+        
     if args.ssh:
+        print("Congifuring ssh...")
         for pi in images:
             pi.enable_ssh()
             pi.create_key()
