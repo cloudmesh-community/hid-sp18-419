@@ -142,15 +142,44 @@ loading necessary packages and corpus.
 
 
 \subsection{Docker}
-Docker is a technology that allows applications to run in containers
-instead of full VMs. It leverages control groups and name space
+Docker is a technology performs operating-system-level virtualization, that 
+allows applications to run in containers instead of full 
+VMs~\cite{hid-sp18-405-docker-wiki}~\cite{las18handbook}. It leverages 
+control groups and name space
 isolation in the Linux kernel. Containers start up much faster than
 VMs and are supported by all the major public cloud
 vendors~\cite{Foster:2017:CCS:3158276}. The most current stable
 release of Docker Community Edition is used for this project
 (18.03.0-ce).
-\paragraph{Docker Compose}
-\paragraph{Docker Swarm}
+
+\paragraph{Docker Compose} Compose is a tool coming with Docker that 
+helps define and manage applications or clusters with multiple Docker 
+containers~\cite{hid-sp18-405-docker-compose-doc}. Docker Compose 
+provides multiple isolated environments on a single host, which is utilized in 
+this project that Hadoop cluster could be deployed on a single virtual and/or 
+physical machine with Master Node and Worker Nodes running on separate 
+containers. Further, the scalability feature of Docker Compose allows the size 
+of the cluster to be adjusted at run time without stopping the cluster. When 
+service is restarted, and configuration files are not changed for some 
+containers, Compose re-uses these existing containers thus increasing the 
+speed of adjustment in a dynamic 
+environment~\cite{hid-sp18-405-docker-compose-doc}.
+
+\paragraph{Docker Swarm} A group of physical or virtual machines running 
+Docker Engine can be joined into a cluster called Docker Swarm. Each 
+machine is referred to as node. One node in the cluster will be the head or 
+manager of the swarm which is the only node communicating with outside 
+client and received execution instructions. It will then coordinate and pass 
+instructions to other worker nodes. In the cloud platform, FutureSystem 
+Echo we are using for this project, five physical server are in Docker Swarm 
+mode with one head and four workers. Key features of Docker Swarm 
+includes cluster management integrated with Docker Engine, decentralized 
+design, scaling, load balancing and rolling 
+updates~\cite{hid-sp18-405-docker-swarm-doc}. Stack of services could be 
+deployed on a Swarm cluster using the same YAML file as in Docker 
+Compose. User could pass a single command to start, scale or stop the 
+services to the head node, who will coordinate among the Swarm cluster with 
+optimized load balancing. 
 
 \subsection{VirtualBox}
 VirtualBox is software from Oracle that allows one to run x86 and
@@ -167,7 +196,7 @@ peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 \item Operating system: macOS Sierra 10.12.6 
 \item Processor: 3.1 GHz Intel Core i7
 \item Memory: 16 GB 2133 MHz LPDDR3
-%\item Graphics: Intel HD Graphics 630 1536 MB
+\item Graphics: Intel HD Graphics 630 1536 MB
 \item Periphals
 \begin{itemize}
 \item HyperDrive - USB Type-C Hub (has microSD card slot)
@@ -184,7 +213,7 @@ peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 	\item Operating system: macOS High Sierra 10.13.4 
 	\item Processor: 2.7 GHz Intel Core i5
 	\item Memory: 8 GB 1867 MHz DDR3
-	%\item Graphics: Intel HD Graphics 6100 1536 MB
+	\item Graphics: Intel HD Graphics 6100 1536 MB
 \end{itemize}
 
 \paragraph{Acer Laptop (Aspire 4830)}
@@ -435,6 +464,24 @@ is illustrated in Figure\ref{f:pang-result}.
 
 
 \section{Hadoop Deployment}\label{s:hadoopdep}
+Hadoop can be configured to run in three modes: Standalone Mode, 
+Pseudo-Distributed Mode and Fully-Distributed 
+Mode~\cite{hid-sp18-405-hadoop-singlenode}. 
+\begin{itemize}
+	\item Standalone Mode: In this Mode, Local file system instead of HDFS is 
+	used. Resource Manager, Node Manager and all other processes are 
+	running not only in one virtual machine but in one single Java Virtual 
+	Machine (JVM).
+	\item Pseudo-Distributed Mode: HDFS is used, NameNode, DataNode, 
+	ResourceManager and NodeManager are in the same virtual machine but in 
+	different JVMs. 
+	\item Fully-Distributed Mode: This is the mode that Hadoop clusters can be 
+	ranging from a few nodes to large clusters with thousands of nodes. Each 
+	node (worker) will be on different virtual/physical machines and they all 
+	have DataNode and NodeManager running as seperate JVMs.
+\end{itemize}
+In this project, we deployed Hadoop in Pseudo-Distributed Mode and 
+Fully-Distributed Mode with the main focus on the latter. 
 
 \subsection{Pseudo Distributed}
 \paragraph{Direct Installation}
@@ -442,9 +489,15 @@ is illustrated in Figure\ref{f:pang-result}.
 
 \subsection{Fully Distributed using docker compose}
 
-
 \subsection{Fully Distributed using docker swarm}
 
+
+\TODO{Please check if this paragraph is appropriate}
+The Fully-Distributed Mode Hadoop clusters in this project are achieved 
+using Docker containers. As a future project, we planned to set up Raspberry 
+Pi's clusters and each Pi acts like a node in Hadoop without virtualization. 
+The Pi cluster set-up and initialization has been included in 
+Section\ref{s:appendix}.
 
 \section{Benchmarking Process}\label{s:benchrproc}
 \TODO{Describe machines and platform used, data points collection}
