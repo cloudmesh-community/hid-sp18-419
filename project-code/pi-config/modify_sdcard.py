@@ -35,7 +35,8 @@ class PiImage:
             f.write(key.exportKey('PEM'))
         self.pubkey = key.publickey()
         with open(p + 'id_rsa.pub', 'w') as f:
-            f.write(pubkey.exportKey('OpenSSH'))
+            f.write(self.
+                    pubkey.exportKey('OpenSSH'))
         
 
     def remove_mountpoints(self):
