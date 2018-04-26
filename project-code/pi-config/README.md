@@ -1,6 +1,9 @@
 # Raspberry Pi Configuration Scripts
 
-To download the latest version of Raspbian Stretch Lite run download_image.sh.
+To download the latest version of Raspbian Stretch Lite: 
+```
+bash download_image.sh
+```
 
 To create custom images for a Pi cluster:
 ```
@@ -8,7 +11,7 @@ sudo pip install -r requirements.txt
 sudo python modify_sdcard.py <flags> <base_image>
 ```
 It needs to be run on Linux and has only been tested on Ubuntu 16.04. It will 
-not work on a Mac. The machine running the script will need 1.9GB * the number of images 
+not work on a Mac. The machine running the script will need 1.9GB times the number of images 
 created of free disk space. The base image is used to create the number of images specified
 with the `--num` flag. A list of available flags is available with:
 ```
@@ -39,7 +42,7 @@ sudo -H python modify_sdcard.py --num 5\
                                 --start=3\
                                 2018-04-18-raspbian-stretch-lite.img
 ```
-The '--ssh` flag defaults to true, `--basename` defaults to `snowcluster`, and 
+The `--ssh` flag defaults to true, `--basename` defaults to `snowcluster`, and 
 `--num` defaults to 1.
 
 ## Known issues:
@@ -48,6 +51,7 @@ Because the script needs to be run as root, `~/.ssh` and its contents: `id_rsa`,
 
 ## Next Steps
 * Fix permissions problem
+* Add ano option to specify paramaters in a yaml file
 * Create keys for `known_hosts` and populate to all images
 * Set fixed IP address on all Pis
 * Incorporate `download_image.sh` functionality into script, with option to select 
