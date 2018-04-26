@@ -48,7 +48,7 @@ class PiImage:
 
     def remove_mountpoints(self):
         for mp in self.mountpoints:
-            subprocess.call(['unmount',  mp])
+            subprocess.call(['umount',  mp])
             os.rmdir(mp)
         self.mountpoints = []
 
