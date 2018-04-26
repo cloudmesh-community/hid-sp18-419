@@ -138,8 +138,10 @@ def main():
         pi.create_image(args.image)
         pi.create_mountpoints(sectors)
         pi.change_hostname()
-            
+        images.append(pi)
+        
     if args.ssh:
+        print("Congifuring ssh...")
         for pi in images:
             pi.enable_ssh()
             pi.create_key()
