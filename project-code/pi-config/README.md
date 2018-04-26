@@ -1,6 +1,9 @@
 # Raspberry Pi Configuration Scripts
 
-To download the latest version of Raspbian Stretch Lite run download_image.sh.
+To download the latest version of Raspbian Stretch Lite: 
+```
+bash download_image.sh.
+```
 
 To create custom images for a Pi cluster:
 ```
