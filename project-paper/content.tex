@@ -572,15 +572,45 @@ code. The code is freely available to download, either directly from
 raspbian.org~\cite{hid-sp18-419-raspbian-distro} or on
 GitHub~\cite{hid-sp18-419-pi-gen}.
 
-The computer used to create the custom images is the Macbook Pro that
-is described in Subsection~\ref{ss:pcs}. The script that creates the
-custom images downloads the latest image from Raspbian.org and mounts
-the two partitions so that they can be modified. The process used to
-mount the second partion only works on Linux, so a VM is created on
-which the script is run. This VM runs Ubuntu 16.04 on VirtualBox and
-is configured with 1 CPU, 2GB of memory, USB 3.0 enabled, and a 30 GB
-virtual disk image hard drive. Networking is via a bridged network
+The computer used to create the custom images is the 2017 Macbook Pro
+that is described in Subsection~\ref{ss:pcs}. The script that creates
+the custom images downloads the latest image from Raspbian.org and
+mounts the two partitions so that they can be modified. The process
+used to mount the second partion only works on Linux, so a VM is
+created on which the script is run. This VM needs to have a big enough
+virtual disk for the base image times the number of custom images
+created. The current unzipped Raspbian Stretch Lite image at the time
+of this writing is 1.9GB.
+
+If the images are going to be burned and verified on the VM,
+additional space will be needed equal to the size of the SD cards
+being burned because verificaton is done by copying the entire
+capacity of the SD card and comparing it to the image that was
+burned. The SD cards we are using are 32GB, so creating 5 images and
+verifying the burn will require around 44GB on top of the space
+required for Ubuntu. To be safe, the VM for creating the custom images
+is configured with at least a 65GB virtual disk image hard drive.  It
+runs Ubuntu 16.04 on VirtualBox and is configured with 1 CPU, 2GB of
+memory, and USB 3.0 enabled. Networking is via a bridged network
 connected to the hosts WiFi.
+
+The images are created using two scripts: \verb|download_image.sh| - a
+simple shell script to download the latest Raspbian Stretch Lite
+image, and \verb|modify_sdcard.py| - a python script that will create
+the custom images. The python script runs on python version 2.7.12,
+which is the version that comes installed on Ubuntu 16.04. It requires
+one additional package, \verb|pycryptodome|, which is needed to
+generate ssh keys. The script needs to be run as root to have
+permission to mount and modify the files in the Raspbian image.
+
+The python script creates the number of custom images specified with a
+flag. The names of the images are a basename followed by a three-digit
+number that increments sequentially from the specified starting number
+through that number plus the number of images created. The basename,
+starting number, and number of images can be specified with flags. The
+basename defaults to \item|snowcluster| and the starting number
+defaults to 0, so if three images were specified, the result would be
+three files named snowcluster000, snowcluster001, and snowcluster002.
 
 \subsection{Post-boot configuraton}
 The remainder of the configuration is done by running the configuraton
@@ -597,7 +627,7 @@ boot~\cite{hid-sp18-419-so-password}.
 
   The authors would like to thank Dr.~Gregor~von~Laszewski for his
   support and suggestions to write this paper, and Bo Feng for his guidance 
-  and help on Hadoop deployment in Docker Swarm mode.
+  and help with Hadoop deployment in Docker Swarm mode.
 
 \end{acks}
 
