@@ -29,27 +29,30 @@ class PiImage:
                              mp])
             self.mountpoints.append(mp)
 
-            
-    def create_key(self):
+    def create_keys(self):
         key = RSA.generate(2048)
         p = self.mountpoints[1] + self.home + '.ssh/'
+
         if not os.path.exists(p):
             os.mkdir(p)
+
         with open(p + 'id_rsa', 'w') as f:
             os.chmod(p + 'id_rsa', 0600)
             f.write(key.exportKey(passphrase=self.secret_code,
                                   pkcs=8,
                                   protection="scryptAndAES128-CBC"))
-        self.pubkey = key.publickey()
+
+        self.pubkey = '{} pi@{}'.format(key.publickey().exportKey('OpenSSH'), self.hostname)
+
         with open(p + 'id_rsa.pub', 'w') as f:
-            f.write(self.
-                    pubkey.exportKey('OpenSSH'))
+            f.write(self.pubkey)
         
 
     def remove_mountpoints(self):
         for mp in self.mountpoints:
             subprocess.call(['umount',  mp])
             os.rmdir(mp)
+
         self.mountpoints = []
 
         
@@ -63,13 +66,12 @@ class PiImage:
         open(self.mountpoints[0] + '/ssh', 'a').close()
 
         
-    def add_auth_key(self, pi):
+    def add_auth_key(self, key):
         p = self.mountpoints[1] + self.home + '.ssh/'
-        key = pi.pubkey.exportKey('OpenSSH')
         if not os.path.exists(p):
             os.mkdir(p)
         with open(p + 'authorized_keys', 'a') as f:
-            f.write('{} pi@{}\n\n'.format(key, pi.hostname))
+            f.write('{}\n\n'.format(key))
             f.close()
             
         
@@ -151,10 +153,10 @@ def main():
         print("Congifuring ssh...")
         for pi in images:
             pi.enable_ssh()
-            pi.create_key()
+            pi.create_keys()
             for other_pi in images:
                 if pi.hostname != other_pi.hostname:
-                    other_pi.add_auth_key(pi)
+                    other_pi.add_auth_key(pi.pubkey)
 
     if args.sshkey:
         for pi in images:
