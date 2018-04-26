@@ -1,4 +1,5 @@
-\title{Benchmarking a Sentiment Analysis Algorithm on Multiple Platforms}
+\title{Benchmarking a Sentiment Analysis Algorithm Using Hadoop on Multiple 
+Platforms}
 
 
 \author{Min Chen}
@@ -103,7 +104,7 @@ peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 \item Operating system: macOS Sierra 10.12.6 
 \item Processor: 3.1 GHz Intel Core i7
 \item Memory: 16 GB 2133 MHz LPDDR3
-\item Graphics: Intel HD Graphics 630 1536 MB
+%\item Graphics: Intel HD Graphics 630 1536 MB
 \item Periphals
 \begin{itemize}
 \item HyperDrive - USB Type-C Hub (has microSD card slot)
@@ -115,16 +116,35 @@ peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 \end{itemize}
 \end{itemize}
 
+\paragraph{Macbook Pro (13-inch, 2015)}
+\begin{itemize}
+	\item Operating system: macOS High Sierra 10.13.4 
+	\item Processor: 2.7 GHz Intel Core i5
+	\item Memory: 8 GB 1867 MHz DDR3
+	%\item Graphics: Intel HD Graphics 6100 1536 MB
+\end{itemize}
+
+\paragraph{Acer Laptop (Aspire 4830)}
+\begin{itemize}
+	\item Operating system: CentOS Linux 7 (Core)
+	\item Processor: Intel(R) Core(TM) i5-2430M CPU @2.40GHz
+	\item Memory: 16 GB 1600 MHz DDR3
+\end{itemize}
+
+\paragraph{Asus Desktop}
+\begin{itemize}
+	\item Operating system: Windows 7 Professional
+	\item Processor: Intel(R) Core(TM) i5-4690K CPU @3.50GHz
+	\item Memory: 16 GB 1600 MHz DDR3
+	\item Software
+	\begin{itemize}
+		\item VirtualBox 5.2.8
+	\end{itemize}
+\end{itemize}
 
 \subsection{Cloud Platforms}
 \paragraph{Echo}
-\paragraph{Google Cloud}
 
-
-\section{Deployment}\label{s:deployment}
-\TODO{Finish Deployment section}
-\TODO{Write a section discuss details about deployment of 
-hadoop on different platforms, and in different forms}
 
 \section{Data}\label{s:data}
 
@@ -281,7 +301,12 @@ negative. The the likelihood of a testing document is an aggregation
 of the likelihood of each valid token within that document. Therefore,
 both training and testing process can be implemented in a MapReduce
 framework to facilitate the process of counting tokens and
-aggregation.
+aggregation. The implementation is summarized in Figure~\ref{f:mapreduce}
+
+\begin{figure}[!ht]
+	\centering\includegraphics[width=\columnwidth]{images/mapreduce.png}
+	\caption{MapReduce Implemenation of the Algorithm}\label{f:mapreduce}
+\end{figure}
 
 There are two MapReduce jobs in the training process, one for training
 on positive-labelled documents and the other for negative-labelled
