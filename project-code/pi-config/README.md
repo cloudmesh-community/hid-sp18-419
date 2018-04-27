@@ -57,7 +57,8 @@ Because the script needs to be run as root, `~/.ssh` and its contents: `id_rsa`,
 * Incorporate `download_image.sh` functionality into script, with option to select 
 a different base OS (e.g. from Dexter Labs)
 * Add option to burn images from the script. 
-* Write post configuration setup scripts:
+* Copy a post configuration setup script to each Pi that will run on first 
+login and do the following:
   * Make the head node a DHCP server
   * Create a DB of IP addresses, Mac Addresses, and hostnames
   * Permanenty enables ssh
