@@ -697,7 +697,7 @@ A pinout diagram of the Pi 3B is shown in Figure~\ref{f:pinout-diagram}.
   \centering\includegraphics[width=\columnwidth]{images/raspberry_pi_circuit_note_fig2.png} \caption{Pinout
   diagram of Raspberry Pi 3B~\cite{hid-sp18-419-pi-pinout}. Note: the
   Pi used for this project has a Broadcom BCM2837, not the Broadcom
-  BMC2835 shown in this figure.}\label{f:pinout-digram}
+  BMC2835 shown in this figure.}\label{f:pinout-diagram}
 \end{figure*}
 
 \subsection{Building a Pi Cluster}
@@ -826,13 +826,13 @@ platforms~\cite{hid-sp18-419-raspbian-burn}.
 
 A known issue with the python script is that because it needs to be
 run as root to mount and unmount the images and modify the
-contents, \verb|~/.ssh| and its
-contents: \verb|id_rsa|, \verb|id_rsa.pub|, and \verb|authorized_keys|
-are owned by root. This leads to a permissions error when connecting
-via ssh from one pi to another. Solutions for this issue need to be
-investigated.
+contents, \verb|~/.ssh| and its contents: \verb|id_rsa|,
+\verb|id_rsa.pub|, and \verb|authorized_keys| are owned by root.
+This leads to a permissions error when connecting via ssh from one pi
+to another. Solutions for this issue need to be investigated.
 
-In addition to fixing this permissions issue, other desired future enhancements include:
+In addition to fixing this permissions issue, other desired future
+enhancements include:
 
 \begin{itemize}
         \item Adding an option to specify paramaters in a yaml file as
@@ -847,18 +847,78 @@ In addition to fixing this permissions issue, other desired future enhancements 
         in \verb|download_image.sh| into script, with option to
         download a different base OS (e.g. from Dexter Labs).
         \item Adding an option to burn the images from the script.
+        \item Adding a script to do post-boot configuraton.
 \end{itemize}
 
 \subsection{Post-boot configuraton}
-The remainder of the configuration is done by running the configuraton
-script that was put in \verb|/home/pi| when the custom SD card image
-was created.
+Post-boot configuration was explored but not implemented. The goal for
+future development would be to write a script that would perform the
+remainder of the configuration, copy it to each of the Pis, and run on
+first login. This script will permanently enable ssh; change the
+password of all of the Pis; create or update a database containing IP
+addresses, Mac addresses, and hostnames; optionally configure the head
+node of the cluster as a DHCP server; and install and configure Hadoop
+on the Pis.
 
-There are several commands that will give information about devices on
-the network, including \verb|nmap| and \verb|arp|.
+Permanently enabling ssh is necessary as the \verb|ssh| file added in
+to the first partition is deleted after first login. It is done with
+the following commands:
+\begin{verbatim} 
+sudo apt-get update
+sudo apt-get install openssh-server
+sudo systemctl enable ssh
+sudo systemctl start ssh
+\end{verbatim}
 
-The password is changed by running a script after the Pis
-boot~\cite{hid-sp18-419-so-password}.
+Changing the password from the default password \verb|raspberry| to
+something more secure can be done with this
+line~\cite{hid-sp18-419-so-password}:
+\begin{verbatim} 
+echo -e ``raspberry\\nsnowcluster\\nsnowcluster'' | passwd
+\end{verbatim}
+
+The database of Mac addresses, IP addresses, and hostnames can be done
+in two steps: populate the hostnames and IP addresses during the
+creation of the VM images, and add the Mac addresses after booting up
+the Pis. Then the setup script can run \verb|ifconfig -a| and parse
+the output to get the Mac addresses for both wireless and wired
+connections. The output of ifconfig -a is shown in below.
+\begin{verbatim} 
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.2.7  netmask 255.255.255.0  broadcast 192.168.2.255
+        inet6 fe80::ed2:8b8e:f74a:d698  prefixlen 64  scopeid 0x20<link>
+        ether b8:27:eb:00:c3:55  txqueuelen 1000  (Ethernet)
+        RX packets 264  bytes 43987 (42.9 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 87  bytes 14502 (14.1 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlan0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether b8:27:eb:55:96:00  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+\end{verbatim}
+
+The Mac addresses for the Pis begin with \verb|b8:27:eb:|. The wired
+Mac address is shown above in the third line under \verb|eth0|
+as \verb|b8:27:eb:00:c3:55| and the wireless Mac addres in the third
+line below \verb|wlan0| as \verb|b8:27:eb:55:96:00|.
+
+Setting up head node of the cluster as a DHCP server requires further
+investigation and testing. The process was followed and documented,
+but a new version of the DHCP server \verb|isc-dhcp-server| is
+incompatible with the process followed~\cite{hid-sp18-419-pi-DHCP}.
 
 \section{Work Breakdown}
 Min Chen converted the sentiment analysis algorithm, did the Docker
