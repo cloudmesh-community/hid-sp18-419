@@ -550,7 +550,10 @@ also set in \verb|core-site.xml|.
 The sentiment analysis algorithm was run in pseudo-distributed mode on
 the VM with and without yarn as a resource manager. If yarn is used, a
 few more configuratons need to be done in the xml files
-in \verb|$HADOOP_HOME/etc/hadoop|:
+in \verb|$HADOOP_HOME/etc/hadoop|: the mapreduce framework name needs
+to be set to yarn in \verb|mapred-site.xml|,
+and \verb|mapreduce_shuffle| needs to be set up
+in \verb|yarn-site.xml|.
 
 \paragraph{Dockerized Installation} We used a Dockerfile to build the 
 image for the Pseudo-Distributed Hadoop container. The image is modified 
