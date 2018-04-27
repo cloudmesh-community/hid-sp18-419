@@ -7,7 +7,7 @@ make start - formats the file system and initializes the daemons
 make run - runs the mapreduce job
 make clean
 ```
-Assumes you have done the congiguration below.
+Assumes you have done the configuration below.
 
 Config based on [Apache's instructions](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html).
 
