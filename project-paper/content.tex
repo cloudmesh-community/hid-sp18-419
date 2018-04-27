@@ -767,7 +767,8 @@ used to mount the second partion only works on Linux, so a VM is
 created on which the script is run. This VM needs to have a big enough
 virtual disk for the base image times the number of custom images
 created. The current unzipped Raspbian Stretch Lite image at the time
-of this writing is 1.9GB.
+of this writing is 1.9GB. Instructions for setting up the VM provided
+in the Handbook were used~\cite{las18handbook}.
 
 If the images are going to be burned and verified on the VM,
 additional space will be needed equal to the size of the SD cards
@@ -795,9 +796,58 @@ flag. The names of the images are a basename followed by a three-digit
 number that increments sequentially from the specified starting number
 through that number plus the number of images created. The basename,
 starting number, and number of images can be specified with flags. The
-basename defaults to \item|snowcluster| and the starting number
+basename defaults to \verb|snowcluster| and the starting number
 defaults to 0, so if three images were specified, the result would be
-three files named snowcluster000, snowcluster001, and snowcluster002.
+three files: \verb|snowcluster000.img|, \verb|snowcluster001.img|,
+and \verb|snowcluster002.img|.
+
+When the script is run, the base image is copied the number of times
+specified by the user and the following modifications are made: * If
+the \verb|--ssh| flag is set, or by default, the script will mount the
+first partition of the image and add a blank file
+named \verb|ssh|. This enables ssh on the Pi on first boot. It also
+generates public and private RSA keys, creates a
+folder \verb|//home/pi/.ssh/| and stores those keys in files
+called \verb|id_rsa| for the private key and \verb|id_rsa.pub| for the
+public key. It then appends the public key to the
+file \verb|/home/pi/.ssh/authorized_keys|. If that file does not yet
+exist, it is created. This allows passwordless ssh login between any
+of the Pis in the cluster.  * If the user specifies a public key with
+the \verb|--sshkey| flag, the contents of that file is also appended
+to the file \verb|/home/pi/.ssh/authorized_keys|. This allows
+passwordless ssh into the any of the Pis in the cluster from a setup
+machine.
+
+After the images are created, they can either be copied to a shared
+folder and burned to the SD cards on the Mac using Etcher, or on the
+VM using \verb|dd|. Instructions for doing this provided by The
+Raspberry Pi Foundation were tested on both
+platforms~\cite{hid-sp18-419-raspbian-burn}.
+
+A known issue with the python script is that because it needs to be
+run as root to mount and unmount the images and modify the
+contents, \verb|~/.ssh| and its
+contents: \verb|id_rsa|, \verb|id_rsa.pub|, and \verb|authorized_keys|
+are owned by root. This leads to a permissions error when connecting
+via ssh from one pi to another. Solutions for this issue need to be
+investigated.
+
+In addition to fixing this permissions issue, other desired future enhancements include:
+
+\begin{itemize}
+        \item Adding an option to specify paramaters in a yaml file as
+        specifying them on the command line is cumbesome.
+        \item Adding an option to create keys and adding them
+        to \verb|known_hosts| on all the images to bypass the
+        verification on first ssh connection.
+        \item Setting a fixed
+        IP address on the head node if DHCP is to be used, or for all
+        the Pis.
+        \item Incorporating the functionality
+        in \verb|download_image.sh| into script, with option to
+        download a different base OS (e.g. from Dexter Labs).
+        \item Adding an option to burn the images from the script.
+\end{itemize}
 
 \subsection{Post-boot configuraton}
 The remainder of the configuration is done by running the configuraton
@@ -809,6 +859,14 @@ the network, including \verb|nmap| and \verb|arp|.
 
 The password is changed by running a script after the Pis
 boot~\cite{hid-sp18-419-so-password}.
+
+\section{Work Breakdown}
+Min Chen converted the sentiment analysis algorithm, did the Docker
+configurations and benchmarking and was the main author of these
+sections of the paper. Bertolt Sobolik did the Pi configuration and
+pseudo-distributed configurations on the virtual machines and was the
+main author of these sections of the paper. Min Chen and Bertolt
+Sobolik review and tested each other's work.
 
 \begin{acks}
 

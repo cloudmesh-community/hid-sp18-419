@@ -51,7 +51,7 @@ Because the script needs to be run as root, `~/.ssh` and its contents: `id_rsa`,
 
 ## Next Steps
 * Fix permissions problem
-* Add ano option to specify paramaters in a yaml file
+* Add an option to specify paramaters in a yaml file
 * Create keys for `known_hosts` and populate to all images
 * Set fixed IP address on all Pis
 * Incorporate `download_image.sh` functionality into script, with option to select 
