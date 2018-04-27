@@ -4,7 +4,7 @@
 #
 # This Dockerfile creates image for master node
 # 
-# docker build  -t minchen57/hadoop-python-docker-sentiment-master .
+# docker build  -t minchen57/hadoop-docker-python-sentiment-compose-master .
 #
 # Modified from sequenceiq/hadoop-docker <https://github.com/sequenceiq/hadoop-docker>
 # Modified from Lewuathe/docker-hadoop-cluster <https://github.com/Lewuathe/docker-hadoop-cluster>

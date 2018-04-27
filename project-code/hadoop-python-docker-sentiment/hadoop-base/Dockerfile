@@ -4,7 +4,7 @@
 #
 # This Dockerfile creates base image
 # 
-# docker build  -t minchen57/hadoop-python-docker-sentiment-master .
+# docker build  -t minchen57/hadoop-docker-python-sentiment-compose-base .
 #
 # Modified from sequenceiq/hadoop-docker <https://github.com/sequenceiq/hadoop-docker>
 # Modified from Lewuathe/docker-hadoop-cluster <https://github.com/Lewuathe/docker-hadoop-cluster>
