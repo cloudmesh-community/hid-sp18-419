@@ -543,14 +543,14 @@ The rest of the configuration is done with modifications to xml files
 and scripts in \verb|$HADOOP_HOME/etc/hadoop|: the java location needs
 to be set in \verb|hadoop_env.sh|, the detault file system is set
 in \verb|core-site.xml|, and the number of file system replications is
-set in \verb|yarn-site.xml.
+set in \verb|yarn-site.xml|. To make it easier to clean everything up
+and rerun the algorithm, the directory used for temporary files is
+also set in \verb|core-site.xml|.
 
 The sentiment analysis algorithm was run in pseudo-distributed mode on
 the VM with and without yarn as a resource manager. If yarn is used, a
-few more configuratons need to be done in
-\TODO{Please add content to this paragraph}
-
-
+few more configuratons need to be done in the xml files
+in \verb|$HADOOP_HOME/etc/hadoop|:
 
 \paragraph{Dockerized Installation} We used a Dockerfile to build the 
 image for the Pseudo-Distributed Hadoop container. The image is modified 
