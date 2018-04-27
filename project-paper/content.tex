@@ -674,11 +674,81 @@ been included in
 Section~\ref{s:appendix}.
 
 \section{Benchmarking Process}\label{s:benchrproc}
-\TODO{Describe machines and platform used, data points collection}
 
+The benchmarking has been done on several machines listed in 
+Section~\ref{s:techused}, the 8GB ram Macbook Pro (mac for short), the 
+16GB ram Asus laptop running centos (centos for short), the 16GB ram 
+desktop with ubuntu Virtualbox (ubuntu for short), and FutureSystem Echo. 
+For each of these machines, we used Docker to deploy Pseudo-Distributed 
+Hadoop, and Fully-distributed Hadoop using Docker Compose for worker 
+number starting at 1. For each setting, 10 iterations of the whole process of 
+setting up cluster and running algorithm were performed. We then calculated 
+the mean of running time together with standard deviations and the 
+coefficient of variation (which is the ratio of standard deviation and mean). 
+On echo, we also benchmarked the Fully-distributed Hadoop using Docker 
+Swarm in a similar fashion. 
+
+For some machines, there is a limit on the number of workers that can be 
+established. For example, the mac can have at most two workers, otherwise 
+the algorithm cannot be finished. The Java exceptions indicate that the 
+machine ran out of memory. The two 16GB ram machines, centos and ubuntu 
+could support 5 or 6 workers in a stable fashion. Stability here is defined as 
+each iteration ending successfully and the deviation in running time is 
+relatively small. Detailed results will be provided in Section~\ref{s:results}. 
 
 \section{Results}\label{s:results}
-\TODO{Add results.}
+This section elaborates the result of our benchmarking process, we will 
+discuss deployment time and running time separately. 
+
+\subsection{Deployment Time}
+
+All the dockerized Hadoop cluster depends on Docker Engine and 
+corresponding images. The Deployment can be divided into three steps. 
+
+\begin{itemize}
+	\item Install of Docker
+	\item Build/Pull the image(s)
+	\item Start the cluster
+\end{itemize}
+
+\paragraph{Install of Docker}
+	The installation of Docker on Linux and MacOS operating systems 
+	following the official guide on Docker website can be done in around 1 
+	minute. 
+	
+\paragraph{Build/Pull the image(s)}	
+	Based on different Internet connection speed we tried, one could build the 
+	images for deployment from time range 8 to 12 minutes. Notice that the 
+	images could also be pulled from DockerHub, which is the default 
+	cloud-based registry service of Docker. In our test, Pulling in general is 
+	faster than building images by around 1 minute. We have four images 
+	throughout the whole project, namely pseudo, base, master and worker. 
+	The majority of layers are the same with some differences such as Hadoop 
+	configuration files, startup scripts, existence of data. Due to the share of 
+	layers, building 3 images (base, master and worker) for the 
+	Fully-Distributed cluster does not differ much from building only one. In 
+	the future, we could unify all images into one, with different scripts or 
+	options for the startup. It is noticed that on a single virtual machine, if the 
+	iamges are pulled or built once, then later building process will utilize the 
+	cached layers and speed up the process.
+	
+\paragraph{Startsthe cluster}
+	Starting a Pseudo-Distributed Hadoop takes less than 10 seconds. The 
+	start-up time for the Fully-Distributed cluster increases with the number of 
+	workers initialized. For worker number smaller than 10, the start-up takes 
+	less than 20 seconds. On FutureSystem  Echo, under either Compose or 
+	Swarm mode, starting 40 workers took around 30 seconds and starting 
+	100 workers took 40 seconds. 
+
+
+From the breakdown of deployment steps, we could see that the build/pull 
+image step dominates the total time of the whole process. The total time is 
+not more than 13 minutes in total, building from scratch. In our project, we 
+also deployed a Pseudo-Distributed Hadoop direclty (without Docker)  on a 
+VirtualBox. The process of manually setting up hadoop with all dependencies 
+and configuration files took much longer than the dockerized version. This 
+illustrated the advantage of using Docker containers in cluster deployment. 
+
 
 \begin{table}[hbt]
 \centering
