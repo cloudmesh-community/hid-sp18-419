@@ -510,7 +510,47 @@ Docker container and sitting on the Docker Engine.
 \end{figure}
 
 \paragraph{Direct Installation}
+Direct installation of Hadoop is done based on instructions on
+Dominique Thiebaut's Wiki~\cite{hid-sp18-419-Thiebaut} and from The
+Apache Software
+Foundation~\cite{hid-sp18-419-Apache-single-node}. First a virtual
+machine running Ubuntu 16.04 is setup on VirtualBox running on the
+2017 Macbook Pro described in Section~\ref{ss:pcs}. It was decided to
+increase the memory to 2GB and the virtual hard drive to 10GB based on
+instructions provided in the Handbook~\cite{las18handbook}. Networking
+is configured using a bridged adaptor connected to the host's wifi
+port. OpenSSH, Curl, and the Java JDK 8 from OpenJDK are installed on
+the VM. Per Thiebault's instructions, ipv6 is disabled. A group
+called \verb|hadoop| is created with a user called \verb|hduser|. SSH
+keys are created using \verb|ssh-keygen| and hduser's public key is
+added to \verb|known_hosts| so that passwordless SSH to to localhost
+is possible. Pyenv is then installed and python 3.6.2 is made the
+global version of python for the VM. Hadoop 2.9.0 is downloaded from
+Apache and installed in \verb|/usr/local/hadoop|. The following
+environment variables are set in hduser's \verb|.bashrc| file:
+\begin{verbatim}
+export HADOOP_HOME=/usr/local/hadoop
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+\end{verbatim}
+
+The following directories are added to hduser's path:
+\begin{verbatim}
+$HADOOP_HOME/bin
+$HADOOP_HOME/sbin
+\end{verbatim}
+
+The rest of the configuration is done with modifications to xml files
+and scripts in \verb|$HADOOP_HOME/etc/hadoop|: the java location needs
+to be set in \verb|hadoop_env.sh|, the detault file system is set
+in \verb|core-site.xml|, and the number of file system replications is
+set in \verb|yarn-site.xml.
+
+The sentiment analysis algorithm was run in pseudo-distributed mode on
+the VM with and without yarn as a resource manager. If yarn is used, a
+few more configuratons need to be done in
 \TODO{Please add content to this paragraph}
+
+
 
 \paragraph{Dockerized Installation} We used a Dockerfile to build the 
 image for the Pseudo-Distributed Hadoop container. The image is modified 
