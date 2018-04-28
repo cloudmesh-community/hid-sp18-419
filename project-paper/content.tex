@@ -129,19 +129,14 @@ on YARN for resource management. A map function is specified that
 generated an set of intermediate key-value pairs. The output of the
 map function is fed to a reduce function that combines these
 intermediate values into the final
-result~\cite{hid-sp18-405-dean2008mapreduce}. As illustrated in
-Figure~\ref{f:hadoop-high}, the Master Node will have a JobTracker
-that distributes MapReduce tasks to nodes in the cluster. The
-TaskTracker within each node is monitored by the Jobtracker. In case
-of a failure reported by a TaskTracker, the Jobtracker may reassign
-work to some of the other nodes~\cite{hid-sp18-405-hadoop-jobtracker}.
+result~\cite{hid-sp18-405-dean2008mapreduce}.
 
 \paragraph{Hadoop-Streaming} Although Hadoop and most of the
 applications in the Hadoop Framework are written in Java,
 Hadoop-Streaming, a java program that comes with the Hadoop
 distribution. Using Hadoop-Streaming, one can define mapper and
 reducer functions written in another language, and feed these
-into \verv|hadoop-streaming.jar| as parameters to create and run
+into \verb|hadoop-streaming.jar| as parameters to create and run
 MapReduce jobs~\cite{hid-sp18-405-hadoop-streaming}. In this project,
 all the mappers and reducers are written in Python and passed to
 Hadoop-Streaming. One drawback to this approach is that if the script
