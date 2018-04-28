@@ -42,9 +42,9 @@ A sentiment analysis algorithm is run on several Hadoop
 configurations: in pseudo-distributed mode on an Ubuntu 16.04 virtual
 machine on a MacBook Pro with and without YARN, in pseudo-distributed
 mode in a Docker container on various personal computers and on
-Futuresystems Echo, in a cluster created using Docker Compose on
-various personal computers and on Futuresystems Echo, and in a cluster
-created using Docker Swarm on Futuresystems Echo. Performance tests
+FutureSystems Echo, in a cluster created using Docker Compose on
+various personal computers and on FutureSystems Echo, and in a cluster
+created using Docker Swarm on FutureSystems Echo. Performance tests
 are natural language processing based sentiment analysis on movie
 reviews (Polarity 2.0) implemented under MapReduce framework using
 Hadoop Streaming. Configurations are described in detail and steps to
@@ -54,7 +54,7 @@ repeatable and scalable fashion, automating as much of the setup
 process as possible are detailed, and next steps are discussed.
 \end{abstract}
 
-\keywords{hid-sp18-419, hid-sp18-405, Hadoop, Docker, Futuresystems}
+\keywords{hid-sp18-419, hid-sp18-405, Hadoop, Docker, FutureSystems}
 
 
 \maketitle
@@ -86,7 +86,7 @@ failures on commodity hardware instead of requiring specialized
 hardware to handle deliver high-availibility. The most current version
 at the time of writing is
 3.0.1~\cite{hid-sp18-405-hadoop-official}. This project will leverage
-version 2.9.0, which is the current ``Stable'' version.
+version 2.9.0, which is the current stable version.
 
 The core of Hadoop include the following components: Hadoop Common,
 Hadoop Distributed File System (HDFS), Hadoop YARN and Hadoop
@@ -180,7 +180,7 @@ machine is referred to as a node. One node in the cluster will be the
 head, or manager, of the swarm. The head node is the only node
 communicating with outside client and receiving execution
 instructions. It coordinates instructions and passes them to other
-worker nodes. on FutureSystem Echo, the cloud platform used for this
+worker nodes. On FutureSystem Echo, the cloud platform used for this
 project, five physical servers are in Docker Swarm mode with one head
 and four workers. Key features of Docker Swarm include: cluster
 management integrated with Docker Engine, decentralized design,
@@ -195,28 +195,30 @@ workload optimally.
 \subsection{VirtualBox}
 VirtualBox is software from Oracle that allows one to run x86 and
 AMD64/Intel64 VMs on personal computers. It is used in this project
-for running the VMs in the Hadoop setups and for burning custom images for the
-Raspberry Pis discussed in Section~\ref{s:appendix}. Add-ons include
-Guest Additions, which allow one to cut and paste between the VM and
-the host, and the VirtualBox Extension Pack that allows mounting
-peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
+for running the VMs in the Hadoop setups and for burning custom images
+for the Raspberry Pis discussed in Section~\ref{s:appendix}. Add-ons
+include Guest Additions, which allow one to cut and paste between the
+VM and the host, and the VirtualBox Extension Pack that allows
+mounting peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 
 \subsection{Personal Computers}\label{ss:pcs}
 \paragraph{Macbook Pro (15-inch, 2017)}
 \begin{itemize}
-\item Operating system: macOS Sierra 10.12.6 
-\item Processor: 3.1 GHz Intel Core i7
-\item Memory: 16 GB 2133 MHz LPDDR3
-\item Graphics: Intel HD Graphics 630 1536 MB
-\item Periphals
-\begin{itemize}
-\item HyperDrive - USB Type-C Hub (has microSD card slot)
-\item Insignia - USB Type-C to Gigabit Ethernet Adapter (to connect to switch)
-\end{itemize}
-\item Software
-\begin{itemize}
-\item VirtualBox 5.2.8 with Guest Additions and the VirtualBox Extension Pack for USB 3.0 support.
-\end{itemize}
+        \item Operating system: macOS Sierra 10.12.6 
+        \item Processor: 3.1 GHz Intel Core i7
+        \item Memory: 16 GB 2133 MHz LPDDR3
+        \item Graphics: Intel HD Graphics 630 1536 MB
+        \item Periphals
+        \begin{itemize}
+                \item HyperDrive - USB Type-C Hub (has microSD card slot)
+                \item Insignia - USB Type-C to Gigabit Ethernet
+                Adapter (to connect to switch)
+        \end{itemize}
+        \item Software
+        \begin{itemize}
+                \item VirtualBox 5.2.8 with Guest Additions and the
+                VirtualBox Extension Pack for USB 3.0 support.
+        \end{itemize}
 \end{itemize}
 
 \paragraph{Macbook Pro (13-inch, 2015)}
@@ -230,14 +232,14 @@ peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 \paragraph{Acer Laptop (Aspire 4830)}
 \begin{itemize}
 	\item Operating system: CentOS Linux 7 (Core)
-	\item Processor: Intel (R) Core (TM) i5-2430M CPU @2.40GHz
+	\item Processor: Intel Core i5-2430M CPU @2.40GHz
 	\item Memory: 16 GB 1600 MHz DDR3
 \end{itemize}
 
 \paragraph{Asus Desktop}
 \begin{itemize}
 	\item Operating system: Windows 7 Professional
-	\item Processor: Intel (R) Core (TM) i5-4690K CPU @3.50GHz
+	\item Processor: Intel Core i5-4690K CPU @3.50GHz
 	\item Memory: 16 GB 1600 MHz DDR3
 	\item Software: VirtualBox 5.2.8
 \end{itemize}
@@ -246,7 +248,9 @@ peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 \paragraph{FutureSystem Echo}
 \begin{itemize}
 	\item Operating system: Ubuntu 16.04
-	\item Processors: 16 SuperMicro X9DRW servers, each node with 2 6-core Intel(R) Xeon(R) CPU E5-2640 2.50GHz processors for a total of 192 CPU cores
+	\item Processors: 16 SuperMicro X9DRW servers, each node
+        with 2 6-core Intel Xeon CPU E5-2640 2.50GHz
+        processors for a total of 192 CPU cores
 	\item Memory: 6TB (384GB per node)
 \end{itemize}
 
@@ -255,13 +259,14 @@ peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 
 The data used for the project is the Polarity Data 2.0, which is a
 dataset of movie reviews first used by Bo Pang and Lillian
-Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental}~\cite{hid-sp18-405-sentiment-pang2002thumbs}.
+Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental}
+~\cite{hid-sp18-405-sentiment-pang2002thumbs}.
 The dataset includes 1000 positive and 1000 negative processed
 reviews that  are labelled with respect to their overall sentiment
 polarity.
 
 Each of the reviews is in the format of text file; each line in the
-files corresponds to a sentence; and every token (i.e. words,
+files corresponds to a sentence; and every token (i\.e\. words,
 punctuation marks, and numbers) has been separated by a
 space. Figure~\ref{f:data} shows several lines in one of the movie
 reviews with line number on the right, illustrating the two features
@@ -363,7 +368,8 @@ increase the accuracy by around 2\% in one of the authors previous
 studies, it requires ontologies such as Wordnet. Including the Wordnet
 corpus with a lemmatizer would have complicated the implementation of
 Hadoop-streaming significantly. We tried to follow the instructions
-online~\cite{hid-sp18-405-hadoopstreaming-nltk}~\cite{hid-sp18-405-hadoopstreaming-corpus}
+online~\cite{hid-sp18-405-hadoopstreaming-nltk}
+~\cite{hid-sp18-405-hadoopstreaming-corpus}
 to pass Python package NLTK and the corpus Wordnet as zipped files
 from name nodes to data nodes in the MapReduce tasks and found that
 the package could be passed but not loaded and corpus could not be
@@ -394,8 +400,8 @@ smoothing. In this case:
 P(w|c) = \frac{count(w,c) + 1}{count(c) + |V|}
 \end{equation}
 
-Figure~\ref{f:algo} is the algorithm we implemented as summarized by Jurafsky 
-and Martin:
+Figure~\ref{f:algo} is the algorithm we implemented as summarized by
+Jurafsky and Martin:
 \begin{figure}[!ht]
 		\centering\includegraphics[width=\columnwidth]{images/algorithm.png}
 		\caption{Naive Bayes for Sentiment 
@@ -499,30 +505,32 @@ Hadoop can be configured to run in three modes: Standalone Mode,
 Pseudo-Distributed Mode and Fully-Distributed 
 Mode~\cite{hid-sp18-405-hadoop-singlenode}. 
 \begin{itemize}
-	\item Standalone Mode: In this Mode, Local file system instead of HDFS is 
-	used. Resource Manager, Node Manager and all other processes are 
-	running not only in one virtual machine but in one single Java Virtual 
-	Machine (JVM).
+	\item Standalone Mode: In this Mode, Local file system instead of
+        HDFS is used. Resource Manager, Node Manager and all other
+        processes are running not only in one virtual machine but in one
+        single Java Virtual Machine (JVM).
 	\item Pseudo-Distributed Mode: HDFS is used, NameNode, DataNode, 
-	ResourceManager and NodeManager are in the same virtual machine but in 
-	different JVMs. 
-	\item Fully-Distributed Mode: This is the mode that Hadoop clusters can be 
-	ranging from a few nodes to large clusters with thousands of nodes. Each 
-	node (worker) will be on different virtual/physical machines and they all 
-	have DataNode and NodeManager running as seperate JVMs.
+	ResourceManager and NodeManager are in the same virtual machine
+        but in different JVMs. 
+	\item Fully-Distributed Mode: This is the mode that Hadoop
+        clusters can be ranging from a few nodes to large clusters with
+        thousands of nodes. Each node (worker) will be on different
+        virtual/physical machines and they all have DataNode and
+        NodeManager running as seperate JVMs.
 \end{itemize}
 In this project, we deployed Hadoop in Pseudo-Distributed Mode and 
 Fully-Distributed Mode with the main focus on the latter. 
 
 \subsection{Pseudo-Distributed}\label{ss:pseudo-distributed}
 
-We developed Pseudo-Distributed Hadoop cluster in two ways as illustrated 
-in Figure~\ref{f:hadoop-pseudo}. The direct installation is on the left, where 
-NameNode, DataNode, ResourceManager and NodeManager are sitting on 
-the operating system of the host machine (wich could be a VM) as separate Java 
-Virtual Machines. The right panel of Figure~\ref{f:hadoop-pseudo} shows the 
-dockerized version where the four core components are wrapped in one 
-Docker container and sitting on the Docker Engine. 
+We developed Pseudo-Distributed Hadoop cluster in two ways as
+illustrated in Figure~\ref{f:hadoop-pseudo}. The direct installation
+is on the left, where NameNode, DataNode, ResourceManager and
+NodeManager are sitting on the operating system of the host machine
+(wich could be a VM) as separate Java Virtual Machines. The right
+panel of Figure~\ref{f:hadoop-pseudo} shows the dockerized version
+where the four core components are wrapped in one Docker container and
+sitting on the Docker Engine.
 
 \begin{figure}[!ht]
 	\centering\includegraphics[width=\columnwidth]{images/hadoop-docker-pseudo.png}
@@ -639,7 +647,7 @@ After the clusters are started up, a user can log into any of the
 containers, check status, and run commands. The running of the
 sentiment analysis algorithm is automated in a similar way the
 Pseudo-Distributed cluster using Docker Containers described in
-Subsection~\ref{{ss:pseudo-distributed}.
+Subsection~\ref{ss:pseudo-distributed}.
 
 
 \subsection{Fully-Distributed using Docker Swarm}
@@ -672,16 +680,16 @@ the MapReduce process.
 		Hadoop Cluster Using Docker Swarm}\label{f:hadoop-swarm}
 \end{figure}
 
-The YAML file for Docker Compose can be used to configure the cluster 
-under the Swarm mode with some minor changes. Additional options, such as 
-deploy, are available, but some options, such as container name, are disabled. 
-One key difference is that we have to include some start-up scripts and use 
-those as Entrypoint or Command to make the sentiment analysis algorithm 
-run automatically when the cluster starts. Unlike in previous methods of 
-deployment, where we still have the option of logging into the container and 
-pass commands through bash, in swarm mode we cannot log into the 
-containers because they are all deployed on worker nodes of the Swarm 
-cluster. 
+The YAML file for Docker Compose can be used to configure the cluster
+under the Swarm mode with some minor changes. Additional options, such
+as deploy, are available, but some options, such as container name,
+are disabled.  One key difference is that we have to include some
+start-up scripts and use those as Entrypoint or Command to make the
+sentiment analysis algorithm run automatically when the cluster
+starts. Unlike in previous methods of deployment, where we still have
+the option of logging into the container and pass commands through
+bash, in swarm mode we cannot log into the containers because they are
+all deployed on worker nodes of the Swarm cluster.
 
 A challenge in implementing Swarm mode is determining how one gets the
 analysis results, which sits on some worker node in the Swarm cluster,
@@ -697,18 +705,18 @@ ResourceManager on a certain port (8008 by default).
 
 \section{Benchmarking Process}\label{s:benchrproc}
 
-The benchmarking has been done on several machines listed in 
-Section~\ref{s:techused}: the 8GB RAM Macbook Pro 2015, the 
-16GB RAM Asus laptop running Centos, the 16GB RAM 
-desktop running Ubuntu on VirtualBox, and FutureSystem Echo. 
-For each of these machines, we used Docker to deploy Pseudo-Distributed 
-Hadoop and Fully-distributed Hadoop using Docker Compose for worker 
-number starting at 1. For each setting, 10 iterations of the whole process of 
-setting up cluster and running algorithm were performed. We then calculated 
-the mean of running time together with standard deviations and the 
-coefficient of variation (which is the ratio of standard deviation and mean). 
-On Echo, we also benchmarked the Fully-Distributed Hadoop using Docker 
-Swarm in a similar fashion. 
+The benchmarking has been done on several machines listed in
+Section~\ref{s:techused}: the 8GB RAM Macbook Pro 2015, the 16GB RAM
+Asus laptop running Centos, the 16GB RAM desktop running Ubuntu on
+VirtualBox, and FutureSystem Echo.  For each of these machines, we
+used Docker to deploy Pseudo-Distributed Hadoop and Fully-distributed
+Hadoop using Docker Compose for worker number starting at 1. For each
+setting, 10 iterations of the whole process of setting up cluster and
+running algorithm were performed. We then calculated the mean of
+running time together with standard deviations and the coefficient of
+variation (which is the ratio of standard deviation and mean).  On
+Echo, we also benchmarked the Fully-Distributed Hadoop using Docker
+Swarm in a similar fashion.
 
 For some machines, there is a limit on the number of workers that can
 be established. For example, the Macbook can have at most two
@@ -730,18 +738,18 @@ corresponding images. The deployment can be divided into three steps:
 
 \begin{itemize}
 	\item Install of Docker
-	\item Build/Pull the image(s)
+	\item Build or pull the image or images
 	\item Start the cluster
 \end{itemize}
 
 \paragraph{Install of Docker}
-	The installation of Docker on Linux and MacOS operating systems 
-	following the official guide on Docker website and can be done in around 1 
-	minute. 
+	The installation of Docker on Linux and MacOS operating
+	systems following the official guide on Docker website and can
+	be done in around 1 minute.
 	
-\paragraph{Build/Pull the image(s)}	
+\paragraph{Build or pull the image or images}	
 	Based on different Internet connection speeds we tried, one
-	can build the images for deployment in 8 to 12 minutes. the
+	can build the images for deployment in 8 to 12 minutes. The
 	images can also be pulled from DockerHub, which is the default
 	cloud-based registry service of Docker. In our test, pulling
 	in general is faster than building images by around 1
@@ -758,44 +766,47 @@ corresponding images. The deployment can be divided into three steps:
 	the cached layers and speed up the process.
 	
 \paragraph{Start the cluster}
-	Starting a Pseudo-Distributed Hadoop takes less than 10 seconds. The 
-	start-up time for the Fully-Distributed cluster increases with the number of 
-	workers initialized. For worker numbers smaller than 10, the start-up takes 
-	less than 20 seconds. On FutureSystem Echo, under either Compose or 
-	Swarm mode, starting 40 workers takes around 30 seconds and starting 
-	100 workers takes 40 seconds. 
+	Starting a Pseudo-Distributed Hadoop takes less than 10
+	seconds. The start-up time for the Fully-Distributed cluster
+	increases with the number of workers initialized. For worker
+	numbers smaller than 10, the start-up takes less than 20
+	seconds. On FutureSystem Echo, under either Compose or Swarm
+	mode, starting 40 workers takes around 30 seconds and starting
+	100 workers takes 40 seconds.
 
 
-From the breakdown of deployment steps, we can see that the build/pull 
-image step dominates the total time of the whole process. The total time is 
-not more than 13 minutes in total when building from scratch. In our project, we 
-also deployed a Pseudo-Distributed Hadoop directly (without Docker) on a 
-VirtualBox. The process of manually setting up Hadoop with all dependencies 
-and configuration files took much longer than the dockerized version. This 
-illustrated the advantage of using Docker containers in cluster deployment. 
+From the breakdown of deployment steps, we can see that the build/pull
+image step dominates the total time of the whole process. The total
+time is not more than 13 minutes in total when building from
+scratch. In our project, we also deployed a Pseudo-Distributed Hadoop
+directly (without Docker) on a VirtualBox. The process of manually
+setting up Hadoop with all dependencies and configuration files took
+much longer than the dockerized version. This illustrated the
+advantage of using Docker containers in cluster deployment.
 
 \subsection{Running Time}
 
 The running time is defined to be the time used to run the core script 
 \verb|runPythonMapReduce.sh|, which includes four steps. The first step is 
-to split the data randomly into training and testing sets with the ratio 8:2 and 
-while keeping the ratio of positive and negative reviews unchanged (0.5). The 
-second step is to create directories on HDFS and put data into HDFS. The 
-third step is the core MapReduce algorithm described in 
-Section~\ref{s:algorithm}. The last step is to fetch classification results 
-together with running time record from HDFS, and transfer these from the 
-container to the host machine. 
+to split the data randomly into training and testing sets with the
+ratio 8:2 and while keeping the ratio of positive and negative reviews
+unchanged (0.5). The second step is to create directories on HDFS and
+put data into HDFS. The third step is the core MapReduce algorithm
+described in Section~\ref{s:algorithm}. The last step is to fetch
+classification results together with running time record from HDFS,
+and transfer these from the container to the host machine.
 
-The results are summarized in Table~\ref{t:results-table}, where each row 
-represents the number of workers established in the cluster and each column 
-is one particular deployment that is benchmarked. The number in the table 
-is the mean running time of the 10 iterations in minutes (m) and seconds (s). 
-The standard deviation is listed in the brackets. For each deployment 
-options, the bold number is the least average running time that we observed, 
-which can be considered as the optimal Docker cluster choice for that 
-deployment. The asterisk (*) in some rows indicates that the standard deviation is 
-large. The threshold we used is that coefficient of variance (standard 
-deviation divided by mean) equals to 0.1. 
+The results are summarized in Table~\ref{t:results-table}, where each
+row represents the number of workers established in the cluster and
+each column is one particular deployment that is benchmarked. The
+number in the table is the mean running time of the 10 iterations in
+minutes (m) and seconds (s).  The standard deviation is listed in the
+brackets. For each deployment options, the bold number is the least
+average running time that we observed, which can be considered as the
+optimal Docker cluster choice for that deployment. The asterisk (*) in
+some rows indicates that the standard deviation is large. The
+threshold we used is that coefficient of variance (standard deviation
+divided by mean) equals to 0.1.
 
 \begin{table}[hbt]
 \centering
@@ -808,7 +819,7 @@ deviation divided by mean) equals to 0.1.
 		(39s) & 22m25s (12s) & N/A \\\midrule
 		1 & 104m34s (119s) & 82m8s (57s) & 44m47s (20s) & 33m42s (12s) & 
 		20m49s (20s) \\\midrule
-		2 & 108m50s(110s) & 84m35s (7s) & \textbf{42m47s (24s)} & 18m57s 
+		2 & 108m50s (110s) & 84m35s (7s) & \textbf{42m47s (24s)} & 18m57s 
 		(6s) & 15m26s (17s) \\\midrule
 		3 & N/A & 86m5s (6s) & 43m13s (17s) & 17m41s (2s) & 11m14s (4s) 
 		\\\midrule
@@ -869,17 +880,17 @@ be only on one physical machine and does not utilize the advantages of
 Swarm. For all other deployment, we noticed that Pseudo-Distributed 
 performs faster than the Fully-Distributed cluster with only one worker.
 
-In these two settings, there will be exactly one instance of DataNode, 
-NameNode, ResourceManager and NodeManager, the only difference is that 
-in Fully-Distributed cluster with only one worker, these JVM runs in different 
-containers. Given that both deployments share the same memory, computing 
-power, and disks, the differences in the performance are likely related to the 
-overhead of communication across containers. For example, message 
-between DataNode and NameNode in the one-worker setting will have to 
-pass through some TCP ports across containers while in Pseudo mode, the 
-communication is much easier between JVMs directly. Therefore we see that 
-for Pseudo-Distributed Hadoop outperforms Fully-Distributed Hadoop with 
-only one worker. 
+In these two settings, there will be exactly one instance of DataNode,
+NameNode, ResourceManager and NodeManager, the only difference is that
+in Fully-Distributed cluster with only one worker, these JVM runs in
+different containers. Given that both deployments share the same
+memory, computing power, and disks, the differences in the performance
+are likely related to the overhead of communication across
+containers. For example, message between DataNode and NameNode in the
+one-worker setting will have to pass through some TCP ports across
+containers while in Pseudo mode, the communication is much easier
+between JVMs directly. Therefore we see that for Pseudo-Distributed
+Hadoop outperforms Fully-Distributed Hadoop with only one worker.
 
 \subsection{Optimal Number of Worker}
 In each deployment with Fully-Distributed clusters, it seems that as
@@ -903,39 +914,46 @@ based on the results observed and understanding of the algorithm; to
 make a conclusion of the root cause of this pattern, more specific
 testing with better control groups needs to be done.
 
-Macbook and Asus laptop have the optimal number of workers to be one. 
-According to previous discussion, one-worker clusters are slower than 
-Pseudo-Distributed clusters. Therefore, running a Fully-Distributed cluster on 
-these machines to solve the required sentiment analysis task is inefficient. 
-The Desktop achieves the best result when the number of worker is 2. The 
-Echo head node (when using Docker Compose) is optimal at 4 workers, 
-and in Swarm mode on Echo the optimal worker number occurs within the range 
-of 10 to 15. 
+Macbook and Asus laptop have the optimal number of workers to be one.
+According to previous discussion, one-worker clusters are slower than
+Pseudo-Distributed clusters. Therefore, running a Fully-Distributed
+cluster on these machines to solve the required sentiment analysis
+task is inefficient.  The Desktop achieves the best result when the
+number of worker is 2. The Echo head node (when using Docker Compose)
+is optimal at 4 workers, and in Swarm mode on Echo the optimal worker
+number occurs within the range of 10 to 15.
 
 \subsection{Same Cluster on Different Platforms}
 
-If we fix the number of workers in the Fully-Distributed cluster, and compare 
-the performance across these platforms. From ASUS laptop, desktop, Echo 
-with Compose and Echo with Swarm, the running time roughly reduces by 
-half. We conjecture that the reason for the differences could have two 
-possibilities, CPU power and Disk read/write speed. Given same number of 
-Workers (without memory issue), the workload of each mapper and reducer 
-is similar across platforms, communication overhead should also be 
-comparable, the differences could then be CPU power or hard drive writing 
-speed or both. To disentangle these effect and draw a conclusion of the 
-actual cause, we may need to design experiments controlling one of the 
-effect and test the other. This could be future steps of the project. 
+If we fix the number of workers in the Fully-Distributed cluster, and
+compare the performance across these platforms. From ASUS laptop,
+desktop, Echo with Compose and Echo with Swarm, the running time
+roughly reduces by half. We conjecture that the reason for the
+differences could have two possibilities, CPU power and Disk
+read/write speed. Given same number of Workers (without memory issue),
+the workload of each mapper and reducer is similar across platforms,
+communication overhead should also be comparable, the differences
+could then be CPU power or hard drive writing speed or both. To
+disentangle these effect and draw a conclusion of the actual cause, we
+may need to design experiments controlling one of the effect and test
+the other. This could be future steps of the project.
 
-Regardless of number of workers chosen, deployment under Swarm mode 
-really outperforms the other. This illustrates the power of cloud computing in 
-general. We could imagine gigantic clusters in Swarm mode hosting large 
-number of containers, provides timely solution for Big Data applications. 
+Regardless of number of workers chosen, deployment under Swarm mode
+really outperforms the other. This illustrates the power of cloud
+computing in general. We could imagine gigantic clusters in Swarm mode
+hosting large number of containers, provides timely solution for Big
+Data applications.
 
 
 \section{Conclusion}\label{s:conclusion}
 
-\TODO{Put here an conclusion. Conclusion and abstracts must not have any
-citations in the section.}
+Although it's popularity is waning, Hadoop remains a useful tool for
+Big Data analysis. As one would expect, better hardware leads to
+better results.  Many of the configurations tested are not ideal for
+the task, using a combination of Docker in it Compose and Swarm
+variants and Hadoop, provides a robust and versitile platform that can
+be deployed on a wide variety of hardware and software configurations
+with very little custom configuration.
 
 \section{Appendix: Hadoop Cluster on Raspberry Pi}\label{s:appendix}
 This section describes steps taken toward the goal of creating a
@@ -1123,7 +1141,7 @@ enhancements include:
         the Pis.
         \item Incorporating the functionality
         in \verb|download_image.sh| into script, with option to
-        download a different base OS (e.g. from Dexter Labs).
+        download a different base OS (e\.g\. from Dexter Labs).
         \item Adding an option to burn the images from the script.
         \item Adding a script to do post-boot configuraton.
 \end{itemize}
