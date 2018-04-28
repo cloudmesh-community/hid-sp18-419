@@ -60,8 +60,20 @@ process as possible are detailed, and next steps are discussed.
 \maketitle
 
 \section{Introduction}\label{s:intro}
-\TODO{Write an introduction.}
-
+Various configurations of personal computers are benchmarked on their
+performance of a sentiment analysis algorithim written in Python
+leveraging the Hadoop framework. Software and hardware technologies
+used in this study are described: Hadoop, Docker Compose, Docker
+Swarm, VirtualBox, four personal computer configuratons and one cloud
+platform. The data set being used for the benchmarking is
+described. The sentiment analysis algorithm used for this study used
+for is explainedin both its original form and in the modified version
+that was developed to run in the MapReduce framework. The three
+deployments of Hadoop used for benchmarking are destribed:
+Pseudo-Distributed mode, Fully-Distributed mode using Docker Compose,
+and Fully-Distributed mode using Docker Swarm. The benchmarking
+process is explained. Results are presented and discussed, and
+conclusions are drawn.
 
 \section{Technology Used}\label{s:techused}
 
@@ -947,13 +959,17 @@ Data applications.
 
 \section{Conclusion}\label{s:conclusion}
 
-Although it's popularity is waning, Hadoop remains a useful tool for
+Although its popularity is waning, Hadoop remains a useful tool for
 Big Data analysis. As one would expect, better hardware leads to
-better results.  Many of the configurations tested are not ideal for
-the task, using a combination of Docker in it Compose and Swarm
+better results.  While many of the configurations tested are not ideal
+for the task, using a combination of Docker in its Compose and Swarm
 variants and Hadoop, provides a robust and versitile platform that can
 be deployed on a wide variety of hardware and software configurations
-with very little custom configuration.
+with very little custom configuration. Startup is fast and the
+results, when there is sufficient memory available, are consisent. The
+authors would like to continue our exploration of Hadoop, comparing
+other cloud environments, including the Raspberry Pi cluster
+configuration that we began implementing and with larger datasets. 
 
 \section{Appendix: Hadoop Cluster on Raspberry Pi}\label{s:appendix}
 This section describes steps taken toward the goal of creating a
@@ -1178,38 +1194,7 @@ in two steps: populate the hostnames and IP addresses during the
 creation of the VM images, and add the Mac addresses after booting up
 the Pis. Then the setup script can run \verb|ifconfig -a| and parse
 the output to get the Mac addresses for both wireless and wired
-connections. The output of ifconfig -a is shown in below.
-\begin{verbatim} 
-eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet 192.168.2.7  netmask 255.255.255.0  broadcast 192.168.2.255
-        inet6 fe80::ed2:8b8e:f74a:d698  prefixlen 64  scopeid 0x20<link>
-        ether b8:27:eb:00:c3:55  txqueuelen 1000  (Ethernet)
-        RX packets 264  bytes 43987 (42.9 KiB)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 87  bytes 14502 (14.1 KiB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-
-lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
-        inet 127.0.0.1  netmask 255.0.0.0
-        inet6 ::1  prefixlen 128  scopeid 0x10<host>
-        loop  txqueuelen 1000  (Local Loopback)
-        RX packets 0  bytes 0 (0.0 B)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 0  bytes 0 (0.0 B)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-
-wlan0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
-        ether b8:27:eb:55:96:00  txqueuelen 1000  (Ethernet)
-        RX packets 0  bytes 0 (0.0 B)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 0  bytes 0 (0.0 B)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-\end{verbatim}
-
-The Mac addresses for the Pis begin with \verb|b8:27:eb:|. The wired
-Mac address is shown above in the third line under \verb|eth0|
-as \verb|b8:27:eb:00:c3:55| and the wireless Mac addres in the third
-line below \verb|wlan0| as \verb|b8:27:eb:55:96:00|.
+connections. 
 
 Setting up head node of the cluster as a DHCP server requires further
 investigation and testing. The process was followed and documented,
