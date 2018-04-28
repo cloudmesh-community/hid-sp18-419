@@ -100,7 +100,8 @@ Node and two Worker Nodes is shown in Figure~\ref{f:hadoop-high}.
 
 \begin{figure*}[!ht]
 	\centering\includegraphics[width=\columnwidth]{images/hadoop.png}
-	 \caption{Hadoop High Level Architecture}\label{f:hadoop-high}
+	 \caption{Hadoop High Level 
+	 Architecture~\cite{hid-sp18-405-hadoop-wiki}}\label{f:hadoop-high}
 \end{figure*}
 
 \paragraph{HDFS} HDFS stores metadata and 
@@ -129,19 +130,14 @@ on YARN for resource management. A map function is specified that
 generated an set of intermediate key-value pairs. The output of the
 map function is fed to a reduce function that combines these
 intermediate values into the final
-result~\cite{hid-sp18-405-dean2008mapreduce}. As illustrated in
-Figure~\ref{f:hadoop-high}, the Master Node will have a JobTracker
-that distributes MapReduce tasks to nodes in the cluster. The
-TaskTracker within each node is monitored by the Jobtracker. In case
-of a failure reported by a TaskTracker, the Jobtracker may reassign
-work to some of the other nodes~\cite{hid-sp18-405-hadoop-jobtracker}.
+result~\cite{hid-sp18-405-dean2008mapreduce}.
 
 \paragraph{Hadoop-Streaming} Although Hadoop and most of the
 applications in the Hadoop Framework are written in Java,
 Hadoop-Streaming, a java program that comes with the Hadoop
 distribution. Using Hadoop-Streaming, one can define mapper and
 reducer functions written in another language, and feed these
-into \verv|hadoop-streaming.jar| as parameters to create and run
+into \verb|hadoop-streaming.jar| as parameters to create and run
 MapReduce jobs~\cite{hid-sp18-405-hadoop-streaming}. In this project,
 all the mappers and reducers are written in Python and passed to
 Hadoop-Streaming. One drawback to this approach is that if the script
@@ -692,9 +688,9 @@ Section~\ref{s:appendix}.
 \section{Benchmarking Process}\label{s:benchrproc}
 
 The benchmarking has been done on several machines listed in 
-Section~\ref{s:techused}, the 8GB ram Macbook Pro (mac for short), the 
-16GB ram Asus laptop running centos (centos for short), the 16GB ram 
-desktop with ubuntu Virtualbox (ubuntu for short), and FutureSystem Echo. 
+Section~\ref{s:techused}, the 8GB ram Macbook Pro 2015, the 
+16GB ram Asus laptop running centos, the 16GB ram 
+desktop with ubuntu Virtualbox, and FutureSystem Echo. 
 For each of these machines, we used Docker to deploy Pseudo-Distributed 
 Hadoop, and Fully-distributed Hadoop using Docker Compose for worker 
 number starting at 1. For each setting, 10 iterations of the whole process of 
@@ -705,12 +701,13 @@ On echo, we also benchmarked the Fully-distributed Hadoop using Docker
 Swarm in a similar fashion. 
 
 For some machines, there is a limit on the number of workers that can be 
-established. For example, the mac can have at most two workers, otherwise 
-the algorithm cannot be finished. The Java exceptions indicate that the 
-machine ran out of memory. The two 16GB ram machines, centos and ubuntu 
-could support 5 or 6 workers in a stable fashion. Stability here is defined as 
-each iteration ending successfully and the deviation in running time is 
-relatively small. Detailed results will be provided in Section~\ref{s:results}. 
+established. For example, the Macbook can have at most two workers, 
+otherwise the algorithm cannot be finished. The Java exceptions indicate that 
+the machine ran out of memory. The two 16GB ram Asus laptop and 
+Birtualbox on desktop  could support 5 or 6 workers in a stable fashion. 
+Stability here is defined as each iteration ending successfully and the 
+deviation in running time is relatively small. Detailed results will be provided in 
+Section~\ref{s:results}. 
 
 \section{Results}\label{s:results}
 This section elaborates the result of our benchmarking process, we will 
@@ -748,7 +745,7 @@ corresponding images. The Deployment can be divided into three steps.
 	iamges are pulled or built once, then later building process will utilize the 
 	cached layers and speed up the process.
 	
-\paragraph{Startsthe cluster}
+\paragraph{Start the cluster}
 	Starting a Pseudo-Distributed Hadoop takes less than 10 seconds. The 
 	start-up time for the Fully-Distributed cluster increases with the number of 
 	workers initialized. For worker number smaller than 10, the start-up takes 
@@ -765,19 +762,159 @@ VirtualBox. The process of manually setting up hadoop with all dependencies
 and configuration files took much longer than the dockerized version. This 
 illustrated the advantage of using Docker containers in cluster deployment. 
 
+\subsection{Running Time}
+
+The running time is defined to be the time used to run the core script 
+\verb|runPythonMapReduce.sh|, which includes four steps. The first step is 
+to split the data randomly into training and testing sets with the ratio 8:2 and 
+while keeping the ratio of positive and negative reviews unchanged (0.5). The 
+second step is to create directories on HDFS and put data into HDFS. The 
+third step is the core MapReduce algorithm described in 
+Section~\ref{s:algorithm}. The last step is to fetch classification results 
+together with running time record from HDFS, and transfer these from the 
+container to the host machine. 
+
+The results are summarized in Table~\ref{t:results-table}, where each row 
+represents the number of workers established in the cluster and each column 
+is one particular deployment for the benchmarking. The number in the table 
+is the mean running time of the 10 iterations in minutes (m) and seconds (s) 
+and the standard deviation is listed in the brackets. For each deployment 
+options, the bold number is the least average running time that we observed, 
+which can be considered as the optimal Docker cluster choice for that 
+deployment. The * in some rows indicates that the standard deviation is 
+large. The threshold we used is that coefficient of variance (standard 
+deviation divided by mean) equals to 0.1. 
 
 \begin{table}[hbt]
 \centering
-\caption{Benchmarking results}\label{t:results-table}
-\begin{tabular}{llll}
-Platform    & Docker & Deployment time & MapReduce Time \\
-Pi 5 nodes  & Yes    & TBD             & TBD            \\
-Pi 5 nodes  & No     & TBD             & TBD            \\
-Echo        & Yes    & TBD             & TBD            \\
-Echo        & No     & TBD             & TBD            \\
-\end{tabular}
+\caption{Running Time results}\label{t:results-table}
+	\begin{tabular}{llllll}
+		\toprule
+		\# Workers & Macbook Pro 2015 & Asus Laptop & Virtualbox on 
+		Desktop & Echo (Compose) & Echo (Swarm) \\ \midrule
+		Pseudo & \textbf{99m14s (80s)} & \textbf{77m15s (8s)} & 43m34s 
+		(39s) & 22m25s (12s) & N/A \\\midrule
+		1 & 104m34s (119s) & 82m8s (57s) & 44m47s (20s) & 33m42s (12s) & 
+		20m49s (20s) \\\midrule
+		2 & 108m50s(110s) & 84m35s (7s) & \textbf{42m47s (24s)} & 18m57s 
+		(6s) & 15m26s (17s) \\\midrule
+		3 & N/A & 86m5s (6s) & 43m13s (17s) & 17m41s (2s) & 11m14s (4s) 
+		\\\midrule
+		4 & N/A & 87m50s (11s) & 43m59s (58s) & \textbf{17m38s (2s)} & 
+		9m24s (3s) \\\midrule
+		5 & N/A & 90m1s (8s) & 48m46s (104s) & 17m52s (2s) & 8m47s (6s) 
+		\\\midrule
+		6 & N/A & 92m32s (11s) & 58m57s (171s) & 18m9s (2s) & 8m25s (7s) 
+		\\\midrule
+		7 & N/A & N/A & 85m19s (634s)* & 18m17s (2s) & 8m2s (4s) \\\midrule
+		8 & N/A & N/A & 113m36s (2520s)* & 18m28s (2s) & 7m44s (2s) 
+		\\\midrule
+		9 & N/A & N/A & N/A & 18m29s (1s) & 7m39s (2s) \\\midrule
+		10 & N/A & N/A & N/A & 18m34s (2s) & \textbf{7m35s (2s)} \\\midrule
+		15 & N/A & N/A & N/A & 18m56s (1s) & 7m37s (3s) \\\midrule
+		20 & N/A & N/A & N/A & 19m12s (1s) & 7m44s (3s) \\\midrule
+		25 & N/A & N/A & N/A & 19m34s (2s) & 7m52s (2s) \\\midrule
+		30 & N/A & N/A & N/A & 19m50s (2s) & 8m1s (4s) \\\midrule
+		35 & N/A & N/A & N/A & 20m2s (3s) & 8m16s (4s) \\\midrule
+		40 & N/A & N/A & N/A & 20m18s (3s) & 8m20s (4s)\\\bottomrule
+	\end{tabular}
 \end{table}
 
+\section{Observation and Discussion}
+Based on Table~\ref{t:results-table}, we have several observations: 
+
+\subsection{Bottleneck of Memory} 
+
+The first three deployments are done on personal computers, with memory 
+from 8G to 16G. The N/A in the table indicates that the algorithm fails at run 
+time due to Java Exceptions of out of memory or lost of connection to 
+MapReduce containers, which are good evidence of memory shortage. We 
+could see that the Macbook which has the least memory, can only run two 
+Worker Node containers. The ASUS laptop and desktop both have 16G 
+memory, and they can sustain up to 6 Worker Node container. Although we 
+also get results for the desktop with 7 and 8 workers established, the 
+running time explodes with very large variances. Indeed, we could not get 
+results on all the 10 iterations with 8 workers, only 4 out of 10 returned 
+successful execution. During the execution with 7 or 8 workers, we can see 
+from the terminal that some MapReduce containers are killed due to memory 
+issue or connection issue and in that case ResourceManager will assign the 
+failed jobs again until they are finished. During each iteration, different 
+number of failed containers causes the big variation in the total running time. 
+
+Echo head node has around 400G of memory therefore the iterations on 
+Echo in Compose mode runs to 40 Workers without any memory issue. 
+When we deploy the cluster in Swarm mode, the total memory of the system 
+is even larger (4 physical servers combined). However, since there may be 
+other projects running on Echo, we did not increase the number of the 
+Worker Node to test the limit of the system. 
+
+\subsection{Pseudo vs One-Worker} 
+
+We did not deploy Pseudo-distributed Hadoop on Swarm because it would 
+be only on one physical machine and does not utilize the advantage of 
+Swarm. For all other deployment, we noticed that Pseudo-distributed 
+performs faster than the Fully-Distributed cluster with only one worker.
+
+In these two settings, there will be exactly one instance of DataNode, 
+NameNode, ResourceManager and NodeManager, the only difference is that 
+in Fully-Distributed cluster with only one worker, these JVM runs in different 
+containers. Given that both deployment shares same memory, computing 
+power, and disks, the differences in the performance is likely to relate to the 
+overhead of communication across containers. For example, message 
+between DataNode and NameNode in the one-worker setting will have to 
+pass through some TCP ports across containers while in Pseudo mode, the 
+communication is much easier between JVMs directly. Therefore we see that 
+for Pseudo-Distributed Hadoop ou-performs Fully-Distributed Hadoop with 
+only one worker. 
+
+\subsection{Optimal Number of Worker}
+In each deployment with Fully-distributed clusters, it seems that as the 
+number of workers increases from one, the running time first decreases and 
+then starts to increase. Therefore, each deployment has an optimal number 
+of workers. The decrease and increase pattern in running time can be 
+explained as follows: the number of MapReduce containers (JVMs) within one 
+Worker Node is limited by the settings in \verb|mapred-site.xml|, then 
+increase of Workers could lead to more mapper and/or reducers working at 
+the same time thus reducing running time. However, since the number of 
+mapper and reducer containers needed for the task is fixed (for example, 800 
+training files need at most 800 mapper). After the needs being fulfilled, 
+increasing number of workers does not really help since all the workers are 
+sharing the same set of processors and computing power. On the other 
+hand, all workers also share the same hard drives, and the intensive file I/O 
+could be the reason for performance decline as number of workers continue 
+to grow (Section~\ref{s:algorithm} mentions that all mappers and reducers 
+read files and write files to the disk extensively). This is our conjecture based 
+on the results observed and understanding of the algorithm, to make a 
+conclusion of the root cause of this pattern, more specific testing with better 
+control groups needs to be done. 
+
+Macbook and Asus laptop have the optimal number of workers to be one. 
+According to previous discussion, one-worker clusters is slower than 
+Pseudo-distributed cluster. Therefore, running a Fully-Distributed cluster on 
+these machines to solve the required sentiment analysis task is inefficient. 
+The Desktop achieves the best result when the number of worker is 2. The 
+echo head node (when using Docker Compose) has the optimal at 4 workers 
+and under Swarm mode, the optimal worker number occurs within the range 
+of 10 to 15. 
+
+\subsection{Same Cluster on Different Platforms}
+
+If we fix the number of workers in the Fully-Distributed cluster, and compare 
+the performance across these platforms. From ASUS laptop, desktop, Echo 
+with Compose and Echo with Swarm, the running time roughly reduces by 
+half. We conjecture that the reason for the differences could have two 
+possibilities, CPU power and Disk read/write speed. Given same number of 
+Workers (without memory issue), the workload of each mapper and reducer 
+is similar across platforms, communication overhead should also be 
+comparable, the differences could then be CPU power or hard drive writing 
+speed or both. To disentangle these effect and draw a conclusion of the 
+actual cause, we may need to design experiments controlling one of the 
+effect and test the other. This could be future steps of the project. 
+
+Regardless of number of workers chosen, deployment under Swarm mode 
+really outperforms the other. This illustrates the power of cloud computing in 
+general. We could imagine gigantic clusters in Swarm mode hosting large 
+number of containers, provides timely solution for Big Data applications. 
 
 
 \section{Conclusion}\label{s:conclusion}

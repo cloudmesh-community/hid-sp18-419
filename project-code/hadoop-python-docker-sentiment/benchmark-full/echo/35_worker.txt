@@ -1,0 +1,10 @@
+real	19m59.598s
+real	20m1.500s
+real	20m3.198s
+real	20m1.659s
+real	20m2.940s
+real	20m3.113s
+real	20m6.742s
+real	19m56.455s
+real	20m5.235s
+real	20m3.250s
