@@ -244,27 +244,30 @@ peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 
 \subsection{Cloud Platforms}
 \paragraph{FutureSystem Echo}
-\TODO Describe Futuresystems Echo
+\begin{itemize}
+	\item Operating system: Ubuntu 16.04
+	\item Processors: 16 SuperMicro X9DRW servers, each node with 2 6-core Intel(R) Xeon(R) CPU E5-2640 2.50GHz processors for a total of 192 CPU cores
+	\item Memory: 6TB (384GB per node)
+\end{itemize}
 
 
 \section{Data}\label{s:data}
 
 The data used for the project is the Polarity Data 2.0, which is a
-dataset of movie reviews, first used by Bo Pang and Lillian
+dataset of movie reviews first used by Bo Pang and Lillian
 Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental}~\cite{hid-sp18-405-sentiment-pang2002thumbs}.
 The dataset includes 1000 positive and 1000 negative processed
-reviews, which are labelled with respect to their overall sentiment
+reviews that  are labelled with respect to their overall sentiment
 polarity.
 
-Each of the review is in a format of text file, and each of the single
-line in a file is corresponding to a sentence. Further, every token
-(which includes single word, punctuation marks, numbers) has been
-separated by space. For example, Figure~\ref{f:data} shows several
-lines in one of the movie reviews with line number on the right, which
-illustrate the two features mentioned above. These features play an
-important role in the sentiment analysis algorithm especially under
-map-reduce framework, which will be discussed in details in
-Section~\ref{s:algorithm}.
+Each of the reviews is in the format of text file; each line in the
+files corresponds to a sentence; and every token (i.e. words,
+punctuation marks, and numbers) has been separated by a
+space. Figure~\ref{f:data} shows several lines in one of the movie
+reviews with line number on the right, illustrating the two features
+mentioned above. These features play an important role in the
+sentiment analysis algorithm, especially when using the MapReduce
+framework, which is discussed in detail in Section~\ref{s:algorithm}.
 \begin{figure*}[!ht]
 	\centering\includegraphics[width=\columnwidth]{images/polarity-data.png}
 	\caption{Example Data File}\label{f:data}
@@ -272,22 +275,22 @@ Section~\ref{s:algorithm}.
 
 The data is directly pulled from the
 source~\cite{hid-sp18-405-sentiment-data} and then split into training
-and testing sets according to a ratio of 8:2. The authors also keep
-the original ratio of positive and negative reviews in both the
-training and testing data sets. As a result, there are 1600 reviews
-(800 positive and 800 negative) in the training data set and 400
-reviews (200 positive and 200 negative) in the testing data set. The
-splitting process is done by using the random sort functionality in
-bash with a fixed random seed to ensure consistency of performance
-benchmarking on different platforms.
+and testing sets according to a ratio of 8:2. The split algorithm
+maintains the original ratio of positive and negative reviews in both
+the training and testing data sets. As a result, there are 1600
+reviews (800 positive and 800 negative) in the training data set and
+400 reviews (200 positive and 200 negative) in the testing data
+set. The splitting process is done by using the random sort
+functionality in bash with a fixed random seed to ensure consistency
+of performance benchmarking on different platforms.
 
 
 \section{Algorithm}\label{s:algorithm}
 
 This section introduces the algorithm used to classify the overall
 sentiment of the movie reviews in the benchmarking process. The
-algorithm is a modified version from Pang and
-Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental} and also
+algorithm is a modified version of the one used by Pang and
+Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental} that is
 explained in details by Jurafsky and
 Martin~\cite{hid-sp18-405-sentiment-jurafsky2009}.
 
@@ -302,20 +305,20 @@ The baseline algorithm contains the following steps:
 \end{enumerate}
 
 \paragraph{Tokenization}
-As mentioned in Section~\ref{s:data}, every token (which includes
-single word, punctuation marks, numbers) has been separated by space
-in the text files. Therefore, we just need to split the text strings
-with space to perform tokenization rather than use sophisticated
-tokenizers. This saves space and running time as well as the
-complication of loading python packages for hadoop worker nodes in
-hadoop-streaming. However, in more general settings with text data,
-non-trivial tokenization step needs to be performed before other type
-of text processing.
+As mentioned in Section~\ref{s:data}, every token (words, punctuation
+marks, and numbers) has been separated by space in the text
+files. Becuase of this, the algorithm needs only to split the text
+strings with space to perform tokenization rather than using
+sophisticated tokenizers. This saves space and running time and avoids
+the complication of loading Python packages for Hadoop worker nodes in
+Hadoop-streaming. However, in more general settings with text data,
+the non-trivial tokenization step needs to be performed before other
+type of text processing.
 
 \paragraph{Feature Extraction}
-The main feature that we use is the words contained in the documents,
-however, there are several options mentioned by Jurafsky and
-Martin~\cite{hid-sp18-405-sentiment-jurafsky2009}:
+The main feature that we use is the words contained in the documents.
+However, there are options mentioned in Jurafsky and
+Martin~\cite{hid-sp18-405-sentiment-jurafsky2009}, including:
 \begin{enumerate}
 	\item All tokens
 	\item Removing stoplist words
@@ -328,62 +331,70 @@ In this project, we applied stoplist words removal, punctuation tokens
 removal and negation treatment. 
 
 Stoplist is the list of words that are considered to be commonly used
-across documents regardless of sentiments thus adding little value in
-classification tasks. We removed stoplist words according to the
-english stopwords module from the python package: NLTK
-corpus~\cite{hid-sp18-405-sentiment-stopworddoc}. Punctuation removal
-is done by using python string
-module~\cite{hid-sp18-405-sentiment-punctuationdoc} supplemented by
-self-defined regular expression. We applied a basic negation treatment
-by adding a NOT\_ prefix to every token that follows a negation word
-and not separated by any punctuation tokens. For example: I really do
-not like the movie becomes: I really do not Not\_like Not\_the
-Not\_movie. This method is used by Das and
+across documents regardless of sentiments and therefore add little
+value when performing classification tasks. We removed stoplist words
+according to the English stopwords module from the Python package:
+NLTK corpus~\cite{hid-sp18-405-sentiment-stopworddoc}. Punctuation
+removal is done using the Python string
+module~\cite{hid-sp18-405-sentiment-punctuationdoc}, supplemented by a
+regular expression written for this project. We applied a basic
+negation treatment by adding a NOT\_ prefix to every token that
+follows a negation word and is not separated by any punctuation
+tokens. For example:
+
+I really do not like the movie
+
+becomes:
+
+I really do not Not\_like Not\_the Not\_movie.
+
+This method is used by Das and
 Chen~\cite{hid-sp18-405-sentiment-das2001yahoo} as well as Pang, Lee,
 and Vaithyanathan~\cite{hid-sp18-405-sentiment-pang2002thumbs}.
 
-We did not apply the option of using adjectives only due to the result
-provided by Pang and his
-colleges~\cite{hid-sp18-405-sentiment-pang2004asentimental} that
-adjectives only does not provide a better results than including all
-words. In fact, the accuracy dropped by on average 2\% in the testing
+We did not apply the option of using adjectives based on the findings
+by Pang et\. al\. that using adjectives alone does not provide a better
+results than including all
+words~\cite{hid-sp18-405-sentiment-pang2004asentimental}. In our own
+experiments, the accuracy dropped by an average of 2\% in the testing
 phase when we implemented the algorithm. We also did not apply
 lemmatization for all the tokens. Although lemmatization would
 increase the accuracy by around 2\% in one of the authors previous
-studies, it requires ontologies such as wordnet and including the
-wordnet corpus with lemmatizer is adding much complication to the
-hadoop-streaming. We tried to follow the instructions
+studies, it requires ontologies such as Wordnet. Including the Wordnet
+corpus with a lemmatizer would have complicated the implementation of
+Hadoop-streaming significantly. We tried to follow the instructions
 online~\cite{hid-sp18-405-hadoopstreaming-nltk}~\cite{hid-sp18-405-hadoopstreaming-corpus}
-to pass python package (NLTk) and corpus (wordnet) as zipped files
-from name nodes to data nodes in mapreduce tasks but the package can
-be passed but not loaded and corpus cannot be passed. This issue could
-be studied and solved in future projects.
+to pass Python package NLTK and the corpus Wordnet as zipped files
+from name nodes to data nodes in the MapReduce tasks and found that
+the package could be passed but not loaded and corpus could not be
+passed at all. The issues we faced deserve further study in a future
+project.
 
 Pang, Lee, and
 Vaithyanathan~\cite{hid-sp18-405-sentiment-pang2002thumbs}, also
 considered different set of features such as bigrams, combination
-(back up) of bigrams and unigrams, top-unigrams etc. For simplicity,
-we chose to only use unigram models i\.e\. single tokens.
+(back up) of bigrams and unigrams, top-unigrams, etc. For simplicity,
+we chose to only use unigram models, i\.e\. single tokens.
 
 \paragraph{Classifier}
-We  used Naive Bayes as the classifier. The formulation is given as:
+We used Naive Bayes as the classifier. The formulation is given as:
 \begin{equation}\label{eq:nb}
 c_{NB}=\text{argmax}_{c_j \in C} P(c_j) \prod_{i \in positions} P(w_i|c_j)
 \end{equation}
 
-where in this case, $j \in \{positive, negative\}$, also for this
+where in this case, $j \in \{positive, negative\}$. Also, for this
 movie review dataset, we know the prior probabilities:
 $P(c_{positive})=P(c_{negative})=0.5$
 
 \paragraph{Smoothing}
 To avoid the problem that the probability of some token in the 
-training/testing document is zero. We use the add-one smoothing or Laplace 
-smoothing in this case:
+training/testing document is zero, we use the add-one smoothing, or Laplace 
+smoothing. In this case:
 \begin{equation}\label{eq:sm}
 P(w|c) = \frac{count(w,c) + 1}{count(c) + |V|}
 \end{equation}
 
-Figure~\ref{f:algo} is the algorithm we implemented summarized by Jurafsky 
+Figure~\ref{f:algo} is the algorithm we implemented as summarized by Jurafsky 
 and Martin:
 \begin{figure}[!ht]
 		\centering\includegraphics[width=\columnwidth]{images/algorithm.png}
@@ -397,9 +408,9 @@ As illustrated in Equation~\ref{eq:nb}, Equation~\ref{eq:sm}, and
 Figure\ref{f:algo}, the Naive Bayes classification algorithm is based
 on comparing posterior probability. The likelihood of each single
 valid token can be calculated by aggregating the count of this token
-among the training documents for the two classes positive and
-negative. The the likelihood of a testing document is an aggregation
-of the likelihood of each valid token within that document. Therefore,
+among the training documents for the two classes: positive and
+negative. The likelihood of a testing document is an aggregation
+of the likelihood of each valid token within that document. Therefore
 both training and testing process can be implemented in a MapReduce
 framework to facilitate the process of counting tokens and
 aggregation. The implementation is summarized in Figure~\ref{f:mapreduce}
@@ -410,53 +421,52 @@ aggregation. The implementation is summarized in Figure~\ref{f:mapreduce}
 \end{figure}
 
 There are two MapReduce jobs in the training process, one for training
-on positive-labelled documents and the other for negative-labelled
+on positive-labeled documents and the other for negative-labeled
 documents.  $count(w,c)$ in Equation~\ref{eq:sm} shows the necessity
 to count the tokens according to the classes, which are positive and
-negative in this task.  During the training on positive-labelled
-documents, the TrainingMapper python code will read in each positive
-movie reviews in the training set through standard input, filter valid
-tokens (removing stoplist words, punctuation, adding negation, see
-Subsection\ref{ss:base}) and print to the standard
-output. The read-in process is done on a line-by-line basis using a Python 
-generator. This is achievable because the data is formatted in the way that 
-each line is one sentence (see Section~\ref{s:data}), thus no sentence 
-splitting is accomplished by line breaks. TrainingReducer python code will 
-take these standard output
-performing aggregation by tokens. The result is a dictionary-like text
-file containing number of occurrence for each valid token in the
-positive training set. The negative training documents will be
-processed in a similar way.
+negative in this task.  During the training on positive-labeled
+documents, the TrainingMapper Python code will read in each positive
+movie review in the training set through standard input, filter valid
+tokens (removing stoplist words, punctuation, and adding negation and
+described in Subsection\ref{ss:base}) and print to the standard
+output. The read-in process is done on a line-by-line basis using a
+Python generator. This is achievable because the data is formatted in
+so that each line is one sentence (see Section~\ref{s:data}), thus no
+sentence is split by line breaks. The TrainingReducer Python code will
+take these standard output and perform aggregation by tokens. The
+result is a dictionary-like text file containing number of occurrence
+for each valid token in the positive training set. The negative
+training documents are processed in a similar way.
 
 In the testing process, each testing document is analyzed
-separately. The TestingMapper will read in the one document, perform
-the same filter to keep valid tokens and print to standard output. The
-testingReducer will read in both this standard output and the two
-results files from the training process, calculating the likelihood of
-each valid token in this document according to the smoothing formula
-given by Equation~\ref{eq:sm} before getting posterior probability
-through aggregation according to Equation~\ref{eq:nb}. Then for each
-document, there will be two posterior probabilities, positive and
-negative. The document will be assigned to the one with higher
-probability. The final output will be a text file and each line is the
-testing document name with its classification label. In the actual
-implementation, we performed the testing process using two MapReduce
-jobs, one for the testing data that are actually positive, the other
-for the testing data that are actually negative. This is essentially
-the same as performing testing process on each document blindly and
-then verify the results. However, it is easier to calculate the
-accuracy of the algorithm.
+separately. The TestingMapper reads in each document, perform the same
+filter to keep valid tokens, and print to standard output. The
+TestingReducer reads in both this standard output and the two results
+files from the training process, calculating the likelihood of each
+valid token in this document according to the smoothing formula given
+by Equation~\ref{eq:sm} before getting posterior probability through
+aggregation according to Equation~\ref{eq:nb}. Then for each document
+there are two posterior probabilities, positive and negative. The
+document is assigned to the one with higher probability. The final
+output is a text file in which each line contains the testing document
+name and its classification label. In the actual implementation, we
+performed the testing process using two MapReduce jobs, one for the
+testing data that are actually positive, the other for the testing
+data that are actually negative. This is essentially the same as
+performing testing process on each document blindly and then verify
+the results. However, implementing it in this way makes it easier to
+calculate the accuracy of the algorithm.
  
-In summary, we used python codes to implement two mappers
+In summary, we used Python codes to implement two mappers
 (TrainingMapper and TestingMapper) and two reducers (TrainingReducer
-and Testingreducer) to perform 4 MapReduce jobs for the training and
-testing processes. For the fixed random seed mentioned in
+and TestingReducer) to perform four MapReduce jobs for the training
+and testing processes. For the fixed random seed mentioned in
 Section\ref{s:data}, we achieved the following results: out of the 200
-positive testing data, 162 are correctly labelled; out of the 200
-negative testing data, 168 are correctly labelled. Therefore, the
-overall accuracy of the algorithm is 82.5\%. This is acceptable
-compared to the result achieved by Pang, Lee, and Vaithyanatha, which
-is illustrated in Figure\ref{f:pang-result}.
+positive testing data, 162 are correctly labeled; out of the 200
+negative testing data, 168 are correctly labeled. Therefore, the
+overall accuracy of the algorithm is 82.5\%. This is in line to the
+result achieved by Pang, Lee, and Vaithyanatha, which is illustrated
+in Figure\ref{f:pang-result}.
 % 
 %\begin{figure}[!ht]
 %	\centering\includegraphics[width=\columnwidth]{images/algoresult.png}
@@ -474,14 +484,16 @@ is illustrated in Figure\ref{f:pang-result}.
 
 \section{Hadoop Deployment}\label{s:hadoopdep}
 
-For the entire project, we chose the current stable release of Hadoop, version 
-2.9.0. For the convenience of benchmarking across platforms, we adopted a 
-fixed set of configuration files for all of our installations. For example, the 
-value of dfs\.replication is set to 3, which means that 3 copies of the data will 
-be stored in the HDFS. In addition, physical memory limit for each map task 
-and reduce task is set to 1024MB, with the ratio of virtual memory to physical 
-memory allowed set to 2.1. Therefore, the virtual memory limit for each map 
-task and reduce task is 2150MB. 
+For the entire project, we chose the current stable release of Hadoop
+at the time of the study: version 2.9.0. In order to make it
+convenient to benchmark across platforms we adopted a fixed set of
+configuration files for all of our installations. For example, the
+value of dfs\.replication is set to 3, which means that 3 copies of
+the data will be stored in the HDFS. In addition, physical memory
+limit for each map task and reduce task is set to 1024MB, with the
+ratio of virtual memory to physical memory allowed set to
+2.1. Therefore, the virtual memory limit for each map task and reduce
+task is 2048MB.
 
 Hadoop can be configured to run in three modes: Standalone Mode, 
 Pseudo-Distributed Mode and Fully-Distributed 
@@ -502,12 +514,12 @@ Mode~\cite{hid-sp18-405-hadoop-singlenode}.
 In this project, we deployed Hadoop in Pseudo-Distributed Mode and 
 Fully-Distributed Mode with the main focus on the latter. 
 
-\subsection{Pseudo-Distributed}
+\subsection{Pseudo-Distributed}\label{ss:pseudo-distributed}
 
 We developed Pseudo-Distributed Hadoop cluster in two ways as illustrated 
 in Figure~\ref{f:hadoop-pseudo}. The direct installation is on the left, where 
 NameNode, DataNode, ResourceManager and NodeManager are sitting on 
-the operating system of the host machine (could be virtual) as separate Java 
+the operating system of the host machine (wich could be a VM) as separate Java 
 Virtual Machines. The right panel of Figure~\ref{f:hadoop-pseudo} shows the 
 dockerized version where the four core components are wrapped in one 
 Docker container and sitting on the Docker Engine. 
@@ -533,8 +545,8 @@ the VM. Per Thiebault's instructions, ipv6 is disabled. A group
 called \verb|hadoop| is created with a user called \verb|hduser|. SSH
 keys are created using \verb|ssh-keygen| and hduser's public key is
 added to \verb|known_hosts| so that passwordless SSH to to localhost
-is possible. Pyenv is then installed and python 3.6.2 is made the
-global version of python for the VM. Hadoop 2.9.0 is downloaded from
+is possible. Pyenv is then installed and Python 3.6.2 is made the
+global version of Python for the VM. Hadoop 2.9.0 is downloaded from
 Apache and installed in \verb|/usr/local/hadoop|. The following
 environment variables are set in hduser's \verb|.bashrc| file:
 \begin{verbatim}
@@ -559,37 +571,38 @@ also set in \verb|core-site.xml|.
 The sentiment analysis algorithm was run in pseudo-distributed mode on
 the VM with and without yarn as a resource manager. If yarn is used, a
 few more configuratons need to be done in the xml files
-in \verb|$HADOOP_HOME/etc/hadoop|: the mapreduce framework name needs
+in \verb|$HADOOP_HOME/etc/hadoop|: the MapReduce framework name needs
 to be set to yarn in \verb|mapred-site.xml|,
 and \verb|mapreduce_shuffle| needs to be set up
 in \verb|yarn-site.xml|.
 
 \paragraph{Dockerized Installation} We used a Dockerfile to build the 
-image for the Pseudo-Distributed Hadoop container. The image is modified 
-from the one on the sequenceiq github 
-repository~\cite{hid-sp18-405-hadoop-sequenceiq}. The modification 
-includes minor bug fixes, change of Java and Hadoop version, installation of 
-Python and Pyenv, download of data and transfer of Python code for the use 
-of Hadoop-Streaming. The container can be either started up with a shell 
-interface for user to input commands operating the cluster or as an 
-executable program which run the whole classification algorithm and transfer 
-the results including running time back to the host machine. In later case, the 
-docker container needs to be started by initiating a customized start-up 
-script and overwrites the default scripts defined by the COMMAND or 
-ENTRYPOINT settings in the Dockerfile. 
+image for the Pseudo-Distributed Hadoop container. The image is
+modified from the one on the sequenceiq github
+repository~\cite{hid-sp18-405-hadoop-sequenceiq}. The modification
+includes minor bug fixes, change of the Java and Hadoop version used,
+installation of Python and Pyenv, download of data and transfer of
+Python code for the use of Hadoop-Streaming. The container can be
+started up with a shell interface for user to input commands operating
+the cluster, or as an executable program which runs the whole
+classification algorithm and transfers the results, including running
+time, back to the host machine. In later case, the Docker Container
+needs to be started by initiating a customized start-up script that
+overrides the default scripts defined by the COMMAND or ENTRYPOINT
+settings in the Dockerfile.
 
 
 \subsection{Fully-Distributed using Docker Compose}
 
-Fully-Distributed Hadoop cluster can be naturally deployed on multiple virtual 
-and/or physical machines. However, the tool of Docker Compose makes it 
-available to deploy the same mulit-node cluster on one single virtual machine. 
-The architecture is illustrated in Figure~\ref{f:hadoop-compose}, where the 
-red rectangle stands for some virtual or physical machine. This could be a 
-personal laptop, VirtualBox running Ubuntu or FutureSystem Echo. However, 
-since Echo is in Swarm mode, Docker Compose will only deploy the hadoop 
-cluster on the head node, which conforms the restriction that only node 
-interacting with clients is the head node. 
+A Fully-Distributed Hadoop cluster can be deployed on multiple VMs or
+physical machines. By using Docker Compose, one can deploy the same
+multi-node cluster on one single virtual machine.  The architecture is
+illustrated in Figure~\ref{f:hadoop-compose}, where the red rectangle
+stands for some virtual or physical machine. This could be a personal
+laptop, VirtualBox running Ubuntu or FutureSystem Echo. However, since
+Echo is in Swarm mode, Docker Compose will only deploy the hadoop
+cluster on the head node due to the restriction that the only node
+interacting with clients is the head node.
 
 \begin{figure}[!ht]
 	\centering\includegraphics[width=\columnwidth]{images/hadoop-docker-compose.png}
@@ -597,57 +610,61 @@ interacting with clients is the head node.
 		Hadoop Cluster Using Docker Compose}\label{f:hadoop-compose}
 \end{figure}
 
-In in Figure~\ref{f:hadoop-compose}, each Docker container acts as a node 
-and the cluster contains one Master Node and 
-multiple Worker Nodes. The ResourceManager and NameNode within the 
-Master Node container could communicate with the all the NodeManagers 
-and DataNodes respectively using TCP ports. 
+In in Figure~\ref{f:hadoop-compose}, each Docker container acts as a
+node and the cluster contains one Master Node and multiple Worker
+Nodes. The ResourceManager and NameNode within the Master Node
+container can communicate with the all the NodeManagers and DataNodes
+respectively using TCP ports.
 
-The configuration process differs from the Pseudo-Distributed Hadoop 
-container in two ways. First, there will be two different start-up scripts for 
-Master Node container and Worker Node container respectively. The script 
-for Master Node will only start ResourceManager and NameNode but not 
-NodeManager or DataNode, and the script for Worker Node will do the other 
-way around. Second, a YAML file needs to be configured with information of 
-Master and Worker Node containers including image to use, ports to expose, 
-network, container name, start-up command etc. One important feature 
-Docker Compose provides is that one only need to configure one Worker 
-Node containers in the YAML file instead of multiple ones. When starting up 
-the service, a Docker Compose scale command can be used to scale up the 
-number of Worker Nodes as desired. Furthermore, the scale command can 
-also be used while the cluster is running. In that case, the number of Worker 
-Nodes will be adjusted according to the scale command therefore the size of 
-cluster can be controlled dynamically without the need of shutting down and 
-restart the cluster. 
+The configuration process differs from the Pseudo-Distributed Hadoop
+container in two ways. First, there are two different start-up scripts
+for Master Node container and Worker Node container respectively: the
+script for Master Node only starts ResourceManager and NameNode but
+not NodeManager or DataNode, and the script for Worker Node starts
+NodeManager and DataNode but not ResourceManager or NameNode. Second,
+a YAML file needs to be configured with information about the Master
+and Worker Node containers that includes which image to use, which
+ports to expose, the network, the container name, the start-up
+command, etc. One important feature Docker Compose provides is that
+one only needs to configure one Worker Node containers in the YAML
+file instead of multiple ones. When starting up the service, a Docker
+Compose scale command can be used to scale up the number of Worker
+Nodes as desired. Furthermore, the scale command can also be used
+while the cluster is running. In that case, the number of Worker Nodes
+is adjusted according to the scale command therefore the size of
+cluster can be controlled dynamically without the need of shutting
+down and restart the cluster.
 
-After the clusters are started up, user could log into any of the containers, 
-check status, and run commands. We did also made the running of 
-sentiment analysis algorithm automated in a similar way the 
-Pseudo-Distributed cluster using Docker Containers.
+After the clusters are started up, a user can log into any of the
+containers, check status, and run commands. The running of the
+sentiment analysis algorithm is automated in a similar way the
+Pseudo-Distributed cluster using Docker Containers described in
+Subsection~\ref{{ss:pseudo-distributed}.
 
 
 \subsection{Fully-Distributed using Docker Swarm}
 
-Although Docker Compose provides a way to simplify the deployment of a 
-Fully-Distributed Hadoop cluster, the limitation is obvious. All the containers 
-have to be on the same Docker Engine on an operating system, thus they are 
-within the scope of the same virtual/physical machine. Therefore, the number 
-of Worker Nodes and the computation and storage capability of the cluster is 
-limited by the host machine (either virtual or physical). Docker Swarm as 
-introduced in Section~\ref{s:techused}, provides a way to deploy the cluster 
-across different machines. 
+Although Docker Compose provides a way to simplify the deployment of a
+Fully-Distributed Hadoop cluster, there is an obvious limitation: all
+the containers have to be on the same Docker Engine on an operating
+system in order to be within the scope of the same VM or physical
+machine. Therefore, the number of Worker Nodes and the computation and
+storage capability of the cluster is limited by the host
+machine. Docker Swarm, as introduced in Section~\ref{s:techused},
+provides a way to deploy the cluster across different machines.
 
-Instead of building a cluster of virtual machines with Docker Swarm enabled, 
-for this project we used the FutureSystem Echo, where Docker Swarm has 
-been fully implemented. The architecture of the Hadoop cluster is illustrated 
-in Figure~\ref{f:hadoop-swarm}, where each red rectangle stands for a 
-physical node other than the head node in the swarm cluster because Docker 
-Swarm will not deploy any container on the head node. Although in this case, 
-the Master Node will be on a different machine from some of the Worker 
-Nodes, the communication is enabled within the network which is 
-automatically built as the first step of the cluster deployment. 
-Similarly as Docker Compose, the Swarm Mode also allows scaling up of the 
-cluster without temporary shut down. 
+Instead of building a cluster of virtual machines with Docker Swarm
+enabled, for this project we used the FutureSystem Echo, where Docker
+Swarm has been fully implemented. The architecture of the Hadoop
+cluster is illustrated in Figure~\ref{f:hadoop-swarm}, where each red
+rectangle stands for a physical node other than the head node in the
+swarm cluster because Docker Swarm will not deploy any container on
+the head node. Although in this case, the Master Node is on a
+different machine from some of the Worker Nodes, the communication is
+enabled within the network which is automatically built as the first
+step of the cluster deployment.  Similarly as Docker Compose, the
+Swarm Mode also allows scaling up of the cluster without shutting down
+the MapReduce process.
 
 \begin{figure}[!ht]
 	\centering\includegraphics[width=\columnwidth]{images/hadoop-docker-swarm.png}
@@ -656,58 +673,51 @@ cluster without temporary shut down.
 \end{figure}
 
 The YAML file for Docker Compose can be used to configure the cluster 
-under the Swarm mode with some minor changes. Additional options such as 
-deploy is available while some options are disabled such as container name. 
+under the Swarm mode with some minor changes. Additional options, such as 
+deploy, are available, but some options, such as container name, are disabled. 
 One key difference is that we have to include some start-up scripts and use 
-those as Entrypoint or Command to make the algorithm of sentiment analysis 
+those as Entrypoint or Command to make the sentiment analysis algorithm 
 run automatically when the cluster starts. Unlike in previous methods of 
 deployment, where we still have the option of logging into the container and 
 pass commands through bash, in swarm mode we cannot log into the 
 containers because they are all deployed on worker nodes of the Swarm 
 cluster. 
 
-One caveat is how one could get the analysis results, which sits on some 
-worker node in the Swarm cluster, back to the head node. One stardard way 
-could be using the WebHDFS REST API with the curl command. However, in 
-our implementation, we had a difficulty accessing different datanode, where 
-the results are actually stored, through WebHDFS. This could be caused by 
-some port issue and configuration in the initial HDFS setting. As a 
-workaround, we put the results together with the log files in to the logs 
-folder, which can be accessed through the YARN ResourceManager on 
-certain port (8008 by default).
+A challenge in implementing Swarm mode is determining how one gets the
+analysis results, which sits on some worker node in the Swarm cluster,
+back to the head node. A stardard way of doing this is to use the
+WebHDFS REST API with the \verb|curl| command. However, in our
+implementation, we had difficulty accessing different datanodes
+where the results are actually stored through WebHDFS. This may be
+caused by some port issue and configuration in the initial HDFS
+setting. As a workaround we put the results together with the log
+files in to the logs folder, which can be accessed through the YARN
+ResourceManager on a certain port (8008 by default).
 
-
-\TODO{Please check if the next paragraph is appropriate}
-At the current state of this project, the Fully-Distributed Mode Hadoop 
-clustersare achieved using Docker containers. As a future project, we 
-planned to set up Raspberry Pi's clusters and each Pi acts like a node in 
-Hadoop without virtualization. The Pi cluster set-up and initialization has 
-been included in 
-Section~\ref{s:appendix}.
 
 \section{Benchmarking Process}\label{s:benchrproc}
 
 The benchmarking has been done on several machines listed in 
-Section~\ref{s:techused}, the 8GB ram Macbook Pro 2015, the 
-16GB ram Asus laptop running centos, the 16GB ram 
-desktop with ubuntu Virtualbox, and FutureSystem Echo. 
+Section~\ref{s:techused}: the 8GB RAM Macbook Pro 2015, the 
+16GB RAM Asus laptop running Centos, the 16GB RAM 
+desktop running Ubuntu on VirtualBox, and FutureSystem Echo. 
 For each of these machines, we used Docker to deploy Pseudo-Distributed 
-Hadoop, and Fully-distributed Hadoop using Docker Compose for worker 
+Hadoop and Fully-distributed Hadoop using Docker Compose for worker 
 number starting at 1. For each setting, 10 iterations of the whole process of 
 setting up cluster and running algorithm were performed. We then calculated 
 the mean of running time together with standard deviations and the 
 coefficient of variation (which is the ratio of standard deviation and mean). 
-On echo, we also benchmarked the Fully-distributed Hadoop using Docker 
+On Echo, we also benchmarked the Fully-Distributed Hadoop using Docker 
 Swarm in a similar fashion. 
 
-For some machines, there is a limit on the number of workers that can be 
-established. For example, the Macbook can have at most two workers, 
-otherwise the algorithm cannot be finished. The Java exceptions indicate that 
-the machine ran out of memory. The two 16GB ram Asus laptop and 
-Birtualbox on desktop  could support 5 or 6 workers in a stable fashion. 
-Stability here is defined as each iteration ending successfully and the 
-deviation in running time is relatively small. Detailed results will be provided in 
-Section~\ref{s:results}. 
+For some machines, there is a limit on the number of workers that can
+be established. For example, the Macbook can have at most two
+workers. When attempting to run more, the algorithm does not finish
+because the machine runs out of memory. The two 16GB RAM Asus laptops
+and VirtualBox on desktop could support 5 or 6 workers in a stable
+fashion.  Stability here is defined as each iteration ending
+successfully and the deviation in running time is relatively
+small. Detailed results will be provided in Section~\ref{s:results}.
 
 \section{Results}\label{s:results}
 This section elaborates the result of our benchmarking process, we will 
@@ -715,7 +725,7 @@ discuss deployment time and running time separately.
 
 \subsection{Deployment Time}
 
-All the dockerized Hadoop cluster depends on Docker Engine and 
+All the dockerized Hadoop clusters depend on Docker Engine and 
 corresponding images. The Deployment can be divided into three steps. 
 
 \begin{itemize}
@@ -931,7 +941,7 @@ and recommended next steps are outlined.
 
 At the end of the process, each Pi has a unique hostname a new
 password. A computer outside of the cluster can log into any of the
-pis via ssh and the pis are configured to run mapreduce jobs using
+pis via ssh and the pis are configured to run MapReduce jobs using
 Apache Hadoop. The process of achieving these goals manually has been
 well documented in various blogs and message boards on the
 internet~\cite{hid-sp18-419-headless}, but in order to make the
@@ -1047,14 +1057,14 @@ connected to the hosts WiFi.
 
 The images are created using two scripts: \verb|download_image.sh| - a
 simple shell script to download the latest Raspbian Stretch Lite
-image, and \verb|modify_sdcard.py| - a python script that will create
-the custom images. The python script runs on python version 2.7.12,
+image, and \verb|modify_sdcard.py| - a Python script that will create
+the custom images. The Python script runs on Python version 2.7.12,
 which is the version that comes installed on Ubuntu 16.04. It requires
 one additional package, \verb|pycryptodome|, which is needed to
 generate ssh keys. The script needs to be run as root to have
 permission to mount and modify the files in the Raspbian image.
 
-The python script creates the number of custom images specified with a
+The Python script creates the number of custom images specified with a
 flag. The names of the images are a basename followed by a three-digit
 number that increments sequentially from the specified starting number
 through that number plus the number of images created. The basename,
@@ -1087,7 +1097,7 @@ VM using \verb|dd|. Instructions for doing this provided by The
 Raspberry Pi Foundation were tested on both
 platforms~\cite{hid-sp18-419-raspbian-burn}.
 
-A known issue with the python script is that because it needs to be
+A known issue with the Python script is that because it needs to be
 run as root to mount and unmount the images and modify the
 contents, \verb|~/.ssh| and its contents: \verb|id_rsa|,
 \verb|id_rsa.pub|, and \verb|authorized_keys| are owned by root.
