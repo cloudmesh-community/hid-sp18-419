@@ -789,29 +789,34 @@ deviation divided by mean) equals to 0.1.
 \centering
 \caption{Running Time results}\label{t:results-table}
 	\begin{tabular}{llllll}
+		\toprule
 		\# Workers & Macbook Pro 2015 & Asus Laptop & Virtualbox on 
-		Desktop & Echo (Compose) & Echo (Swarm) \\
+		Desktop & Echo (Compose) & Echo (Swarm) \\ \midrule
 		Pseudo & \textbf{99m14s (80s)} & \textbf{77m15s (8s)} & 43m34s 
-		(39s) & 22m25s (12s) & N/A \\
+		(39s) & 22m25s (12s) & N/A \\\midrule
 		1 & 104m34s (119s) & 82m8s (57s) & 44m47s (20s) & 33m42s (12s) & 
-		20m49s (20s) \\
+		20m49s (20s) \\\midrule
 		2 & 108m50s(110s) & 84m35s (7s) & \textbf{42m47s (24s)} & 18m57s 
-		(6s) & 15m26s (17s) \\
-		3 & N/A & 86m5s (6s) & 43m13s (17s) & 17m41s (2s) & 11m14s (4s) \\
+		(6s) & 15m26s (17s) \\\midrule
+		3 & N/A & 86m5s (6s) & 43m13s (17s) & 17m41s (2s) & 11m14s (4s) 
+		\\\midrule
 		4 & N/A & 87m50s (11s) & 43m59s (58s) & \textbf{17m38s (2s)} & 
-		9m24s (3s) \\
-		5 & N/A & 90m1s (8s) & 48m46s (104s) & 17m52s (2s) & 8m47s (6s) \\
-		6 & N/A & 92m32s (11s) & 58m57s (171s) & 18m9s (2s) & 8m25s (7s) \\
-		7 & N/A & N/A & 85m19s (634s)* & 18m17s (2s) & 8m2s (4s) \\
-		8 & N/A & N/A & 113m36s (2520s)* & 18m28s (2s) & 7m44s (2s) \\
-		9 & N/A & N/A & N/A & 18m29s (1s) & 7m39s (2s) \\
-		10 & N/A & N/A & N/A & 18m34s (2s) & \textbf{7m35s (2s)} \\
-		15 & N/A & N/A & N/A & 18m56s (1s) & 7m37s (3s) \\
-		20 & N/A & N/A & N/A & 19m12s (1s) & 7m44s (3s) \\
-		25 & N/A & N/A & N/A & 19m34s (2s) & 7m52s (2s) \\
-		30 & N/A & N/A & N/A & 19m50s (2s) & 8m1s (4s) \\
-		35 & N/A & N/A & N/A & 20m2s (3s) & 8m16s (4s) \\
-		40 & N/A & N/A & N/A & 20m18s (3s) & 8m20s (4s)
+		9m24s (3s) \\\midrule
+		5 & N/A & 90m1s (8s) & 48m46s (104s) & 17m52s (2s) & 8m47s (6s) 
+		\\\midrule
+		6 & N/A & 92m32s (11s) & 58m57s (171s) & 18m9s (2s) & 8m25s (7s) 
+		\\\midrule
+		7 & N/A & N/A & 85m19s (634s)* & 18m17s (2s) & 8m2s (4s) \\\midrule
+		8 & N/A & N/A & 113m36s (2520s)* & 18m28s (2s) & 7m44s (2s) 
+		\\\midrule
+		9 & N/A & N/A & N/A & 18m29s (1s) & 7m39s (2s) \\\midrule
+		10 & N/A & N/A & N/A & 18m34s (2s) & \textbf{7m35s (2s)} \\\midrule
+		15 & N/A & N/A & N/A & 18m56s (1s) & 7m37s (3s) \\\midrule
+		20 & N/A & N/A & N/A & 19m12s (1s) & 7m44s (3s) \\\midrule
+		25 & N/A & N/A & N/A & 19m34s (2s) & 7m52s (2s) \\\midrule
+		30 & N/A & N/A & N/A & 19m50s (2s) & 8m1s (4s) \\\midrule
+		35 & N/A & N/A & N/A & 20m2s (3s) & 8m16s (4s) \\\midrule
+		40 & N/A & N/A & N/A & 20m18s (3s) & 8m20s (4s)\\\bottomrule
 	\end{tabular}
 \end{table}
 
