@@ -42,9 +42,9 @@ A sentiment analysis algorithm is run on several Hadoop
 configurations: in pseudo-distributed mode on an Ubuntu 16.04 virtual
 machine on a MacBook Pro with and without YARN, in pseudo-distributed
 mode in a Docker container on various personal computers and on
-Futuresystems Echo, in a cluster created using Docker Compose on
-various personal computers and on Futuresystems Echo, and in a cluster
-created using Docker Swarm on Futuresystems Echo. Performance tests
+FutureSystems Echo, in a cluster created using Docker Compose on
+various personal computers and on FutureSystems Echo, and in a cluster
+created using Docker Swarm on FutureSystems Echo. Performance tests
 are natural language processing based sentiment analysis on movie
 reviews (Polarity 2.0) implemented under MapReduce framework using
 Hadoop Streaming. Configurations are described in detail and steps to
@@ -54,14 +54,26 @@ repeatable and scalable fashion, automating as much of the setup
 process as possible are detailed, and next steps are discussed.
 \end{abstract}
 
-\keywords{hid-sp18-405, hid-sp18-419, Hadoop, Docker, Futuresystems}
+\keywords{hid-sp18-419, hid-sp18-405, Hadoop, Docker, FutureSystems}
 
 
 \maketitle
 
 \section{Introduction}\label{s:intro}
-\TODO{Write an introduction.}
-
+Various configurations of personal computers are benchmarked on their
+performance of a sentiment analysis algorithim written in Python
+leveraging the Hadoop framework. Software and hardware technologies
+used in this study are described: Hadoop, Docker Compose, Docker
+Swarm, VirtualBox, four personal computer configuratons and one cloud
+platform. The data set being used for the benchmarking is
+described. The sentiment analysis algorithm used for this study used
+for is explained in both its original form and in the modified version
+that was developed to run in the MapReduce framework. The three
+deployments of Hadoop used for benchmarking are destribed:
+Pseudo-Distributed mode, Fully-Distributed mode using Docker Compose,
+and Fully-Distributed mode using Docker Swarm. The benchmarking
+process is explained. Results are presented and discussed, and
+conclusions are drawn.
 
 \section{Technology Used}\label{s:techused}
 
@@ -86,7 +98,7 @@ failures on commodity hardware instead of requiring specialized
 hardware to handle deliver high-availibility. The most current version
 at the time of writing is
 3.0.1~\cite{hid-sp18-405-hadoop-official}. This project will leverage
-version 2.9.0, which is the current ``Stable'' version.
+version 2.9.0, which is the current stable version.
 
 The core of Hadoop include the following components: Hadoop Common,
 Hadoop Distributed File System (HDFS), Hadoop YARN and Hadoop
@@ -180,7 +192,7 @@ machine is referred to as a node. One node in the cluster will be the
 head, or manager, of the swarm. The head node is the only node
 communicating with outside client and receiving execution
 instructions. It coordinates instructions and passes them to other
-worker nodes. on FutureSystem Echo, the cloud platform used for this
+worker nodes. On FutureSystem Echo, the cloud platform used for this
 project, five physical servers are in Docker Swarm mode with one head
 and four workers. Key features of Docker Swarm include: cluster
 management integrated with Docker Engine, decentralized design,
@@ -195,28 +207,30 @@ workload optimally.
 \subsection{VirtualBox}
 VirtualBox is software from Oracle that allows one to run x86 and
 AMD64/Intel64 VMs on personal computers. It is used in this project
-for running the VMs in the Hadoop setups and for burning custom images for the
-Raspberry Pis discussed in Section~\ref{s:appendix}. Add-ons include
-Guest Additions, which allow one to cut and paste between the VM and
-the host, and the VirtualBox Extension Pack that allows mounting
-peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
+for running the VMs in the Hadoop setups and for burning custom images
+for the Raspberry Pis discussed in Section~\ref{s:appendix}. Add-ons
+include Guest Additions, which allow one to cut and paste between the
+VM and the host, and the VirtualBox Extension Pack that allows
+mounting peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 
 \subsection{Personal Computers}\label{ss:pcs}
 \paragraph{Macbook Pro (15-inch, 2017)}
 \begin{itemize}
-\item Operating system: macOS Sierra 10.12.6 
-\item Processor: 3.1 GHz Intel Core i7
-\item Memory: 16 GB 2133 MHz LPDDR3
-\item Graphics: Intel HD Graphics 630 1536 MB
-\item Periphals
-\begin{itemize}
-\item HyperDrive - USB Type-C Hub (has microSD card slot)
-\item Insignia - USB Type-C to Gigabit Ethernet Adapter (to connect to switch)
-\end{itemize}
-\item Software
-\begin{itemize}
-\item VirtualBox 5.2.8 with Guest Additions and the VirtualBox Extension Pack for USB 3.0 support.
-\end{itemize}
+        \item Operating system: macOS Sierra 10.12.6 
+        \item Processor: 3.1 GHz Intel Core i7
+        \item Memory: 16 GB 2133 MHz LPDDR3
+        \item Graphics: Intel HD Graphics 630 1536 MB
+        \item Periphals
+        \begin{itemize}
+                \item HyperDrive - USB Type-C Hub (has microSD card slot)
+                \item Insignia - USB Type-C to Gigabit Ethernet
+                Adapter (to connect to switch)
+        \end{itemize}
+        \item Software
+        \begin{itemize}
+                \item VirtualBox 5.2.8 with Guest Additions and the
+                VirtualBox Extension Pack for USB 3.0 support.
+        \end{itemize}
 \end{itemize}
 
 \paragraph{Macbook Pro (13-inch, 2015)}
@@ -230,41 +244,47 @@ peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 \paragraph{Acer Laptop (Aspire 4830)}
 \begin{itemize}
 	\item Operating system: CentOS Linux 7 (Core)
-	\item Processor: Intel (R) Core (TM) i5-2430M CPU @2.40GHz
+	\item Processor: Intel Core i5-2430M CPU @2.40GHz
 	\item Memory: 16 GB 1600 MHz DDR3
 \end{itemize}
 
 \paragraph{Asus Desktop}
 \begin{itemize}
 	\item Operating system: Windows 7 Professional
-	\item Processor: Intel (R) Core (TM) i5-4690K CPU @3.50GHz
+	\item Processor: Intel Core i5-4690K CPU @3.50GHz
 	\item Memory: 16 GB 1600 MHz DDR3
 	\item Software: VirtualBox 5.2.8
 \end{itemize}
 
 \subsection{Cloud Platforms}
 \paragraph{FutureSystem Echo}
-\TODO Describe Futuresystems Echo
+\begin{itemize}
+	\item Operating system: Ubuntu 16.04
+	\item Processors: 16 SuperMicro X9DRW servers, each node
+        with 2 6-core Intel Xeon CPU E5-2640 2.50GHz
+        processors for a total of 192 CPU cores
+	\item Memory: 6TB (384GB per node)
+\end{itemize}
 
 
 \section{Data}\label{s:data}
 
 The data used for the project is the Polarity Data 2.0, which is a
-dataset of movie reviews, first used by Bo Pang and Lillian
-Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental}~\cite{hid-sp18-405-sentiment-pang2002thumbs}.
+dataset of movie reviews first used by Bo Pang and Lillian
+Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental}
+~\cite{hid-sp18-405-sentiment-pang2002thumbs}.
 The dataset includes 1000 positive and 1000 negative processed
-reviews, which are labelled with respect to their overall sentiment
+reviews that  are labelled with respect to their overall sentiment
 polarity.
 
-Each of the review is in a format of text file, and each of the single
-line in a file is corresponding to a sentence. Further, every token
-(which includes single word, punctuation marks, numbers) has been
-separated by space. For example, Figure~\ref{f:data} shows several
-lines in one of the movie reviews with line number on the right, which
-illustrate the two features mentioned above. These features play an
-important role in the sentiment analysis algorithm especially under
-map-reduce framework, which will be discussed in details in
-Section~\ref{s:algorithm}.
+Each of the reviews is in the format of text file; each line in the
+files corresponds to a sentence; and every token (i\.e\. words,
+punctuation marks, and numbers) has been separated by a
+space. Figure~\ref{f:data} shows several lines in one of the movie
+reviews with line number on the left, illustrating the two features
+mentioned above. These features play an important role in the
+sentiment analysis algorithm, especially when using the MapReduce
+framework, which is discussed in detail in Section~\ref{s:algorithm}.
 \begin{figure*}[!ht]
 	\centering\includegraphics[width=\columnwidth]{images/polarity-data.png}
 	\caption{Example Data File}\label{f:data}
@@ -272,22 +292,22 @@ Section~\ref{s:algorithm}.
 
 The data is directly pulled from the
 source~\cite{hid-sp18-405-sentiment-data} and then split into training
-and testing sets according to a ratio of 8:2. The authors also keep
-the original ratio of positive and negative reviews in both the
-training and testing data sets. As a result, there are 1600 reviews
-(800 positive and 800 negative) in the training data set and 400
-reviews (200 positive and 200 negative) in the testing data set. The
-splitting process is done by using the random sort functionality in
-bash with a fixed random seed to ensure consistency of performance
-benchmarking on different platforms.
+and testing sets according to a ratio of 8:2. The split algorithm
+maintains the original ratio of positive and negative reviews in both
+the training and testing data sets. As a result, there are 1600
+reviews (800 positive and 800 negative) in the training data set and
+400 reviews (200 positive and 200 negative) in the testing data
+set. The splitting process is done by using the random sort
+functionality in bash with a fixed random seed to ensure consistency
+of performance benchmarking on different platforms.
 
 
 \section{Algorithm}\label{s:algorithm}
 
 This section introduces the algorithm used to classify the overall
 sentiment of the movie reviews in the benchmarking process. The
-algorithm is a modified version from Pang and
-Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental} and also
+algorithm is a modified version of the one used by Pang and
+Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental} that is
 explained in details by Jurafsky and
 Martin~\cite{hid-sp18-405-sentiment-jurafsky2009}.
 
@@ -302,20 +322,20 @@ The baseline algorithm contains the following steps:
 \end{enumerate}
 
 \paragraph{Tokenization}
-As mentioned in Section~\ref{s:data}, every token (which includes
-single word, punctuation marks, numbers) has been separated by space
-in the text files. Therefore, we just need to split the text strings
-with space to perform tokenization rather than use sophisticated
-tokenizers. This saves space and running time as well as the
-complication of loading python packages for hadoop worker nodes in
-hadoop-streaming. However, in more general settings with text data,
-non-trivial tokenization step needs to be performed before other type
-of text processing.
+As mentioned in Section~\ref{s:data}, every token (words, punctuation
+marks, and numbers) has been separated by space in the text
+files. Becuase of this, the algorithm needs only to split the text
+strings with space to perform tokenization rather than using
+sophisticated tokenizers. This saves space and running time and avoids
+the complication of loading Python packages for Hadoop worker nodes in
+Hadoop-streaming. However, in more general settings with text data,
+the non-trivial tokenization step needs to be performed before other
+type of text processing.
 
 \paragraph{Feature Extraction}
-The main feature that we use is the words contained in the documents,
-however, there are several options mentioned by Jurafsky and
-Martin~\cite{hid-sp18-405-sentiment-jurafsky2009}:
+The main feature that we use is the words contained in the documents.
+However, there are options mentioned in Jurafsky and
+Martin~\cite{hid-sp18-405-sentiment-jurafsky2009}, including:
 \begin{enumerate}
 	\item All tokens
 	\item Removing stoplist words
@@ -328,63 +348,72 @@ In this project, we applied stoplist words removal, punctuation tokens
 removal and negation treatment. 
 
 Stoplist is the list of words that are considered to be commonly used
-across documents regardless of sentiments thus adding little value in
-classification tasks. We removed stoplist words according to the
-english stopwords module from the python package: NLTK
-corpus~\cite{hid-sp18-405-sentiment-stopworddoc}. Punctuation removal
-is done by using python string
-module~\cite{hid-sp18-405-sentiment-punctuationdoc} supplemented by
-self-defined regular expression. We applied a basic negation treatment
-by adding a NOT\_ prefix to every token that follows a negation word
-and not separated by any punctuation tokens. For example: I really do
-not like the movie becomes: I really do not Not\_like Not\_the
-Not\_movie. This method is used by Das and
+across documents regardless of sentiments and therefore add little
+value when performing classification tasks. We removed stoplist words
+according to the English stopwords module from the Python package:
+NLTK corpus~\cite{hid-sp18-405-sentiment-stopworddoc}. Punctuation
+removal is done using the Python string
+module~\cite{hid-sp18-405-sentiment-punctuationdoc}, supplemented by a
+regular expression written for this project. We applied a basic
+negation treatment by adding a NOT\_ prefix to every token that
+follows a negation word and is not separated by any punctuation
+tokens. For example:
+
+I really do not like the movie
+
+becomes:
+
+I really do not Not\_like Not\_the Not\_movie.
+
+This method is used by Das and
 Chen~\cite{hid-sp18-405-sentiment-das2001yahoo} as well as Pang, Lee,
 and Vaithyanathan~\cite{hid-sp18-405-sentiment-pang2002thumbs}.
 
-We did not apply the option of using adjectives only due to the result
-provided by Pang and his
-colleges~\cite{hid-sp18-405-sentiment-pang2004asentimental} that
-adjectives only does not provide a better results than including all
-words. In fact, the accuracy dropped by on average 2\% in the testing
+We did not apply the option of using adjectives based on the findings
+by Pang et\. al\. that using adjectives alone does not provide a better
+results than including all
+words~\cite{hid-sp18-405-sentiment-pang2004asentimental}. In our own
+experiments, the accuracy dropped by an average of 2\% in the testing
 phase when we implemented the algorithm. We also did not apply
 lemmatization for all the tokens. Although lemmatization would
 increase the accuracy by around 2\% in one of the authors previous
-studies, it requires ontologies such as wordnet and including the
-wordnet corpus with lemmatizer is adding much complication to the
-hadoop-streaming. We tried to follow the instructions
-online~\cite{hid-sp18-405-hadoopstreaming-nltk}~\cite{hid-sp18-405-hadoopstreaming-corpus}
-to pass python package (NLTk) and corpus (wordnet) as zipped files
-from name nodes to data nodes in mapreduce tasks but the package can
-be passed but not loaded and corpus cannot be passed. This issue could
-be studied and solved in future projects.
+studies, it requires ontologies such as Wordnet. Including the Wordnet
+corpus with a lemmatizer would have complicated the implementation of
+Hadoop-streaming significantly. We tried to follow the instructions
+online~\cite{hid-sp18-405-hadoopstreaming-nltk}
+~\cite{hid-sp18-405-hadoopstreaming-corpus}
+to pass Python package NLTK and the corpus Wordnet as zipped files
+from name nodes to data nodes in the MapReduce tasks and found that
+the package could be passed but not loaded and corpus could not be
+passed at all. The issues we faced deserve further study in a future
+project.
 
 Pang, Lee, and
 Vaithyanathan~\cite{hid-sp18-405-sentiment-pang2002thumbs}, also
 considered different set of features such as bigrams, combination
-(back up) of bigrams and unigrams, top-unigrams etc. For simplicity,
-we chose to only use unigram models i\.e\. single tokens.
+(back up) of bigrams and unigrams, top-unigrams, etc. For simplicity,
+we chose to only use unigram models, i\.e\. single tokens.
 
 \paragraph{Classifier}
-We  used Naive Bayes as the classifier. The formulation is given as:
+We used Naive Bayes as the classifier. The formulation is given as:
 \begin{equation}\label{eq:nb}
 c_{NB}=\text{argmax}_{c_j \in C} P(c_j) \prod_{i \in positions} P(w_i|c_j)
 \end{equation}
 
-where in this case, $j \in \{positive, negative\}$, also for this
+where in this case, $j \in \{positive, negative\}$. Also, for this
 movie review dataset, we know the prior probabilities:
 $P(c_{positive})=P(c_{negative})=0.5$
 
 \paragraph{Smoothing}
 To avoid the problem that the probability of some token in the 
-training/testing document is zero. We use the add-one smoothing or Laplace 
-smoothing in this case:
+training/testing document is zero, we use the add-one smoothing, or Laplace 
+smoothing. In this case:
 \begin{equation}\label{eq:sm}
 P(w|c) = \frac{count(w,c) + 1}{count(c) + |V|}
 \end{equation}
 
-Figure~\ref{f:algo} is the algorithm we implemented summarized by Jurafsky 
-and Martin:
+Figure~\ref{f:algo} is the algorithm we implemented as summarized by
+Jurafsky and Martin:
 \begin{figure}[!ht]
 		\centering\includegraphics[width=\columnwidth]{images/algorithm.png}
 		\caption{Naive Bayes for Sentiment 
@@ -397,9 +426,9 @@ As illustrated in Equation~\ref{eq:nb}, Equation~\ref{eq:sm}, and
 Figure\ref{f:algo}, the Naive Bayes classification algorithm is based
 on comparing posterior probability. The likelihood of each single
 valid token can be calculated by aggregating the count of this token
-among the training documents for the two classes positive and
-negative. The the likelihood of a testing document is an aggregation
-of the likelihood of each valid token within that document. Therefore,
+among the training documents for the two classes: positive and
+negative. The likelihood of a testing document is an aggregation
+of the likelihood of each valid token within that document. Therefore
 both training and testing process can be implemented in a MapReduce
 framework to facilitate the process of counting tokens and
 aggregation. The implementation is summarized in Figure~\ref{f:mapreduce}
@@ -410,53 +439,52 @@ aggregation. The implementation is summarized in Figure~\ref{f:mapreduce}
 \end{figure}
 
 There are two MapReduce jobs in the training process, one for training
-on positive-labelled documents and the other for negative-labelled
+on positive-labeled documents and the other for negative-labeled
 documents.  $count(w,c)$ in Equation~\ref{eq:sm} shows the necessity
 to count the tokens according to the classes, which are positive and
-negative in this task.  During the training on positive-labelled
-documents, the TrainingMapper python code will read in each positive
-movie reviews in the training set through standard input, filter valid
-tokens (removing stoplist words, punctuation, adding negation, see
-Subsection\ref{ss:base}) and print to the standard
-output. The read-in process is done on a line-by-line basis using a Python 
-generator. This is achievable because the data is formatted in the way that 
-each line is one sentence (see Section~\ref{s:data}), thus no sentence 
-splitting is accomplished by line breaks. TrainingReducer python code will 
-take these standard output
-performing aggregation by tokens. The result is a dictionary-like text
-file containing number of occurrence for each valid token in the
-positive training set. The negative training documents will be
-processed in a similar way.
+negative in this task.  During the training on positive-labeled
+documents, the TrainingMapper Python code will read in each positive
+movie review in the training set through standard input, filter valid
+tokens (removing stoplist words, punctuation, and adding negation and
+described in Subsection\ref{ss:base}) and print to the standard
+output. The read-in process is done on a line-by-line basis using a
+Python generator. This is achievable because the data is formatted in
+so that each line is one sentence (see Section~\ref{s:data}), thus no
+sentence is split by line breaks. The TrainingReducer Python code will
+take these standard output and perform aggregation by tokens. The
+result is a dictionary-like text file containing number of occurrence
+for each valid token in the positive training set. The negative
+training documents are processed in a similar way.
 
 In the testing process, each testing document is analyzed
-separately. The TestingMapper will read in the one document, perform
-the same filter to keep valid tokens and print to standard output. The
-testingReducer will read in both this standard output and the two
-results files from the training process, calculating the likelihood of
-each valid token in this document according to the smoothing formula
-given by Equation~\ref{eq:sm} before getting posterior probability
-through aggregation according to Equation~\ref{eq:nb}. Then for each
-document, there will be two posterior probabilities, positive and
-negative. The document will be assigned to the one with higher
-probability. The final output will be a text file and each line is the
-testing document name with its classification label. In the actual
-implementation, we performed the testing process using two MapReduce
-jobs, one for the testing data that are actually positive, the other
-for the testing data that are actually negative. This is essentially
-the same as performing testing process on each document blindly and
-then verify the results. However, it is easier to calculate the
-accuracy of the algorithm.
+separately. The TestingMapper reads in each document, perform the same
+filter to keep valid tokens, and print to standard output. The
+TestingReducer reads in both this standard output and the two results
+files from the training process, calculating the likelihood of each
+valid token in this document according to the smoothing formula given
+by Equation~\ref{eq:sm} before getting posterior probability through
+aggregation according to Equation~\ref{eq:nb}. Then for each document
+there are two posterior probabilities, positive and negative. The
+document is assigned to the one with higher probability. The final
+output is a text file in which each line contains the testing document
+name and its classification label. In the actual implementation, we
+performed the testing process using two MapReduce jobs, one for the
+testing data that are actually positive, the other for the testing
+data that are actually negative. This is essentially the same as
+performing testing process on each document blindly and then verify
+the results. However, implementing it in this way makes it easier to
+calculate the accuracy of the algorithm.
  
-In summary, we used python codes to implement two mappers
+In summary, we used Python codes to implement two mappers
 (TrainingMapper and TestingMapper) and two reducers (TrainingReducer
-and Testingreducer) to perform 4 MapReduce jobs for the training and
-testing processes. For the fixed random seed mentioned in
+and TestingReducer) to perform four MapReduce jobs for the training
+and testing processes. For the fixed random seed mentioned in
 Section\ref{s:data}, we achieved the following results: out of the 200
-positive testing data, 162 are correctly labelled; out of the 200
-negative testing data, 168 are correctly labelled. Therefore, the
-overall accuracy of the algorithm is 82.5\%. This is acceptable
-compared to the result achieved by Pang, Lee, and Vaithyanatha, which
-is illustrated in Figure\ref{f:pang-result}.
+positive testing data, 162 are correctly labeled; out of the 200
+negative testing data, 168 are correctly labeled. Therefore, the
+overall accuracy of the algorithm is 82.5\%. This is in line to the
+result achieved by Pang, Lee, and Vaithyanatha, which is illustrated
+in Figure\ref{f:pang-result}.
 % 
 %\begin{figure}[!ht]
 %	\centering\includegraphics[width=\columnwidth]{images/algoresult.png}
@@ -474,43 +502,47 @@ is illustrated in Figure\ref{f:pang-result}.
 
 \section{Hadoop Deployment}\label{s:hadoopdep}
 
-For the entire project, we chose the current stable release of Hadoop, version 
-2.9.0. For the convenience of benchmarking across platforms, we adopted a 
-fixed set of configuration files for all of our installations. For example, the 
-value of dfs\.replication is set to 3, which means that 3 copies of the data will 
-be stored in the HDFS. In addition, physical memory limit for each map task 
-and reduce task is set to 1024MB, with the ratio of virtual memory to physical 
-memory allowed set to 2.1. Therefore, the virtual memory limit for each map 
-task and reduce task is 2150MB. 
+For the entire project, we chose the current stable release of Hadoop
+at the time of the study: version 2.9.0. In order to make it
+convenient to benchmark across platforms we adopted a fixed set of
+configuration files for all of our installations. For example, the
+value of dfs\.replication is set to 3, which means that 3 copies of
+the data will be stored in the HDFS. In addition, physical memory
+limit for each map task and reduce task is set to 1024MB, with the
+ratio of virtual memory to physical memory allowed set to
+2.1. Therefore, the virtual memory limit for each map task and reduce
+task is 2048MB.
 
 Hadoop can be configured to run in three modes: Standalone Mode, 
 Pseudo-Distributed Mode and Fully-Distributed 
 Mode~\cite{hid-sp18-405-hadoop-singlenode}. 
 \begin{itemize}
-	\item Standalone Mode: In this Mode, Local file system instead of HDFS is 
-	used. Resource Manager, Node Manager and all other processes are 
-	running not only in one virtual machine but in one single Java Virtual 
-	Machine (JVM).
+	\item Standalone Mode: In this Mode, Local file system instead of
+        HDFS is used. Resource Manager, Node Manager and all other
+        processes are running not only in one virtual machine but in one
+        single Java Virtual Machine (JVM).
 	\item Pseudo-Distributed Mode: HDFS is used, NameNode, DataNode, 
-	ResourceManager and NodeManager are in the same virtual machine but in 
-	different JVMs. 
-	\item Fully-Distributed Mode: This is the mode that Hadoop clusters can be 
-	ranging from a few nodes to large clusters with thousands of nodes. Each 
-	node (worker) will be on different virtual/physical machines and they all 
-	have DataNode and NodeManager running as seperate JVMs.
+	ResourceManager and NodeManager are in the same virtual machine
+        but in different JVMs. 
+	\item Fully-Distributed Mode: This is the mode that Hadoop
+        clusters can be ranging from a few nodes to large clusters with
+        thousands of nodes. Each node (worker) will be on different
+        virtual/physical machines and they all have DataNode and
+        NodeManager running as seperate JVMs.
 \end{itemize}
 In this project, we deployed Hadoop in Pseudo-Distributed Mode and 
 Fully-Distributed Mode with the main focus on the latter. 
 
-\subsection{Pseudo-Distributed}
+\subsection{Pseudo-Distributed}\label{ss:pseudo-distributed}
 
-We developed Pseudo-Distributed Hadoop cluster in two ways as illustrated 
-in Figure~\ref{f:hadoop-pseudo}. The direct installation is on the left, where 
-NameNode, DataNode, ResourceManager and NodeManager are sitting on 
-the operating system of the host machine (could be virtual) as separate Java 
-Virtual Machines. The right panel of Figure~\ref{f:hadoop-pseudo} shows the 
-dockerized version where the four core components are wrapped in one 
-Docker container and sitting on the Docker Engine. 
+We developed Pseudo-Distributed Hadoop cluster in two ways as
+illustrated in Figure~\ref{f:hadoop-pseudo}. The direct installation
+is on the left, where NameNode, DataNode, ResourceManager and
+NodeManager are sitting on the operating system of the host machine
+(wich could be a VM) as separate Java Virtual Machines. The right
+panel of Figure~\ref{f:hadoop-pseudo} shows the dockerized version
+where the four core components are wrapped in one Docker container and
+sitting on the Docker Engine.
 
 \begin{figure}[!ht]
 	\centering\includegraphics[width=\columnwidth]{images/hadoop-docker-pseudo.png}
@@ -533,8 +565,8 @@ the VM. Per Thiebault's instructions, ipv6 is disabled. A group
 called \verb|hadoop| is created with a user called \verb|hduser|. SSH
 keys are created using \verb|ssh-keygen| and hduser's public key is
 added to \verb|known_hosts| so that passwordless SSH to to localhost
-is possible. Pyenv is then installed and python 3.6.2 is made the
-global version of python for the VM. Hadoop 2.9.0 is downloaded from
+is possible. Pyenv is then installed and Python 3.6.2 is made the
+global version of Python for the VM. Hadoop 2.9.0 is downloaded from
 Apache and installed in \verb|/usr/local/hadoop|. The following
 environment variables are set in hduser's \verb|.bashrc| file:
 \begin{verbatim}
@@ -559,37 +591,38 @@ also set in \verb|core-site.xml|.
 The sentiment analysis algorithm was run in pseudo-distributed mode on
 the VM with and without yarn as a resource manager. If yarn is used, a
 few more configuratons need to be done in the xml files
-in \verb|$HADOOP_HOME/etc/hadoop|: the mapreduce framework name needs
+in \verb|$HADOOP_HOME/etc/hadoop|: the MapReduce framework name needs
 to be set to yarn in \verb|mapred-site.xml|,
 and \verb|mapreduce_shuffle| needs to be set up
 in \verb|yarn-site.xml|.
 
 \paragraph{Dockerized Installation} We used a Dockerfile to build the 
-image for the Pseudo-Distributed Hadoop container. The image is modified 
-from the one on the sequenceiq github 
-repository~\cite{hid-sp18-405-hadoop-sequenceiq}. The modification 
-includes minor bug fixes, change of Java and Hadoop version, installation of 
-Python and Pyenv, download of data and transfer of Python code for the use 
-of Hadoop-Streaming. The container can be either started up with a shell 
-interface for user to input commands operating the cluster or as an 
-executable program which run the whole classification algorithm and transfer 
-the results including running time back to the host machine. In later case, the 
-docker container needs to be started by initiating a customized start-up 
-script and overwrites the default scripts defined by the COMMAND or 
-ENTRYPOINT settings in the Dockerfile. 
+image for the Pseudo-Distributed Hadoop container. The image is
+modified from the one on the sequenceiq github
+repository~\cite{hid-sp18-405-hadoop-sequenceiq}. The modification
+includes minor bug fixes, change of the Java and Hadoop version used,
+installation of Python and Pyenv, download of data and transfer of
+Python code for the use of Hadoop-Streaming. The container can be
+started up with a shell interface for user to input commands operating
+the cluster, or as an executable program which runs the whole
+classification algorithm and transfers the results, including running
+time, back to the host machine. In later case, the Docker Container
+needs to be started by initiating a customized start-up script that
+overrides the default scripts defined by the COMMAND or ENTRYPOINT
+settings in the Dockerfile.
 
 
 \subsection{Fully-Distributed using Docker Compose}
 
-Fully-Distributed Hadoop cluster can be naturally deployed on multiple virtual 
-and/or physical machines. However, the tool of Docker Compose makes it 
-available to deploy the same mulit-node cluster on one single virtual machine. 
-The architecture is illustrated in Figure~\ref{f:hadoop-compose}, where the 
-red rectangle stands for some virtual or physical machine. This could be a 
-personal laptop, VirtualBox running Ubuntu or FutureSystem Echo. However, 
-since Echo is in Swarm mode, Docker Compose will only deploy the hadoop 
-cluster on the head node, which conforms the restriction that only node 
-interacting with clients is the head node. 
+A Fully-Distributed Hadoop cluster can be deployed on multiple VMs or
+physical machines. By using Docker Compose, one can deploy the same
+multi-node cluster on one single virtual machine.  The architecture is
+illustrated in Figure~\ref{f:hadoop-compose}, where the red rectangle
+stands for some virtual or physical machine. This could be a personal
+laptop, VirtualBox running Ubuntu or FutureSystem Echo. However, since
+Echo is in Swarm mode, Docker Compose will only deploy the hadoop
+cluster on the head node due to the restriction that the only node
+interacting with clients is the head node.
 
 \begin{figure}[!ht]
 	\centering\includegraphics[width=\columnwidth]{images/hadoop-docker-compose.png}
@@ -597,57 +630,61 @@ interacting with clients is the head node.
 		Hadoop Cluster Using Docker Compose}\label{f:hadoop-compose}
 \end{figure}
 
-In in Figure~\ref{f:hadoop-compose}, each Docker container acts as a node 
-and the cluster contains one Master Node and 
-multiple Worker Nodes. The ResourceManager and NameNode within the 
-Master Node container could communicate with the all the NodeManagers 
-and DataNodes respectively using TCP ports. 
+In in Figure~\ref{f:hadoop-compose}, each Docker container acts as a
+node and the cluster contains one Master Node and multiple Worker
+Nodes. The ResourceManager and NameNode within the Master Node
+container can communicate with the all the NodeManagers and DataNodes
+respectively using TCP ports.
 
-The configuration process differs from the Pseudo-Distributed Hadoop 
-container in two ways. First, there will be two different start-up scripts for 
-Master Node container and Worker Node container respectively. The script 
-for Master Node will only start ResourceManager and NameNode but not 
-NodeManager or DataNode, and the script for Worker Node will do the other 
-way around. Second, a YAML file needs to be configured with information of 
-Master and Worker Node containers including image to use, ports to expose, 
-network, container name, start-up command etc. One important feature 
-Docker Compose provides is that one only need to configure one Worker 
-Node containers in the YAML file instead of multiple ones. When starting up 
-the service, a Docker Compose scale command can be used to scale up the 
-number of Worker Nodes as desired. Furthermore, the scale command can 
-also be used while the cluster is running. In that case, the number of Worker 
-Nodes will be adjusted according to the scale command therefore the size of 
-cluster can be controlled dynamically without the need of shutting down and 
-restart the cluster. 
+The configuration process differs from the Pseudo-Distributed Hadoop
+container in two ways. First, there are two different start-up scripts
+for Master Node container and Worker Node container respectively: the
+script for Master Node only starts ResourceManager and NameNode but
+not NodeManager or DataNode, and the script for Worker Node starts
+NodeManager and DataNode but not ResourceManager or NameNode. Second,
+a YAML file needs to be configured with information about the Master
+and Worker Node containers that includes which image to use, which
+ports to expose, the network, the container name, the start-up
+command, etc. One important feature Docker Compose provides is that
+one only needs to configure one Worker Node containers in the YAML
+file instead of multiple ones. When starting up the service, a Docker
+Compose scale command can be used to scale up the number of Worker
+Nodes as desired. Furthermore, the scale command can also be used
+while the cluster is running. In that case, the number of Worker Nodes
+is adjusted according to the scale command therefore the size of
+cluster can be controlled dynamically without the need of shutting
+down and restart the cluster.
 
-After the clusters are started up, user could log into any of the containers, 
-check status, and run commands. We did also made the running of 
-sentiment analysis algorithm automated in a similar way the 
-Pseudo-Distributed cluster using Docker Containers.
+After the clusters are started up, a user can log into any of the
+containers, check status, and run commands. The running of the
+sentiment analysis algorithm is automated in a similar way the
+Pseudo-Distributed cluster using Docker Containers described in
+Subsection~\ref{ss:pseudo-distributed}.
 
 
 \subsection{Fully-Distributed using Docker Swarm}
 
-Although Docker Compose provides a way to simplify the deployment of a 
-Fully-Distributed Hadoop cluster, the limitation is obvious. All the containers 
-have to be on the same Docker Engine on an operating system, thus they are 
-within the scope of the same virtual/physical machine. Therefore, the number 
-of Worker Nodes and the computation and storage capability of the cluster is 
-limited by the host machine (either virtual or physical). Docker Swarm as 
-introduced in Section~\ref{s:techused}, provides a way to deploy the cluster 
-across different machines. 
+Although Docker Compose provides a way to simplify the deployment of a
+Fully-Distributed Hadoop cluster, there is an obvious limitation: all
+the containers have to be on the same Docker Engine on an operating
+system in order to be within the scope of the same VM or physical
+machine. Therefore, the number of Worker Nodes and the computation and
+storage capability of the cluster is limited by the host
+machine. Docker Swarm, as introduced in Section~\ref{s:techused},
+provides a way to deploy the cluster across different machines.
 
-Instead of building a cluster of virtual machines with Docker Swarm enabled, 
-for this project we used the FutureSystem Echo, where Docker Swarm has 
-been fully implemented. The architecture of the Hadoop cluster is illustrated 
-in Figure~\ref{f:hadoop-swarm}, where each red rectangle stands for a 
-physical node other than the head node in the swarm cluster because Docker 
-Swarm will not deploy any container on the head node. Although in this case, 
-the Master Node will be on a different machine from some of the Worker 
-Nodes, the communication is enabled within the network which is 
-automatically built as the first step of the cluster deployment. 
-Similarly as Docker Compose, the Swarm Mode also allows scaling up of the 
-cluster without temporary shut down. 
+Instead of building a cluster of virtual machines with Docker Swarm
+enabled, for this project we used the FutureSystem Echo, where Docker
+Swarm has been fully implemented. The architecture of the Hadoop
+cluster is illustrated in Figure~\ref{f:hadoop-swarm}, where each red
+rectangle stands for a physical node other than the head node in the
+swarm cluster because Docker Swarm will not deploy any container on
+the head node. Although in this case, the Master Node is on a
+different machine from some of the Worker Nodes, the communication is
+enabled within the network which is automatically built as the first
+step of the cluster deployment.  Similarly as Docker Compose, the
+Swarm Mode also allows scaling up of the cluster without shutting down
+the MapReduce process.
 
 \begin{figure}[!ht]
 	\centering\includegraphics[width=\columnwidth]{images/hadoop-docker-swarm.png}
@@ -655,135 +692,133 @@ cluster without temporary shut down.
 		Hadoop Cluster Using Docker Swarm}\label{f:hadoop-swarm}
 \end{figure}
 
-The YAML file for Docker Compose can be used to configure the cluster 
-under the Swarm mode with some minor changes. Additional options such as 
-deploy is available while some options are disabled such as container name. 
-One key difference is that we have to include some start-up scripts and use 
-those as Entrypoint or Command to make the algorithm of sentiment analysis 
-run automatically when the cluster starts. Unlike in previous methods of 
-deployment, where we still have the option of logging into the container and 
-pass commands through bash, in swarm mode we cannot log into the 
-containers because they are all deployed on worker nodes of the Swarm 
-cluster. 
+The YAML file for Docker Compose can be used to configure the cluster
+under the Swarm mode with some minor changes. Additional options, such
+as deploy, are available, but some options, such as container name,
+are disabled.  One key difference is that we have to include some
+start-up scripts and use those as Entrypoint or Command to make the
+sentiment analysis algorithm run automatically when the cluster
+starts. Unlike in previous methods of deployment, where we still have
+the option of logging into the container and pass commands through
+bash, in swarm mode we cannot log into the containers because they are
+all deployed on worker nodes of the Swarm cluster.
 
-One caveat is how one could get the analysis results, which sits on some 
-worker node in the Swarm cluster, back to the head node. One stardard way 
-could be using the WebHDFS REST API with the curl command. However, in 
-our implementation, we had a difficulty accessing different datanode, where 
-the results are actually stored, through WebHDFS. This could be caused by 
-some port issue and configuration in the initial HDFS setting. As a 
-workaround, we put the results together with the log files in to the logs 
-folder, which can be accessed through the YARN ResourceManager on 
-certain port (8008 by default).
+A challenge in implementing Swarm mode is determining how one gets the
+analysis results, which sits on some worker node in the Swarm cluster,
+back to the head node. A stardard way of doing this is to use the
+WebHDFS REST API with the \verb|curl| command. However, in our
+implementation, we had difficulty accessing different datanodes
+where the results are actually stored through WebHDFS. This may be
+caused by some port issue and configuration in the initial HDFS
+setting. As a workaround we put the results together with the log
+files in to the logs folder, which can be accessed through the YARN
+ResourceManager on a certain port (8008 by default).
 
-
-\TODO{Please check if the next paragraph is appropriate}
-At the current state of this project, the Fully-Distributed Mode Hadoop 
-clustersare achieved using Docker containers. As a future project, we 
-planned to set up Raspberry Pi's clusters and each Pi acts like a node in 
-Hadoop without virtualization. The Pi cluster set-up and initialization has 
-been included in 
-Section~\ref{s:appendix}.
 
 \section{Benchmarking Process}\label{s:benchrproc}
 
-The benchmarking has been done on several machines listed in 
-Section~\ref{s:techused}, the 8GB ram Macbook Pro 2015, the 
-16GB ram Asus laptop running centos, the 16GB ram 
-desktop with ubuntu Virtualbox, and FutureSystem Echo. 
-For each of these machines, we used Docker to deploy Pseudo-Distributed 
-Hadoop, and Fully-distributed Hadoop using Docker Compose for worker 
-number starting at 1. For each setting, 10 iterations of the whole process of 
-setting up cluster and running algorithm were performed. We then calculated 
-the mean of running time together with standard deviations and the 
-coefficient of variation (which is the ratio of standard deviation and mean). 
-On echo, we also benchmarked the Fully-distributed Hadoop using Docker 
-Swarm in a similar fashion. 
+The benchmarking has been done on several machines listed in
+Section~\ref{s:techused}: the 8GB RAM Macbook Pro 2015, the 16GB RAM
+Asus laptop running Centos, the 16GB RAM desktop running Ubuntu on
+VirtualBox, and FutureSystem Echo.  For each of these machines, we
+used Docker to deploy Pseudo-Distributed Hadoop and Fully-distributed
+Hadoop using Docker Compose for worker number starting at 1. For each
+setting, 10 iterations of the whole process of setting up cluster and
+running algorithm were performed. We then calculated the mean of
+running time together with standard deviations and the coefficient of
+variation (which is the ratio of standard deviation and mean).  On
+Echo, we also benchmarked the Fully-Distributed Hadoop using Docker
+Swarm in a similar fashion.
 
-For some machines, there is a limit on the number of workers that can be 
-established. For example, the Macbook can have at most two workers, 
-otherwise the algorithm cannot be finished. The Java exceptions indicate that 
-the machine ran out of memory. The two 16GB ram Asus laptop and 
-Birtualbox on desktop  could support 5 or 6 workers in a stable fashion. 
-Stability here is defined as each iteration ending successfully and the 
-deviation in running time is relatively small. Detailed results will be provided in 
-Section~\ref{s:results}. 
+For some machines, there is a limit on the number of workers that can
+be established. For example, the Macbook can have at most two
+workers. When attempting to run more, the algorithm does not finish
+because the machine runs out of memory. The two 16GB RAM Asus laptops
+and VirtualBox on desktop could support 5 or 6 workers in a stable
+fashion.  Stability here is defined as each iteration ending
+successfully and the deviation in running time is relatively
+small. Detailed results will be provided in Section~\ref{s:results}.
 
 \section{Results}\label{s:results}
-This section elaborates the result of our benchmarking process, we will 
-discuss deployment time and running time separately. 
+This section elaborates the result of our benchmarking
+process. Deployment time and running time are discussed separately.
 
 \subsection{Deployment Time}
 
-All the dockerized Hadoop cluster depends on Docker Engine and 
-corresponding images. The Deployment can be divided into three steps. 
+All the Dockerized Hadoop clusters depend on Docker Engine and 
+corresponding images. The deployment can be divided into three steps:
 
 \begin{itemize}
 	\item Install of Docker
-	\item Build/Pull the image(s)
+	\item Build or pull the image or images
 	\item Start the cluster
 \end{itemize}
 
 \paragraph{Install of Docker}
-	The installation of Docker on Linux and MacOS operating systems 
-	following the official guide on Docker website can be done in around 1 
-	minute. 
+	The installation of Docker on Linux and MacOS operating
+	systems following the official guide on Docker website and can
+	be done in around 1 minute.
 	
-\paragraph{Build/Pull the image(s)}	
-	Based on different Internet connection speed we tried, one could build the 
-	images for deployment from time range 8 to 12 minutes. Notice that the 
-	images could also be pulled from DockerHub, which is the default 
-	cloud-based registry service of Docker. In our test, Pulling in general is 
-	faster than building images by around 1 minute. We have four images 
-	throughout the whole project, namely pseudo, base, master and worker. 
-	The majority of layers are the same with some differences such as Hadoop 
-	configuration files, startup scripts, existence of data. Due to the share of 
-	layers, building 3 images (base, master and worker) for the 
-	Fully-Distributed cluster does not differ much from building only one. In 
-	the future, we could unify all images into one, with different scripts or 
-	options for the startup. It is noticed that on a single virtual machine, if the 
-	iamges are pulled or built once, then later building process will utilize the 
-	cached layers and speed up the process.
+\paragraph{Build or pull the image or images}	
+	Based on different Internet connection speeds we tried, one
+	can build the images for deployment in 8 to 12 minutes. The
+	images can also be pulled from DockerHub, which is the default
+	cloud-based registry service of Docker. In our test, pulling
+	in general is faster than building images by around 1
+	minute. We have four images throughout the whole project:
+	pseudo, base, master and worker.  The majority of layers are
+	the same with some differences: Hadoop configuration
+	files, startup scripts, and existence of data. Due to the sharing of
+	layers, building 3 images (base, master and worker) for the
+	Fully-Distributed cluster does not differ much from building
+	only one. In the future, we could unify all images into one,
+	with different scripts or options for the startup. It is
+	noticed that on a single virtual machine if the iamges are
+	pulled or built once, then later building process will utilize
+	the cached layers and speed up the process.
 	
 \paragraph{Start the cluster}
-	Starting a Pseudo-Distributed Hadoop takes less than 10 seconds. The 
-	start-up time for the Fully-Distributed cluster increases with the number of 
-	workers initialized. For worker number smaller than 10, the start-up takes 
-	less than 20 seconds. On FutureSystem  Echo, under either Compose or 
-	Swarm mode, starting 40 workers took around 30 seconds and starting 
-	100 workers took 40 seconds. 
+	Starting a Pseudo-Distributed Hadoop takes less than 10
+	seconds. The start-up time for the Fully-Distributed cluster
+	increases with the number of workers initialized. For worker
+	numbers smaller than 10, the start-up takes less than 20
+	seconds. On FutureSystem Echo, under either Compose or Swarm
+	mode, starting 40 workers takes around 30 seconds and starting
+	100 workers takes 40 seconds.
 
 
-From the breakdown of deployment steps, we could see that the build/pull 
-image step dominates the total time of the whole process. The total time is 
-not more than 13 minutes in total, building from scratch. In our project, we 
-also deployed a Pseudo-Distributed Hadoop direclty (without Docker)  on a 
-VirtualBox. The process of manually setting up hadoop with all dependencies 
-and configuration files took much longer than the dockerized version. This 
-illustrated the advantage of using Docker containers in cluster deployment. 
+From the breakdown of deployment steps, we can see that the build/pull
+image step dominates the total time of the whole process. The total
+time is not more than 13 minutes in total when building from
+scratch. In our project, we also deployed a Pseudo-Distributed Hadoop
+directly (without Docker) on a VirtualBox. The process of manually
+setting up Hadoop with all dependencies and configuration files took
+much longer than the dockerized version. This illustrated the
+advantage of using Docker containers in cluster deployment.
 
 \subsection{Running Time}
 
 The running time is defined to be the time used to run the core script 
 \verb|runPythonMapReduce.sh|, which includes four steps. The first step is 
-to split the data randomly into training and testing sets with the ratio 8:2 and 
-while keeping the ratio of positive and negative reviews unchanged (0.5). The 
-second step is to create directories on HDFS and put data into HDFS. The 
-third step is the core MapReduce algorithm described in 
-Section~\ref{s:algorithm}. The last step is to fetch classification results 
-together with running time record from HDFS, and transfer these from the 
-container to the host machine. 
+to split the data randomly into training and testing sets with the
+ratio 8:2 and while keeping the ratio of positive and negative reviews
+unchanged (0.5). The second step is to create directories on HDFS and
+put data into HDFS. The third step is the core MapReduce algorithm
+described in Section~\ref{s:algorithm}. The last step is to fetch
+classification results together with running time record from HDFS,
+and transfer these from the container to the host machine.
 
-The results are summarized in Table~\ref{t:results-table}, where each row 
-represents the number of workers established in the cluster and each column 
-is one particular deployment for the benchmarking. The number in the table 
-is the mean running time of the 10 iterations in minutes (m) and seconds (s) 
-and the standard deviation is listed in the brackets. For each deployment 
-options, the bold number is the least average running time that we observed, 
-which can be considered as the optimal Docker cluster choice for that 
-deployment. The * in some rows indicates that the standard deviation is 
-large. The threshold we used is that coefficient of variance (standard 
-deviation divided by mean) equals to 0.1. 
+The results are summarized in Table~\ref{t:results-table}, where each
+row represents the number of workers established in the cluster and
+each column is one particular deployment that is benchmarked. The
+number in the table is the mean running time of the 10 iterations in
+minutes (m) and seconds (s).  The standard deviation is listed in the
+brackets. For each deployment options, the bold number is the least
+average running time that we observed, which can be considered as the
+optimal Docker cluster choice for that deployment. The asterisk (*) in
+some rows indicates that the standard deviation is large. The
+threshold we used is that coefficient of variance (standard deviation
+divided by mean) equals to 0.1.
 
 \begin{table}[hbt]
 \centering
@@ -796,7 +831,7 @@ deviation divided by mean) equals to 0.1.
 		(39s) & 22m25s (12s) & N/A \\\midrule
 		1 & 104m34s (119s) & 82m8s (57s) & 44m47s (20s) & 33m42s (12s) & 
 		20m49s (20s) \\\midrule
-		2 & 108m50s(110s) & 84m35s (7s) & \textbf{42m47s (24s)} & 18m57s 
+		2 & 108m50s (110s) & 84m35s (7s) & \textbf{42m47s (24s)} & 18m57s 
 		(6s) & 15m26s (17s) \\\midrule
 		3 & N/A & 86m5s (6s) & 43m13s (17s) & 17m41s (2s) & 11m14s (4s) 
 		\\\midrule
@@ -825,102 +860,116 @@ Based on Table~\ref{t:results-table}, we have several observations:
 
 \subsection{Bottleneck of Memory} 
 
-The first three deployments are done on personal computers, with memory 
-from 8G to 16G. The N/A in the table indicates that the algorithm fails at run 
-time due to Java Exceptions of out of memory or lost of connection to 
-MapReduce containers, which are good evidence of memory shortage. We 
-could see that the Macbook which has the least memory, can only run two 
-Worker Node containers. The ASUS laptop and desktop both have 16G 
-memory, and they can sustain up to 6 Worker Node container. Although we 
-also get results for the desktop with 7 and 8 workers established, the 
-running time explodes with very large variances. Indeed, we could not get 
-results on all the 10 iterations with 8 workers, only 4 out of 10 returned 
-successful execution. During the execution with 7 or 8 workers, we can see 
-from the terminal that some MapReduce containers are killed due to memory 
-issue or connection issue and in that case ResourceManager will assign the 
-failed jobs again until they are finished. During each iteration, different 
-number of failed containers causes the big variation in the total running time. 
+The first three deployments are done on personal computers, with
+memory from 8G to 16G. The N/A in the table indicates that the
+algorithm fails at run time due to Java exceptions (out of memory or
+lost of connection to MapReduce containers), which are good evidence
+of memory shortage. We observe that the Macbook, which has the least
+memory, can only run two Worker Node containers. The ASUS laptop and
+desktop both have 16G memory, and they can sustain up to 6 Worker Node
+containers. Although we also get results for the desktop with 7 and 8
+workers established, the running time increases significantly, and the
+variances are very large. Indeed, we could not get results on all 10
+iterations with 8 workers, only 4 out of 10 executed
+successfully. During the execution with 7 or 8 workers, we can see
+from the terminal that some MapReduce containers are killed due to
+memory issue or connection issue and in that case ResourceManager will
+assign the failed jobs again until they are finished. During each
+iteration, different number of failed containers causes the big
+variation in the total running time.
 
-Echo head node has around 400G of memory therefore the iterations on 
-Echo in Compose mode runs to 40 Workers without any memory issue. 
+Echo head node has almost 400GB of memory, so the iterations on 
+Echo in Compose mode runs up to 40 Workers without any memory issue. 
 When we deploy the cluster in Swarm mode, the total memory of the system 
 is even larger (4 physical servers combined). However, since there may be 
 other projects running on Echo, we did not increase the number of the 
-Worker Node to test the limit of the system. 
+Worker Node to test the limits of the system. 
 
 \subsection{Pseudo vs One-Worker} 
 
-We did not deploy Pseudo-distributed Hadoop on Swarm because it would 
-be only on one physical machine and does not utilize the advantage of 
-Swarm. For all other deployment, we noticed that Pseudo-distributed 
+We did not deploy Pseudo-Distributed Hadoop on Swarm because it would 
+be only on one physical machine and does not utilize the advantages of 
+Swarm. For all other deployment, we noticed that Pseudo-Distributed 
 performs faster than the Fully-Distributed cluster with only one worker.
 
-In these two settings, there will be exactly one instance of DataNode, 
-NameNode, ResourceManager and NodeManager, the only difference is that 
-in Fully-Distributed cluster with only one worker, these JVM runs in different 
-containers. Given that both deployment shares same memory, computing 
-power, and disks, the differences in the performance is likely to relate to the 
-overhead of communication across containers. For example, message 
-between DataNode and NameNode in the one-worker setting will have to 
-pass through some TCP ports across containers while in Pseudo mode, the 
-communication is much easier between JVMs directly. Therefore we see that 
-for Pseudo-Distributed Hadoop ou-performs Fully-Distributed Hadoop with 
-only one worker. 
+In these two settings, there will be exactly one instance of DataNode,
+NameNode, ResourceManager and NodeManager, the only difference is that
+in Fully-Distributed cluster with only one worker, these JVM runs in
+different containers. Given that both deployments share the same
+memory, computing power, and disks, the differences in the performance
+are likely related to the overhead of communication across
+containers. For example, message between DataNode and NameNode in the
+one-worker setting will have to pass through some TCP ports across
+containers while in Pseudo mode, the communication is much easier
+between JVMs directly. Therefore we see that for Pseudo-Distributed
+Hadoop outperforms Fully-Distributed Hadoop with only one worker.
 
 \subsection{Optimal Number of Worker}
-In each deployment with Fully-distributed clusters, it seems that as the 
-number of workers increases from one, the running time first decreases and 
-then starts to increase. Therefore, each deployment has an optimal number 
-of workers. The decrease and increase pattern in running time can be 
-explained as follows: the number of MapReduce containers (JVMs) within one 
-Worker Node is limited by the settings in \verb|mapred-site.xml|, then 
-increase of Workers could lead to more mapper and/or reducers working at 
-the same time thus reducing running time. However, since the number of 
-mapper and reducer containers needed for the task is fixed (for example, 800 
-training files need at most 800 mapper). After the needs being fulfilled, 
-increasing number of workers does not really help since all the workers are 
-sharing the same set of processors and computing power. On the other 
-hand, all workers also share the same hard drives, and the intensive file I/O 
-could be the reason for performance decline as number of workers continue 
-to grow (Section~\ref{s:algorithm} mentions that all mappers and reducers 
-read files and write files to the disk extensively). This is our conjecture based 
-on the results observed and understanding of the algorithm, to make a 
-conclusion of the root cause of this pattern, more specific testing with better 
-control groups needs to be done. 
+In each deployment with Fully-Distributed clusters, it seems that as
+the number of workers increases from one, the running time first
+decreases and then starts to increase. Therefore, each deployment has
+an optimal number of workers. The decrease and increase pattern in
+running time can be explained as follows: if the number of MapReduce
+containers (JVMs) within one Worker Node is limited by the settings
+in \verb|mapred-site.xml|, then increase of Workers could lead to more
+mapper and/or reducers working at the same time thus reducing running
+time. However, since the number of mapper and reducer containers
+needed for the task is fixed (for example, 800 training files need at
+most 800 mapper), increasing number of workers does not really help
+because all of the workers are sharing the same set of processors and
+computing power. On the other hand, all workers also share the same
+hard drives, and the intensive file I/O could be the reason for
+the decline in performance as number of workers grows.
+(As discussed in Section~\ref{s:algorithm}, all mappers and reducers read
+files and write files to the disk extensively.) This is our conjecture
+based on the results observed and understanding of the algorithm; to
+make a conclusion of the root cause of this pattern, more specific
+testing with better control groups needs to be done.
 
-Macbook and Asus laptop have the optimal number of workers to be one. 
-According to previous discussion, one-worker clusters is slower than 
-Pseudo-distributed cluster. Therefore, running a Fully-Distributed cluster on 
-these machines to solve the required sentiment analysis task is inefficient. 
-The Desktop achieves the best result when the number of worker is 2. The 
-echo head node (when using Docker Compose) has the optimal at 4 workers 
-and under Swarm mode, the optimal worker number occurs within the range 
-of 10 to 15. 
+Macbook and Asus laptop have the optimal number of workers to be one.
+According to previous discussion, one-worker clusters are slower than
+Pseudo-Distributed clusters. Therefore, running a Fully-Distributed
+cluster on these machines to solve the required sentiment analysis
+task is inefficient.  The Desktop achieves the best result when the
+number of worker is 2. The Echo head node (when using Docker Compose)
+is optimal at 4 workers, and in Swarm mode on Echo the optimal worker
+number occurs within the range of 10 to 15.
 
 \subsection{Same Cluster on Different Platforms}
 
-If we fix the number of workers in the Fully-Distributed cluster, and compare 
-the performance across these platforms. From ASUS laptop, desktop, Echo 
-with Compose and Echo with Swarm, the running time roughly reduces by 
-half. We conjecture that the reason for the differences could have two 
-possibilities, CPU power and Disk read/write speed. Given same number of 
-Workers (without memory issue), the workload of each mapper and reducer 
-is similar across platforms, communication overhead should also be 
-comparable, the differences could then be CPU power or hard drive writing 
-speed or both. To disentangle these effect and draw a conclusion of the 
-actual cause, we may need to design experiments controlling one of the 
-effect and test the other. This could be future steps of the project. 
+If we fix the number of workers in the Fully-Distributed cluster, and
+compare the performance across these platforms. From ASUS laptop,
+desktop, Echo with Compose and Echo with Swarm, the running time
+roughly reduces by half. We conjecture that the reason for the
+differences could have two possibilities, CPU power and Disk
+read/write speed. Given same number of Workers (without memory issue),
+the workload of each mapper and reducer is similar across platforms,
+communication overhead should also be comparable, the differences
+could then be CPU power or hard drive writing speed or both. To
+disentangle these effect and draw a conclusion of the actual cause, we
+may need to design experiments controlling one of the effect and test
+the other. This could be future steps of the project.
 
-Regardless of number of workers chosen, deployment under Swarm mode 
-really outperforms the other. This illustrates the power of cloud computing in 
-general. We could imagine gigantic clusters in Swarm mode hosting large 
-number of containers, provides timely solution for Big Data applications. 
+Regardless of number of workers chosen, deployment under Swarm mode
+really outperforms the other. This illustrates the power of cloud
+computing in general. We could imagine gigantic clusters in Swarm mode
+hosting large number of containers, provides timely solution for Big
+Data applications.
 
 
 \section{Conclusion}\label{s:conclusion}
 
-\TODO{Put here an conclusion. Conclusion and abstracts must not have any
-citations in the section.}
+Although its popularity is waning, Hadoop remains a useful tool for
+Big Data analysis. As one would expect, better hardware leads to
+better results.  While many of the configurations tested are not ideal
+for the task, using a combination of Docker in its Compose and Swarm
+variants and Hadoop, provides a robust and versitile platform that can
+be deployed on a wide variety of hardware and software configurations
+with very little custom configuration. Startup is fast and the
+results, when there is sufficient memory available, are consisent. The
+authors would like to continue our exploration of Hadoop, comparing
+other cloud environments, including the Raspberry Pi cluster
+configuration that we began implementing and with larger datasets. 
 
 \section{Appendix: Hadoop Cluster on Raspberry Pi}\label{s:appendix}
 This section describes steps taken toward the goal of creating a
@@ -931,7 +980,7 @@ and recommended next steps are outlined.
 
 At the end of the process, each Pi has a unique hostname a new
 password. A computer outside of the cluster can log into any of the
-pis via ssh and the pis are configured to run mapreduce jobs using
+pis via ssh and the pis are configured to run MapReduce jobs using
 Apache Hadoop. The process of achieving these goals manually has been
 well documented in various blogs and message boards on the
 internet~\cite{hid-sp18-419-headless}, but in order to make the
@@ -1047,14 +1096,14 @@ connected to the hosts WiFi.
 
 The images are created using two scripts: \verb|download_image.sh| - a
 simple shell script to download the latest Raspbian Stretch Lite
-image, and \verb|modify_sdcard.py| - a python script that will create
-the custom images. The python script runs on python version 2.7.12,
+image, and \verb|modify_sdcard.py| - a Python script that will create
+the custom images. The Python script runs on Python version 2.7.12,
 which is the version that comes installed on Ubuntu 16.04. It requires
 one additional package, \verb|pycryptodome|, which is needed to
 generate ssh keys. The script needs to be run as root to have
 permission to mount and modify the files in the Raspbian image.
 
-The python script creates the number of custom images specified with a
+The Python script creates the number of custom images specified with a
 flag. The names of the images are a basename followed by a three-digit
 number that increments sequentially from the specified starting number
 through that number plus the number of images created. The basename,
@@ -1087,7 +1136,7 @@ VM using \verb|dd|. Instructions for doing this provided by The
 Raspberry Pi Foundation were tested on both
 platforms~\cite{hid-sp18-419-raspbian-burn}.
 
-A known issue with the python script is that because it needs to be
+A known issue with the Python script is that because it needs to be
 run as root to mount and unmount the images and modify the
 contents, \verb|~/.ssh| and its contents: \verb|id_rsa|,
 \verb|id_rsa.pub|, and \verb|authorized_keys| are owned by root.
@@ -1108,7 +1157,7 @@ enhancements include:
         the Pis.
         \item Incorporating the functionality
         in \verb|download_image.sh| into script, with option to
-        download a different base OS (e.g. from Dexter Labs).
+        download a different base OS (e\.g\. from Dexter Labs).
         \item Adding an option to burn the images from the script.
         \item Adding a script to do post-boot configuraton.
 \end{itemize}
@@ -1145,38 +1194,7 @@ in two steps: populate the hostnames and IP addresses during the
 creation of the VM images, and add the Mac addresses after booting up
 the Pis. Then the setup script can run \verb|ifconfig -a| and parse
 the output to get the Mac addresses for both wireless and wired
-connections. The output of ifconfig -a is shown in below.
-\begin{verbatim} 
-eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet 192.168.2.7  netmask 255.255.255.0  broadcast 192.168.2.255
-        inet6 fe80::ed2:8b8e:f74a:d698  prefixlen 64  scopeid 0x20<link>
-        ether b8:27:eb:00:c3:55  txqueuelen 1000  (Ethernet)
-        RX packets 264  bytes 43987 (42.9 KiB)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 87  bytes 14502 (14.1 KiB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-
-lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
-        inet 127.0.0.1  netmask 255.0.0.0
-        inet6 ::1  prefixlen 128  scopeid 0x10<host>
-        loop  txqueuelen 1000  (Local Loopback)
-        RX packets 0  bytes 0 (0.0 B)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 0  bytes 0 (0.0 B)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-
-wlan0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
-        ether b8:27:eb:55:96:00  txqueuelen 1000  (Ethernet)
-        RX packets 0  bytes 0 (0.0 B)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 0  bytes 0 (0.0 B)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-\end{verbatim}
-
-The Mac addresses for the Pis begin with \verb|b8:27:eb:|. The wired
-Mac address is shown above in the third line under \verb|eth0|
-as \verb|b8:27:eb:00:c3:55| and the wireless Mac addres in the third
-line below \verb|wlan0| as \verb|b8:27:eb:55:96:00|.
+connections. 
 
 Setting up head node of the cluster as a DHCP server requires further
 investigation and testing. The process was followed and documented,
