@@ -11,9 +11,15 @@ docker build -t minchen57/hadoop-docker-python-sentiment-compose-base:latest had
 docker build -t minchen57/hadoop-docker-python-sentiment-compose-master:latest hadoop-master
 docker build -t minchen57/hadoop-docker-python-sentiment-compose-worker:latest hadoop-worker
 
-echo "create the network"
 docker-compose down
-docker network prune -f
+if docker network rm hadoop-sentiment
+then
+    echo "existing network removed"
+else
+    echo "no existing network found"
+fi
+
+echo "create the network"
 docker network create hadoop-sentiment
 
 
