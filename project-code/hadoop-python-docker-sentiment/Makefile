@@ -12,7 +12,8 @@ build:
 	docker build -t minchen57/hadoop-docker-python-sentiment-compose-master:latest hadoop-master
 	docker build -t minchen57/hadoop-docker-python-sentiment-compose-worker:latest hadoop-worker
 	@echo "create the network"
-	docker network rm hadoop-sentiment
+	docker compose-down
+	docker network prune -f
 	docker network create hadoop-sentiment
 	@echo "DONE"
 
@@ -44,8 +45,8 @@ down:
 	docker-compose down
 
 
-clean:
+clean: down
 	rm -rf $(DESTDIR)
-	docker network rm hadoop-sentiment
+	docker network prune -f
 
 		
