@@ -8,6 +8,7 @@ The author appreciates the help of Bo Feng regarding the cluster deployment on E
 
 ## Run fully distributed cluster using the Makefile
 
+* Pre-requisite: Docker, Docker-compose, Make
 * Single command to build images, start cluster, run analysis and get back results before shutting down the cluster by providing the number of workers needed (default is 1):
 
 		make all worker=(#OFWORKERS)
