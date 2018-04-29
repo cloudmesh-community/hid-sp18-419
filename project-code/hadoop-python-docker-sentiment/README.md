@@ -83,6 +83,8 @@ The cluster can be deployed on FutureSystem Echo. Both pseudo-distributed and fu
 	example:
 		./compose-run.sh 3
 
+* One can check the ResourceManger at [http://149.165.150.76:8088/cluster](http://localhost:8088) and HDFS at [http://149.165.150.76:50070](http://localhost:50070)
+
 * To remove the Results folders
 
 		./clean.sh
