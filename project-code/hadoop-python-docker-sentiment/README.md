@@ -62,7 +62,7 @@ The cluster can be deployed on FutureSystem Echo. Both pseudo-distributed and fu
 
 * cd to the directory hadoop-python-docker-sentiment
 
-		 cd hid-sp18-419/project-code/hadoop-python-docker-sentiment/
+		cd hid-sp18-419/project-code/hadoop-python-docker-sentiment/
 
 * To start pseudo-distributed cluster, run analysis and get back results before shutting down the cluster
 
@@ -94,7 +94,7 @@ The cluster can be deployed on FutureSystem Echo under the docker swarm mode. Th
 
 * cd to the directory hadoop-python-docker-sentiment
 
-		 cd hid-sp18-419/project-code/hadoop-python-docker-sentiment/
+		cd hid-sp18-419/project-code/hadoop-python-docker-sentiment/
 
 * To start fully distributed cluster with number of workers using docker stack deploy, run analysis and get back the result: 
 
