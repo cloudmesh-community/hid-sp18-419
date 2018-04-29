@@ -13,11 +13,9 @@ build:
 	docker build -t minchen57/hadoop-docker-python-sentiment-compose-worker:latest hadoop-worker
 	@echo "create the network"
 	docker-compose down
-	if docker network rm hadoop-sentiment
-	then
-    		echo "existing network removed"
-	else
-    		echo "no existing network found"
+	if docker network rm hadoop-sentiment;\
+	then echo "existing network removed";\
+	else echo "no existing network found";\
 	fi
 
 	echo "create the network"
