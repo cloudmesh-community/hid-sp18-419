@@ -726,7 +726,7 @@ ResourceManager on a certain port (8088 by default).
 
 The benchmarking has been done on several machines listed in
 Section~\ref{s:techused}: the 8GB RAM Macbook Pro 2015, the 16GB RAM
-Asus laptop running Centos, the 16GB RAM desktop running Ubuntu on
+Acer laptop running Centos, the 16GB RAM desktop running Ubuntu on
 VirtualBox, and FutureSystem Echo.  For each of these machines, we
 used Docker to deploy Pseudo-Distributed Hadoop and Fully-distributed
 Hadoop using Docker Compose for worker number starting at 1. For each
@@ -740,7 +740,7 @@ Swarm in a similar fashion.
 For some machines, there is a limit on the number of workers that can
 be established. For example, the Macbook can have at most two
 workers. When attempting to run more, the algorithm does not finish
-because the machine runs out of memory. The two 16GB RAM Asus laptops
+because the machine runs out of memory. The two 16GB RAM Acer laptops
 and VirtualBox on desktop could support 5 or 6 workers in a stable
 fashion.  Stability here is defined as each iteration ending
 successfully and the deviation in running time is relatively
@@ -832,7 +832,7 @@ divided by mean) equals to 0.1.
 \caption{Running Time results}\label{t:results-table}
 	\begin{tabular}{llllll}
 		\toprule
-		\# Workers & Macbook Pro 2015 & Asus Laptop & Virtualbox on 
+		\# Workers & Macbook Pro 2015 & Acer Laptop & Virtualbox on 
 		Desktop & Echo (Compose) & Echo (Swarm) \\ \midrule
 		Pseudo & \textbf{99m14s (80s)} & \textbf{77m15s (8s)} & 43m34s 
 		(39s) & 22m25s (12s) & N/A \\\midrule
@@ -872,7 +872,7 @@ memory from 8G to 16G. The N/A in the table indicates that the
 algorithm fails at run time due to Java exceptions (out of memory or
 lost of connection to MapReduce containers), which are good evidence
 of memory shortage. We observe that the Macbook, which has the least
-memory, can only run two Worker Node containers. The ASUS laptop and
+memory, can only run two Worker Node containers. The Acer laptop and
 desktop both have 16G memory, and they can sustain up to 6 Worker Node
 containers. Although we also get results for the desktop with 7 and 8
 workers established, the running time increases significantly, and the
@@ -933,7 +933,7 @@ based on the results observed and understanding of the algorithm; to
 make a conclusion of the root cause of this pattern, more specific
 testing with better control groups needs to be done.
 
-Macbook and Asus laptop have the optimal number of workers to be one.
+Macbook and Acer laptop have the optimal number of workers to be one.
 According to previous discussion, one-worker clusters are slower than
 Pseudo-Distributed clusters. Therefore, running a Fully-Distributed
 cluster on these machines to solve the required sentiment analysis
@@ -945,7 +945,7 @@ number occurs within the range of 10 to 15.
 \subsection{Same Cluster on Different Platforms}
 
 If we fix the number of workers in the Fully-Distributed cluster, and
-compare the performance across these platforms. From ASUS laptop,
+compare the performance across these platforms. From Acer laptop,
 desktop, Echo with Compose and Echo with Swarm, the running time
 roughly reduces by half. We conjecture that the reason for the
 differences could have two possibilities, CPU power and Disk
