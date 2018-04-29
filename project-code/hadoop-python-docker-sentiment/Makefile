@@ -45,10 +45,11 @@ get: clean dest
 down:
 	@echo "shutting down the cluster..."
 	docker-compose down
-
-
-clean: down
-	rm -rf $(DESTDIR)
 	docker network rm hadoop-sentiment
+
+
+clean:
+	rm -rf $(DESTDIR)
+	
 
 		
