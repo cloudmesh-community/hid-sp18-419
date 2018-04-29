@@ -12,7 +12,7 @@ if docker stack deploy --compose-file docker-swarm.yml hadoop-sentiment
 then
     echo "services started"
 else
-    echo "something is wrong, continue with next iteration"
+    echo "something is wrong, please re-run"
     exit 1
 fi
 
@@ -21,7 +21,7 @@ if docker service scale hadoop-sentiment_worker=$worker
 then
     echo "service scaled"
 else
-    echo "something is wrong, continue with next iteration"
+    echo "something is wrong, please re-run"
     exit 1
 fi
 

@@ -11,7 +11,15 @@ worker=$2
 DESTDIR=benchmark-full
 mkdir -p $DESTDIR
 
-docker network rm hadoop-sentiment
+docker-compose down
+if docker network rm hadoop-sentiment
+then
+    echo "existing network removed"
+else
+    echo "no existing network found"
+fi
+
+echo "create the network"
 docker network create hadoop-sentiment
 
 echo "Build the image"
