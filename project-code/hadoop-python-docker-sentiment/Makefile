@@ -24,6 +24,7 @@ start:
 	docker-compose scale master=1 worker=$(worker)
 	@echo "http://localhost:50070 for HDFS"
 	@echo "http://localhost:8088 for YARN"
+	@echo "if you are on Echo, use 149.165.150.76 to replace localhost"
 
 shell: start
 	@echo "Now interactive shell for master..."
