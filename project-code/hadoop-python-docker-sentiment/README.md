@@ -42,11 +42,19 @@ The author appreciates the help of Bo Feng regarding the cluster deployment on E
 		
 * One can check the ResourceManger at [http://localhost:8088](http://localhost:8088) and HDFS at [http://localhost:50070](http://localhost:50070)
 
+* Results will be in the following directory
+
+		./Results
+
 ## Run pseudo-distributed cluster 
 
 * To execute the pseudo-distributed cluster and get results, one could use the shell script:
 
 		./pseudo-run.sh
+		
+* The results will be in the following directory
+
+		./Results-pseudo
 
 * There is also a Makefile in the directory hadoop-pseudo allowing more options including build image, start cluster, start interactive shell etc. For details, please see the Readme.md file
 
@@ -64,11 +72,11 @@ The cluster can be deployed on FutureSystem Echo. Both pseudo-distributed and fu
 
 		cd hid-sp18-419/project-code/hadoop-python-docker-sentiment/
 
-* To start pseudo-distributed cluster, run analysis and get back results before shutting down the cluster
+* To start pseudo-distributed cluster, run analysis and get back results in ./Results-pseudo before shutting down the cluster
 
 		./pseudo-run.sh
 
-* To start fully distributed cluster with number of workers using docker-compose, run analysis and get back results before shutting down the cluster 
+* To start fully distributed cluster with number of workers using docker-compose, run analysis and get back results in ./Results before shutting down the cluster 
 
 		./compose-run.sh (#OFWORKERS)
 
