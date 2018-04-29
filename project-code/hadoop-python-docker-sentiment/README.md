@@ -44,11 +44,11 @@ The author appreciates the help of Bo Feng regarding the cluster deployment on E
 
 ## Run pseudo-distributed cluster 
 
-To execute the pseudo-distributed cluster and get results, one could use the shell script:
+* To execute the pseudo-distributed cluster and get results, one could use the shell script:
 
 		./pseudo-run.sh
 
-There is also a Makefile in the directory hadoop-pseudo allowing more options including build image, start cluster, start interactive shell etc. For details, please see the Readme.md file
+* There is also a Makefile in the directory hadoop-pseudo allowing more options including build image, start cluster, start interactive shell etc. For details, please see the Readme.md file
 
 		vi hadoop-pseudo/Readme.md
 
