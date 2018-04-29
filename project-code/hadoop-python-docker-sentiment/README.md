@@ -24,6 +24,8 @@ The author appreciates the help of Bo Feng regarding the cluster deployment on E
 	or:
 		
 		make all worker=2
+	
+	Notice that larger number of workers requires more resources especially memory. If hadoop fails at run time, please try with a smaller number of workers. (On echo, more than 40 workers can be supported) 
 
 * Build images needed for master and workers
 
