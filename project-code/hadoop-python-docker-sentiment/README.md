@@ -6,16 +6,26 @@ Dockerfiles are modified from [sequenceiq/hadoop-docker](https://github.com/sequ
 
 The author appreciates the help of Bo Feng regarding the cluster deployment on Echo under swarm mode.
 
+## Notes to the Grader:
+
+* To replicate the result, 8GB of RAM is required and 16GB or more of RAM is recommended
+* Pre-requisite: **Docker, Docker-compose** needs to be installed
+* If Make is installed, Makefile can be used. Otherwise, shell scripts can be used.
+
 ## Run fully distributed cluster using the Makefile
 
-* Pre-requisite: Docker, Docker-compose, Make
 * Single command to build images, start cluster, run analysis and get back results before shutting down the cluster by providing the number of workers needed (default is 1):
 
 		make all worker=(#OFWORKERS)
 
 	example: 
 	
-		make all worker=3
+		make all worker=1
+	or:
+		
+		make all worker=2
+	
+	Notice that larger number of workers requires more resources especially memory. If hadoop fails at run time, please try with a smaller number of workers. (On echo, more than 40 workers can be supported) 
 
 * Build images needed for master and workers
 
