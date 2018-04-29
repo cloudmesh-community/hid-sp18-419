@@ -137,7 +137,7 @@ Use the two following shell scripts to run customized number of iterations in or
 		
 * Result of each iteration will be written to each line of a text file at
 
-		 ./benchmark-full/(#OFWORKERS)_worker.txt
+		./benchmark-full/(#OFWORKERS)_worker.txt
 
 * Fully distributed cluster with (#OFWORKERS) of workers and (#ITER) iterations (with swarm)
 
@@ -145,7 +145,7 @@ Use the two following shell scripts to run customized number of iterations in or
 		
 * Result of each iteration will be written to each line of a text file at
 
-		 ./benchmark-swarm/(#OFWORKERS)_worker.txt
+		./benchmark-swarm/(#OFWORKERS)_worker.txt
 
 * Note: due to the complication of different physical nodes, sometimes one node could cause delay in start-up of datanodes thus ignored by the namenode. In extreme case, the web interface at http://149.165.150.XX:8088/cluster will show 0 active node and the mapreduce job will terminate when it tries to start. The benchmarking script will continue running and ignore the unsuccessful iteration. In case one wants to use ctrl+C to stop the script, remove the stack and rerun the command: 
 		
