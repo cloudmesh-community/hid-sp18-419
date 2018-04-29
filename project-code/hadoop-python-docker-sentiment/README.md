@@ -23,9 +23,9 @@ The author appreciates the help of Bo Feng regarding the cluster deployment on E
 
 		make shell
 
-* Launch hadoop cluster at back end
+* Launch hadoop cluster at back end with certain number of workers
 
-		make start
+		make start worker=(#OFWORKERS)
 
 * Run the analysis after cluster is lunched
 
