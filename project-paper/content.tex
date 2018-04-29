@@ -159,7 +159,7 @@ before use.  Because of this limitation, some of the linguistic
 features of the original version of the sentiment analysis algorithm
 used in this project are omitted due to the difficulties of
 transporting and loading necessary packages and corpora. This will be
-discussed in more detail in Section\label{s:algorithm}.
+discussed in more detail in Section~\ref{s:algorithm}.
 
 
 \subsection{Docker}
@@ -257,7 +257,12 @@ mounting peripherals on USB 3.0~\cite{hid-sp18-419-virtualbox}.
 \end{itemize}
 
 \subsection{Cloud Platforms}
-\paragraph{FutureSystem Echo}
+\paragraph{FutureSystem Echo}  FutureSystems is available as part of the 
+Digital Science Center (DSC) infrastructure and resources located at 
+Indiana University - Bloomington~\cite{las18handbook}. One of the 
+resources, Echo, is a ``SuperMicro distributed shared memory cluster with 
+192 CPU cores and 6TB total memory capacity''~\cite{las18handbook}. 
+
 \begin{itemize}
 	\item Operating system: Ubuntu 16.04
 	\item Processors: 16 SuperMicro X9DRW servers, each node
@@ -274,7 +279,7 @@ dataset of movie reviews first used by Bo Pang and Lillian
 Lee~\cite{hid-sp18-405-sentiment-pang2004asentimental}
 ~\cite{hid-sp18-405-sentiment-pang2002thumbs}.
 The dataset includes 1000 positive and 1000 negative processed
-reviews that  are labelled with respect to their overall sentiment
+reviews that are labeled with respect to their overall sentiment
 polarity.
 
 Each of the reviews is in the format of text file; each line in the
@@ -369,7 +374,7 @@ This method is used by Das and
 Chen~\cite{hid-sp18-405-sentiment-das2001yahoo} as well as Pang, Lee,
 and Vaithyanathan~\cite{hid-sp18-405-sentiment-pang2002thumbs}.
 
-We did not apply the option of using adjectives based on the findings
+We did not apply the option of using only adjectives based on the findings
 by Pang et\. al\. that using adjectives alone does not provide a better
 results than including all
 words~\cite{hid-sp18-405-sentiment-pang2004asentimental}. In our own
@@ -506,12 +511,12 @@ For the entire project, we chose the current stable release of Hadoop
 at the time of the study: version 2.9.0. In order to make it
 convenient to benchmark across platforms we adopted a fixed set of
 configuration files for all of our installations. For example, the
-value of dfs\.replication is set to 3, which means that 3 copies of
+value of \verb|dfs.replication| is set to 3, which means that 3 copies of
 the data will be stored in the HDFS. In addition, physical memory
 limit for each map task and reduce task is set to 1024MB, with the
 ratio of virtual memory to physical memory allowed set to
 2.1. Therefore, the virtual memory limit for each map task and reduce
-task is 2048MB.
+task is 2150MB.
 
 Hadoop can be configured to run in three modes: Standalone Mode, 
 Pseudo-Distributed Mode and Fully-Distributed 
@@ -598,17 +603,18 @@ in \verb|yarn-site.xml|.
 
 \paragraph{Dockerized Installation} We used a Dockerfile to build the 
 image for the Pseudo-Distributed Hadoop container. The image is
-modified from the one on the sequenceiq github
+modified from the one on the sequenceiq GitHub
 repository~\cite{hid-sp18-405-hadoop-sequenceiq}. The modification
 includes minor bug fixes, change of the Java and Hadoop version used,
-installation of Python and Pyenv, download of data and transfer of
-Python code for the use of Hadoop-Streaming. The container can be
+installation of Python and Pyenv, download of data and transfer of Python 
+code for the use of Hadoop-Streaming. The container can be
 started up with a shell interface for user to input commands operating
 the cluster, or as an executable program which runs the whole
 classification algorithm and transfers the results, including running
 time, back to the host machine. In later case, the Docker Container
 needs to be started by initiating a customized start-up script that
-overrides the default scripts defined by the COMMAND or ENTRYPOINT
+overrides the default scripts defined by the  \verb|COMMAND| or  
+\verb|ENTRYPOINT|
 settings in the Dockerfile.
 
 
@@ -630,7 +636,7 @@ interacting with clients is the head node.
 		Hadoop Cluster Using Docker Compose}\label{f:hadoop-compose}
 \end{figure}
 
-In in Figure~\ref{f:hadoop-compose}, each Docker container acts as a
+In Figure~\ref{f:hadoop-compose}, each Docker container acts as a
 node and the cluster contains one Master Node and multiple Worker
 Nodes. The ResourceManager and NameNode within the Master Node
 container can communicate with the all the NodeManagers and DataNodes
@@ -655,9 +661,9 @@ is adjusted according to the scale command therefore the size of
 cluster can be controlled dynamically without the need of shutting
 down and restart the cluster.
 
-After the clusters are started up, a user can log into any of the
+After the cluster is started up, a user can log into any of the
 containers, check status, and run commands. The running of the
-sentiment analysis algorithm is automated in a similar way the
+sentiment analysis algorithm is automated in a similar way as the
 Pseudo-Distributed cluster using Docker Containers described in
 Subsection~\ref{ss:pseudo-distributed}.
 
@@ -696,7 +702,8 @@ The YAML file for Docker Compose can be used to configure the cluster
 under the Swarm mode with some minor changes. Additional options, such
 as deploy, are available, but some options, such as container name,
 are disabled.  One key difference is that we have to include some
-start-up scripts and use those as Entrypoint or Command to make the
+start-up scripts and use those as  \verb|Entrypoint| or  \verb|Command|to 
+make the
 sentiment analysis algorithm run automatically when the cluster
 starts. Unlike in previous methods of deployment, where we still have
 the option of logging into the container and pass commands through
@@ -711,8 +718,8 @@ implementation, we had difficulty accessing different datanodes
 where the results are actually stored through WebHDFS. This may be
 caused by some port issue and configuration in the initial HDFS
 setting. As a workaround we put the results together with the log
-files in to the logs folder, which can be accessed through the YARN
-ResourceManager on a certain port (8008 by default).
+files in to the  \verb|logs| folder, which can be accessed through the YARN
+ResourceManager on a certain port (8088 by default).
 
 
 \section{Benchmarking Process}\label{s:benchrproc}
@@ -787,7 +794,7 @@ corresponding images. The deployment can be divided into three steps:
 	100 workers takes 40 seconds.
 
 
-From the breakdown of deployment steps, we can see that the build/pull
+From the breakdown of deployment steps, we can see that the build or pull
 image step dominates the total time of the whole process. The total
 time is not more than 13 minutes in total when building from
 scratch. In our project, we also deployed a Pseudo-Distributed Hadoop
@@ -815,8 +822,8 @@ number in the table is the mean running time of the 10 iterations in
 minutes (m) and seconds (s).  The standard deviation is listed in the
 brackets. For each deployment options, the bold number is the least
 average running time that we observed, which can be considered as the
-optimal Docker cluster choice for that deployment. The asterisk (*) in
-some rows indicates that the standard deviation is large. The
+optimal Docker cluster choice for that deployment. The asterisk (*) indicates 
+that the standard deviation is large. The
 threshold we used is that coefficient of variance (standard deviation
 divided by mean) equals to 0.1.
 
@@ -980,7 +987,7 @@ and recommended next steps are outlined.
 
 At the end of the process, each Pi has a unique hostname a new
 password. A computer outside of the cluster can log into any of the
-pis via ssh and the pis are configured to run MapReduce jobs using
+Pis via ssh and the Pis are configured to run MapReduce jobs using
 Apache Hadoop. The process of achieving these goals manually has been
 well documented in various blogs and message boards on the
 internet~\cite{hid-sp18-419-headless}, but in order to make the
