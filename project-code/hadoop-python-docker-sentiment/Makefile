@@ -13,7 +13,7 @@ build:
 	docker build -t minchen57/hadoop-docker-python-sentiment-compose-worker:latest hadoop-worker
 	@echo "remove previous network"
 	docker-compose down
-	if docker network rm hadoop-sentiment; then:; else:; fi
+	if docker network rm hadoop-sentiment; then :; else :; fi
 	@echo "create the network"
 	docker network create hadoop-sentiment
 	@echo "DONE"
