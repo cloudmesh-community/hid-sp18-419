@@ -133,19 +133,21 @@ Use the two following shell scripts to run customized number of iterations in or
 
 * Fully distributed cluster with (#OFWORKERS) of workers and (#ITER) iterations (without swarm)
 
-		./benchmark-full.sh (#ITER) (#OFWORKERS)
-Result of each iteration will be written to each line of a text file at
+		./benchmarking-full.sh (#ITER) (#OFWORKERS)
+		
+* Result of each iteration will be written to each line of a text file at
 
 		 ./benchmark-full/(#OFWORKERS)_worker.txt
 
 * Fully distributed cluster with (#OFWORKERS) of workers and (#ITER) iterations (with swarm)
 
-		./benchmark-swarm.sh (#ITER) (#OFWORKERS)
-Result of each iteration will be written to each line of a text file at
+		./benchmarking-swarm.sh (#ITER) (#OFWORKERS)
+		
+* Result of each iteration will be written to each line of a text file at
 
 		 ./benchmark-swarm/(#OFWORKERS)_worker.txt
 
-	Note: due to the complication of different physical nodes, sometimes one node could cause delay in start-up of datanodes thus ignored by the namenode. In extreme case, the web interface at http://149.165.150.XX:8088/cluster will show 0 active node and the mapreduce job will terminate when it tries to start. The benchmarking script will continue running and ignore the unsuccessful iteration. In case one wants to use ctrl+C to stop the script, remove the stack and rerun the command: 
+* Note: due to the complication of different physical nodes, sometimes one node could cause delay in start-up of datanodes thus ignored by the namenode. In extreme case, the web interface at http://149.165.150.XX:8088/cluster will show 0 active node and the mapreduce job will terminate when it tries to start. The benchmarking script will continue running and ignore the unsuccessful iteration. In case one wants to use ctrl+C to stop the script, remove the stack and rerun the command: 
 		
 		ctrl + c
 		./swarm-down.sh
@@ -154,7 +156,7 @@ Result of each iteration will be written to each line of a text file at
 
 * Pseudo-distributed cluster with (#ITER) iterations
 
-		./benchmark-pseudo.sh (#ITER) 
-Result of each iteration will be written to each line of a text file at 
+		./benchmarking-pseudo.sh (#ITER) 
+* Result of each iteration will be written to each line of a text file at 
 
 		./benchmark-pseudo/pseudo.txt
