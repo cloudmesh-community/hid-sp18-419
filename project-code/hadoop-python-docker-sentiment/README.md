@@ -14,6 +14,7 @@ The author appreciates the help of Bo Feng regarding the cluster deployment on E
 		make all worker=(#OFWORKERS)
 
 	example: 
+	
 		make all worker=3
 
 * Build images needed for master and workers
@@ -81,7 +82,10 @@ The cluster can be deployed on FutureSystem Echo. Both pseudo-distributed and fu
 		./compose-run.sh (#OFWORKERS)
 
 	example:
-		./compose-run.sh 3
+	
+		./compose-run.sh 8
+
+* One can check the ResourceManger at [http://149.165.150.76:8088/cluster](http://localhost:8088) and HDFS at [http://149.165.150.76:50070](http://localhost:50070)
 
 * To remove the Results folders
 
@@ -109,7 +113,8 @@ The cluster can be deployed on FutureSystem Echo under the docker swarm mode. Th
 		./swarm-run.sh (#OFWORKERS)
 
 	example:
-		./swarm-run.sh 30
+	
+		./swarm-run.sh 15
 	
 * At the end of the previous command, there will be http addresses provided in the terminal such as:
 
