@@ -6,7 +6,7 @@ Dockerfiles are modified from [sequenceiq/hadoop-docker](https://github.com/sequ
 
 The author appreciates the help of Bo Feng regarding the cluster deployment on Echo under swarm mode.
 
-**To replicate the result, 8GB of RAM is required and 16GB or more of RAM is recommended. **
+**To replicate the result, 8GB of RAM is required and 16GB or more of RAM is recommended**
 
 ## Run fully distributed cluster using the Makefile
 
