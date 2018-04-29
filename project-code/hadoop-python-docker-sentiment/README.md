@@ -20,7 +20,10 @@ The author appreciates the help of Bo Feng regarding the cluster deployment on E
 
 	example: 
 	
-		make all worker=3
+		make all worker=1
+	or:
+		
+		make all worker=2
 
 * Build images needed for master and workers
 
