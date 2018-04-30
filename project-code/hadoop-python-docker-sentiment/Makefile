@@ -31,8 +31,8 @@ shell: start
 	docker exec -it master bash
 
 run:
-	@echo "pause for 20 seconds"
-	sleep 20
+	@echo "pause for 30 seconds"
+	sleep 30
 	@echo "running the sentiment analysis on movie reviews..."
 	docker exec master /etc/runall.sh
 
