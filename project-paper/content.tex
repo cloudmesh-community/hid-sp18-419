@@ -130,11 +130,11 @@ license~\cite{hid-sp18-405-hadoop-official}. A high-level diagram of
 the basic Hadoop architecture in a distributed cluster with one Master
 Node and two Worker Nodes is shown in Figure~\ref{f:hadoop-high}.
 
-\begin{figure*}[!ht]
+\begin{figure}[!ht]
 	\centering\includegraphics[width=\columnwidth]{images/hadoop.png}
 	 \caption{Hadoop High Level 
 	 Architecture~\cite{hid-sp18-405-hadoop-wiki}}\label{f:hadoop-high}
-\end{figure*}
+\end{figure}
 
 \paragraph{HDFS} HDFS stores metadata and 
 application data separately: metadata are stored on the NameNode
@@ -310,11 +310,12 @@ reviews with line number on the left, illustrating the two features
 mentioned above. These features play an important role in the
 sentiment analysis algorithm, especially when using the MapReduce
 framework, which is discussed in detail in Section~\ref{s:algorithm}.
-\begin{figure*}[!ht]
+
+\begin{figure}[!ht]
 	\centering\includegraphics[width=\columnwidth]{images/polarity-data.png}
 	\caption{Example Data 
 	File~\cite{hid-sp18-405-sentiment-data}}\label{f:data}
-\end{figure*}
+\end{figure}
 
 The data is directly pulled from the
 source~\cite{hid-sp18-405-sentiment-data} and then split into training
@@ -851,6 +852,7 @@ divided by mean) equals to 0.1.
 \begin{table}[hbt]
 \centering
 \caption{Running Time results}\label{t:results-table}
+\resizebox{\columnwidth}{!}{%
 	\begin{tabular}{llllll}
 		\toprule
 		\# Workers & Macbook Pro 2015 & Acer Laptop & Virtualbox on 
@@ -881,6 +883,7 @@ divided by mean) equals to 0.1.
 		35 & N/A & N/A & N/A & 20m2s (3s) & 8m16s (4s) \\\midrule
 		40 & N/A & N/A & N/A & 20m18s (3s) & 8m20s (4s)\\\bottomrule
 	\end{tabular}
+}
 \end{table}
 
 \section{Observation and Discussion}
